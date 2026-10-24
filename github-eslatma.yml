@@ -1,0 +1,46 @@
+name: Kunlik eslatma
+
+on:
+  schedule:
+    - cron: "0 14 * * *"   # 19:00 Toshkent vaqti (UTC+5). Boshqa vaqt: soat - 5
+  workflow_dispatch:
+
+jobs:
+  eslatma:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Telegram'ga yuborish
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          cat > eslatma.cjs <<'EOF'
+          const fs = require('fs'), vm = require('vm');
+          const ctx = { window: {} };
+          vm.runInNewContext(fs.readFileSync('devops-data.js', 'utf8'), ctx);
+          const D = ctx.window.DEVOPS_DATA;
+          const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          const day = Math.floor(Date.now() / 86400000);
+          const [owner, repo] = (process.env.GITHUB_REPOSITORY || '/').split('/');
+          const url = 'https://' + owner.toLowerCase() + '.github.io/' + repo + '/';
+          let topic, q, a;
+          if (day % 2 === 0 && D.cards.length) {
+            const c = D.cards[Math.floor(day / 2) % D.cards.length];
+            const st = D.stages.find((s) => s.id === c[0]);
+            topic = st ? st.title : c[0]; q = c[1]; a = c[2];
+          } else {
+            const c = D.interview[Math.floor(day / 2) % D.interview.length];
+            topic = 'Intervyu · ' + c[0]; q = c[1]; a = c[2];
+          }
+          const text = '🔥 <b>DevOps Yo\'l</b> — bugungi eslatma\n'
+            + 'Bugun kamida 20 daqiqa o\'qing, streak uzilmasin.\n\n'
+            + '❓ <b>Bugungi savol</b> (' + esc(topic) + '):\n' + esc(q) + '\n\n'
+            + 'Javob: <tg-spoiler>' + esc(a) + '</tg-spoiler>';
+          fetch('https://api.telegram.org/bot' + process.env.TOKEN + '/sendMessage', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: process.env.CHAT, text, parse_mode: 'HTML',
+              reply_markup: { inline_keyboard: [[{ text: 'Ilovani ochish', url }]] } }),
+          }).then((r) => r.json()).then((j) => { if (!j.ok) { console.error(j); process.exit(1); } console.log('Yuborildi'); });
+          EOF
+          node eslatma.cjs

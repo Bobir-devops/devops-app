@@ -1,0 +1,26 @@
+/* lfcs-memo-2.js — Tarmoq, Storage, Yakun uchun o'xshatma va mnemonika. */
+window.LfcsMemo = window.LfcsMemo || {};
+Object.assign(window.LfcsMemo, {
+'Networking/1': { e: "IP — uy manzili, prefiks — ko'cha chegarasi, gateway — mahalla darvozasi: ko'chadan tashqariga hamma xat shu darvozadan chiqadi. DNS — telefon kitobi.", m: "«Manzil, Ko'cha, Darvoza, Kitob» = IP, /24, gateway, DNS." },
+'Networking/2': { e: "ip buyrug'i — qalam bilan yozilgan manzil (reboot o'chiradi), netplan/nmcli — devorga o'yib yozilgan manzil (doimiy).", m: "«netplan try — Sinab ko'r, apply — Qo'lla»." },
+'Networking/3': { e: "Xizmat eshik ochib kutadi. ss — qaysi eshik ochiq va eshik oldida kim turganini ko'rsatadi.", m: "«ss -tlnp: Tcp, Listening, Number, Process»." },
+'Networking/4': { e: "Bonding — ikki kabelni bitta yo'g'on kabelga aylantirish: biri uzilsa ikkinchisi ishlaydi (active-backup) yoki ikkalasi birga tortadi. Bridge — virtual kommutator.", m: "«1 — Bitta ishlaydi bittasi kutadi, 4 — LACP: To'rtta oyoqli kommutator bilan»." },
+'Networking/5': { e: "Netplan'da bond va bridge — retseptdagi masalliqlar ro'yxati: qaysi interfeyslar kiradi va qanday rejimda.", m: "«bonds: interfaces + mode, bridges: interfaces»." },
+'Networking/6': { e: "Squid — darvozadagi qorovul: ro'yxatga qarab kimni (acl) va qaysi saytga (dstdomain) o'tkazishini hal qiladi. Qoidalar yuqoridan pastga, birinchi moslik ishlaydi.", m: "«Avval ACL — kim, keyin http_access — ruxsat, oxirida deny all»." },
+'Networking/7': { e: "Firewall — eshikdagi qo'riqchi: default hammani to'xtatadi, ro'yxatdagilarni o'tkazadi.", m: "«ufw — Ubuntu Fire Wall: allow, deny, status numbered, delete N»." },
+'Networking/8': { e: "DNAT — kelgan xatdagi manzilni o'zgartirib ichkariga yuborish, MASQUERADE — chiqayotgan xatga o'z manzilingizni yozish. ip_forward — pochtachiga xat uzatishga ruxsat.", m: "«Pre-routing — Kirishda DNAT, Post-routing — Chiqishda SNAT»." },
+'Networking/9': { e: "Reverse proxy — restoran ofitsianti: mijoz oshxonani ko'rmaydi, buyurtmani ofitsiant oshpazlarga taqsimlaydi.", m: "«upstream — Oshpazlar, proxy_pass — Uzatish, nginx -t — Tekshir»." },
+'Networking/10': { e: "NTP — hamma soatlarni bitta minora soatiga moslash. Vaqt farqi sertifikat va loglarni buzadi.", m: "«set-timezone — Zona, set-ntp true — Sinxron»." },
+'Networking/11': { e: "SSH kaliti — qulf va kalit: public key — eshikdagi qulf (serverga qo'yiladi), private key — cho'ntagingizdagi kalit (hech kimga berilmaydi).", m: "«keygen — Yasash, copy-id — Qulfni o'rnatish, sshd -t — Tekshir» · 700/600." },
+'Storage/1': { e: "Disk — yer maydoni, bo'lim — uchastka. MBR — eski xarita (4 ta uchastka, 2 TB), GPT — yangi xarita.", m: "«n — New, d — Delete, p — Print, w — Write (yozmaguncha hech narsa o'zgarmaydi)»." },
+'Storage/2': { e: "Swap — omborxona: stol (RAM) to'lsa kam ishlatiladigan narsalar shu yerga olib chiqiladi. Uzoq bo'lgani uchun sekin.", m: "«mkswap — Tayyorla, swapon — Yoq, fstab — Doimiy» · fayl 600." },
+'Storage/3': { e: "Fayl tizimi — uchastkadagi javonlar tartibi. ext4 — universal javon, xfs — katta yuklar uchun, lekin kichraytirib bo'lmaydi.", m: "«xfs — faqat o'sadi»." },
+'Storage/4': { e: "fstab — boot paytidagi ro'yxat: qaysi disk qaysi eshikka ulanadi. Bitta xato — uy ochilmaydi (emergency).", m: "«QURILMA NUQTA TUR OPSIYA 0 2» · avval mount -a." },
+'Storage/5': { e: "Mount opsiyalari — xona qoidalari: ro — faqat qarash, noexec — bu yerda dastur yurmaydi, nosuid — ishonchnomalar bekor.", m: "«ro — Read Only, noexec — No EXEcution, remount — qayta qoida»." },
+'Storage/6': { e: "NFS — umumiy kutubxona: server javonni (katalog) kimlarga ochishini /etc/exports da yozadi, mijoz uni o'z xonasiga ulaydi.", m: "«exports — Ro'yxat, exportfs -ra — Qayta o'qi, _netdev — Tarmoqni kut»." },
+'Storage/7': { e: "NBD — uzoqdagi diskni o'zingizning diskingizdek ulash: fayllar emas, butun blok qurilma keladi.", m: "«modprobe nbd → nbd-client → /dev/nbd0 → mount»." },
+'Storage/8': { e: "LVM — konstruktor: disklar (PV) bitta havzaga (VG) quyiladi, undan istagancha o'lchamda bo'laklar (LV) kesiladi va keyin kattalashtiriladi.", m: "«P-V-L: Physical → Volume group → Logical» · lvextend -r — fayl tizimi bilan birga." },
+'Storage/9': { e: "iostat — diskning yurak monitori: %util — bandlik, await — navbatda kutish. Ikkalasi o'ssa — disk bo'g'ilgan.", m: "«%util — Ish, await — Kutish, iotop — Kim aybdor»." },
+'Storage/10': { e: "ACL — eshikka qo'shimcha kalitlar ro'yxati: odatiy uch eshikdan tashqari aniq odamga kalit berish. chattr +i — eshikni payvandlab qo'yish.", m: "«setfacl -m — Modify, -x — olib tashla, -b — hammasini» · «+a — faqat Append, +i — Immutable»." },
+'Conclusion/1': { e: "Imtihon — marafon: avval osonlarini olib ball yig'ing, qiyinini oxiriga qoldiring.", m: "«O'qi, Oson, Oxirida qiyin, Oshkora tekshir (reboot'dan keyin ham)»." },
+});

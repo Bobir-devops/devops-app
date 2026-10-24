@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="uz"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DevOps Learning · DevOps Yo'l</title>
+<link rel="stylesheet" href="lib/classical-fonts.css">
+<script>(function(){try{var t=localStorage.getItem('devops-theme')||'light';document.documentElement.dataset.theme=t;var c={light:'#f3f2f2',dark:'#0b0b0a',navy:'#0e1b2d'}[t];document.write('<meta name="theme-color" content="'+c+'">');localStorage.setItem('devops-last-lib',location.pathname.split('/').pop());}catch(e){}})();</script>
+<link rel="stylesheet" href="lib/kutubxona.css">
+<link rel="stylesheet" href="lib/svg-theme.css">
+<script src="lib/shell.js" defer></script>
+<script src="../cloud.js"></script>
+
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/c39ef070ae66.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/9836f315b5c3.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/6c8912d7cfd8.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/4af8cef522bd.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/bb87500e3204.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/a458a7d1793d.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/caa0275bed3d.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/ed50e3834136.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/3e942f428e7d.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/d32f0e0701ac.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+
+<style>
+  html, body { margin: 0; padding: 0; background: var(--bg); }
+  a { color: oklch(calc(var(--lk) * 0.48 + var(--lb)) 0.11 68); }
+  a:hover { color: oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.11 68); }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  ::selection { background: oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.3); }
+  @keyframes dPulse {0%,100%{opacity:.35} 50%{opacity:1}}
+  @keyframes dRise  {0%{transform:translateY(8px);opacity:0} 100%{transform:translateY(0);opacity:1}}
+  @keyframes dFlip  {0%{transform:rotateY(0)} 100%{transform:rotateY(180deg)}}
+</style>
+<script src="lib/fe4d9e16bd3b.js"></script>
+<script src="lib/334ad3cfe6f4.js"></script>
+<script src="lib/0668c06144a8.js"></script>
+<script src="lib/b91d97c144d8.js"></script>
+<script src="lib/3f2306f11ea1.js"></script>
+<script src="lib/621e448d4c9d.js"></script>
+<script src="lib/4f7bc91cfbe4.js"></script>
+<script src="lib/2c199e89c092.js"></script>
+<script src="lib/d3ccc624cd9e.js"></script>
+<script src="lib/8888a6b0d799.js"></script>
+<script src="lib/333e4639ea6f.js"></script>
+<script src="lib/8275efd54d25.js"></script>
+<script src="lib/f000f2cc1125.js"></script>
+<script src="lib/f8c4bc07d997.js"></script>
+<script src="lib/5e65d5249584.js"></script>
+<script src="lib/41ddb9152b14.js"></script>
+<script src="lib/80a9c7ad7bca.js"></script>
+
+
+
+</head>
+<body>
+
+<div style="min-height:100vh;background:var(--bg);color:var(--ink);padding:0 0 120px">
+  <div style="max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)">
+
+    <div style="padding:34px 0 40px;border-bottom:1px solid rgb(var(--ink-rgb) / 0.11)">
+      <div style="font:500 12px Lora,ui-sans-serif,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:oklch(calc(var(--lk) * 0.48 + var(--lb)) 0.11 68)">O'quv platformasi · 2026</div>
+      <h1 style="font:500 clamp(34px,6vw,68px)/1.03 'Cormorant Garamond',ui-sans-serif,sans-serif;letter-spacing:-.035em;margin:16px 0 20px;max-width:860px">DevOps Learning</h1>
+      <p style="font:400 clamp(17px,2.4vw,21px)/1.6 Lora,Georgia,serif;color:rgb(var(--ink-rgb) / 0.92);max-width:660px;margin:0;text-wrap:pretty">Besh mavzu, 766 savol, 122 bo'lim va harakatdagi sxemalar. Bu sahifa hammasini bir joydan boshqaradi.</p>
+    </div>
+
+    <div data-mode-bar="" style="position:sticky;top:0;z-index:40;display:flex;flex-wrap:wrap;gap:8px;padding:14px 0;margin:0 0 6px;background:var(--bg);border-bottom:1px solid rgb(var(--ink-rgb) / 0.13)"></div>
+
+    <div data-view-home="">
+      <div data-cards="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px;padding:26px 0 8px"></div>
+      <div data-today=""></div>
+      <div data-weak=""></div>
+    </div>
+
+    <div data-view-search="" style="display:none;padding:26px 0">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px">
+        <input data-q="" type="search" placeholder="savol, atama yoki buyruq yozing…" style="flex:1 1 280px;background:var(--bg2);border:1px solid rgb(var(--ink-rgb) / 0.22);color:var(--ink);font:400 16px/1.4 Lora,Georgia,serif;padding:12px 14px;outline:none">
+        <span data-count="" style="font:500 12.5px 'IBM Plex Mono',monospace;color:rgb(var(--ink-rgb) / 0.73)"></span>
+      </div>
+      <div data-filters="" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px"></div>
+      <div data-results="" style="display:flex;flex-direction:column;gap:1px;background:rgb(var(--ink-rgb) / 0.09)"></div>
+    </div>
+
+    <div data-view-interview="" style="display:none;padding:26px 0"></div>
+    <div data-view-cards="" style="display:none;padding:26px 0"></div>
+    <div data-view-talk="" style="display:none;padding:26px 0"></div>
+    <div data-view-lfcs="" style="display:none;padding:22px 0 0">
+      <div style="font:500 12px Lora,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:oklch(calc(var(--lk) * 0.48 + var(--lb)) 0.13 290)">Sertifikat · Linux Foundation</div>
+      <h2 style="font:500 clamp(28px,4.5vw,44px)/1.08 'Cormorant Garamond',sans-serif;letter-spacing:-.03em;margin:12px 0 12px">🎓 LFCS — Certified System Administrator</h2>
+      <p style="font:400 18px/1.6 Lora,Georgia,serif;color:rgb(var(--ink-rgb) / 0.92);max-width:700px;margin:0;text-wrap:pretty">Videokursingiz bo'yicha: 7 bob, 74 dars, 26 ta laboratoriya va 57 ta imtihon uslubidagi vazifa. Har darsni ko'rgach belgilang, labni avval o'zingiz bajarib, keyin yechimni oching.</p>
+      <div data-lf-stats="" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px"></div>
+      <div data-lf-tabs="" style="display:flex;flex-wrap:wrap;gap:8px;padding:14px 0 12px;margin-top:16px;border-bottom:1px solid rgb(var(--ink-rgb) / 0.13)"></div>
+      <div data-lf-view="" style="padding-top:16px"></div>
+    </div>
+    <div data-view-suhbat="" style="display:none;padding:22px 0 0">
+      <div style="font:500 12px Lora,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:oklch(calc(var(--lk) * 0.48 + var(--lb)) 0.11 68)">Suhbatga tayyorgarlik · 2026</div>
+      <h2 style="font:500 clamp(28px,4.5vw,44px)/1.08 'Cormorant Garamond',sans-serif;letter-spacing:-.03em;margin:12px 0 12px">🎯 Suhbat xonasi</h2>
+      <p style="font:400 18px/1.6 Lora,Georgia,serif;color:rgb(var(--ink-rgb) / 0.92);max-width:680px;margin:0;text-wrap:pretty">Qo'llanmaning 19 bo'limi, 150 ta savol va 55 ta amaliy masala, ustiga hh.uz e'lonlari bo'yicha 22 ta savol. Javobni yopiq holda ovoz chiqarib ayting, keyin ochib solishtiring.</p>
+      <div data-stats="" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px"></div>
+      <div data-tabs="" style="display:flex;flex-wrap:wrap;gap:8px;padding:14px 0 12px;margin-top:16px;border-bottom:1px solid rgb(var(--ink-rgb) / 0.13)"></div>
+      <div data-tools="" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:16px 0 6px"></div>
+      <div data-view="" style="padding-top:8px"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+class DCLogic{constructor(){this.props={};this.state={}}setState(u){this.state=Object.assign({},this.state,typeof u==='function'?u(this.state):u)}forceUpdate(){}}
+
+const SG = "Lora,ui-sans-serif,sans-serif", MO = "'IBM Plex Mono',monospace", NR = 'Lora,Georgia,serif';
+const GR = 'oklch(calc(var(--lk) * 0.46 + var(--lb)) 0.15 150)', YE = 'oklch(calc(var(--lk) * 0.54 + var(--lb)) 0.08 40)', CY = 'oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.11 68)', RD = 'oklch(calc(var(--lk) * 0.4 + var(--lb)) 0.19 25)';
+const el = (t, css, txt) => { const d = document.createElement(t); if (css) d.style.cssText = css; if (txt != null) d.textContent = txt; return d; };
+const norm = (t) => (t || '').toLowerCase().replace(/[‘’'`´]/g, '').replace(/[^a-z0-9\u0400-\u04ff\/\-\.\s]/g, ' ');
+const stem = (w) => w.slice(0, 5);
+const STOPW = new Set(['nima', 'qanday', 'uchun', 'bilan', 'kerak', 'mumkin', 'emas', 'yoki', 'farqi', 'degan', 'qilish']);
+const DAY = 864e5;
+
+class Component extends DCLogic {
+  /* ---------- umumiy ---------- */
+  bank() { return window.DevOpsBank || { subjects: [], questions: [], sections: [] }; }
+
+  prog(key) { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { return {}; } }
+
+  subjStats() {
+    return this.bank().subjects.map((s) => {
+      const p = this.prog(s.key);
+      const qs = this.bank().questions.filter((q) => q.subject === s.name);
+      const ok = qs.filter((q) => p[q.qid] === 'ok').length;
+      const secs = this.bank().sections.filter((x) => x.subject === s.name && /^s/.test(x.id)).length;
+      let g = { done: 0, total: 0 };
+      try { g = JSON.parse(localStorage.getItem(s.key + '-gate-sum') || 'null') || g; } catch (e) {}
+      const qPct = qs.length ? ok / qs.length : 0;
+      const gPct = g.total ? (typeof g.pct === 'number' ? g.pct / 100 : g.done / g.total) : 0;
+      const pct = g.total ? Math.round(gPct * 100) : Math.round(qPct * 100);
+      return { ...s, total: qs.length, ok: ok, secs: secs, secDone: g.done, secTotal: g.total, gPct: gPct, pct: pct };
+    });
+  }
+
+  myKey() { return 'devops-hub'; }
+  my() { try { return JSON.parse(localStorage.getItem(this.myKey()) || '{}'); } catch (e) { return {}; } }
+  myWrite(patch) { const m = Object.assign(this.my(), patch); try { localStorage.setItem(this.myKey(), JSON.stringify(m)); } catch (e) {} return m; }
+
+  /* ---------- rejim tablari ---------- */
+  buildTabs() {
+    const bar = document.querySelector('[data-mode-bar]');
+    if (!bar || bar.children.length) return;
+    this.VIEWS = [
+      { key: 'home', label: '🏠 Bosh sahifa', sub: 'progress' },
+      { key: 'search', label: '🔎 Qidiruv', sub: '766 savol' },
+      { key: 'interview', label: '🎤 Aralash intervyu', sub: '20 savol · taymer' },
+      { key: 'cards', label: '🃏 Flashcard', sub: 'tez takrorlash' },
+      { key: 'talk', label: '🗣 Javob shabloni', sub: 'qanday gapirish' },
+      { key: 'suhbat', label: '🎯 Suhbat xonasi', sub: 'qo‘llanma · 254 savol' },
+      { key: 'lfcs', label: '🎓 LFCS sertifikat', sub: '74 dars · 26 lab' },
+    ];
+    this.VIEWS.forEach((v) => {
+      const b = el('button', "display:flex;flex-direction:column;gap:2px;align-items:flex-start;text-align:left;border:1px solid rgb(var(--ink-rgb) / 0.18);background:transparent;padding:9px 15px;cursor:pointer;font:500 13.5px " + SG + ";color:rgb(var(--ink-rgb) / 0.8)");
+      b.type = 'button'; b.dataset.view = v.key;
+      b.append(el('span', null, v.label), el('span', "font:500 10.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.6);letter-spacing:.08em", v.sub));
+      b.onclick = () => this.setView(v.key);
+      bar.appendChild(b);
+    });
+    this.setView(this.my().view || 'home');
+  }
+
+  setView(key) {
+    this.myWrite({ view: key });
+    ['home', 'search', 'interview', 'cards', 'talk', 'suhbat', 'lfcs'].forEach((k) => {
+      const v = document.querySelector('[data-view-' + k + ']');
+      if (v) v.style.display = k === key ? '' : 'none';
+    });
+    document.querySelectorAll('[data-mode-bar] button').forEach((b) => {
+      const on = b.dataset.view === key;
+      b.style.borderColor = on ? 'oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.6)' : 'rgb(var(--ink-rgb) / 0.18)';
+      b.style.background = on ? 'oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.05)' : 'transparent';
+      b.style.color = on ? 'var(--ink)' : 'rgb(var(--ink-rgb) / 0.8)';
+    });
+    if (key === 'search') { this.buildSearch(); const q = document.querySelector('[data-q]'); if (q) setTimeout(() => q.focus(), 120); }
+    if (key === 'interview') this.buildInterview();
+    if (key === 'cards') this.buildCards();
+    if (key === 'talk') this.buildTalk();
+    if (key === 'lfcs' && window.LfcsUI) window.LfcsUI.mount(document.querySelector('[data-view-lfcs]'));
+    if (key === 'suhbat' && window.SuhbatUI) window.SuhbatUI.mount(document.querySelector('[data-view-suhbat]'));
+    if (key === 'home') { this.buildHome(); this.buildToday(); this.buildWeak(); }
+    window.scrollTo(0, 0);
+  }
+
+  /* ---------- bosh sahifa ---------- */
+  buildHome() {
+    const host = document.querySelector('[data-cards]');
+    if (!host) return;
+    host.innerHTML = '';
+    const stats = this.subjStats();
+    const totalQ = stats.reduce((a, s) => a + s.total, 0);
+    const totalOk = stats.reduce((a, s) => a + s.ok, 0);
+    const secT = stats.reduce((a, s) => a + s.secTotal, 0);
+    const secD = stats.reduce((a, s) => a + s.secDone, 0);
+    stats.forEach((s, i) => {
+      const a = el('a', "display:flex;flex-direction:column;gap:0;border:1px solid rgb(var(--ink-rgb) / 0.15);background:var(--bg2);padding:18px;text-decoration:none;color:var(--ink);animation:dRise .4s " + (i * 0.05) + "s both");
+      a.href = encodeURI(s.file);
+      a.onmouseenter = () => { a.style.borderColor = s.color; };
+      a.onmouseleave = () => { a.style.borderColor = 'rgb(var(--ink-rgb) / 0.15)'; };
+      a.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:" + s.color, s.name));
+      a.append(el('div', "font:400 15.5px/1.45 " + NR + ";color:rgb(var(--ink-rgb) / 0.78);margin:8px 0 14px", s.secs + " bo'lim · " + s.total + ' savol'));
+      const track = el('div', 'height:4px;background:rgb(var(--ink-rgb) / 0.11);margin-bottom:8px');
+      track.appendChild(el('div', 'height:4px;width:' + s.pct + '%;background:' + s.color + ';transition:width .4s'));
+      a.appendChild(track);
+      a.append(el('div', "font:500 12.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.8)", (s.secTotal ? '🔐 ' + s.secDone + '/' + s.secTotal + " bo'lim  ·  " : '') + '❓ ' + s.ok + '/' + s.total + '  ·  ' + s.pct + '%'));
+      host.appendChild(a);
+    });
+    const tot = el('div', "display:flex;flex-direction:column;gap:0;border:1px solid " + GR + ";background:oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 150 / 0.035);padding:18px");
+    tot.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:" + GR, 'Umumiy'));
+    const gw = stats.filter((s) => s.secTotal);
+    const overall = gw.length ? Math.round(gw.reduce((a, s) => a + s.gPct * s.secTotal, 0) / gw.reduce((a, s) => a + s.secTotal, 0) * 100) : Math.round((totalOk / (totalQ || 1)) * 100);
+    tot.append(el('div', "font:500 clamp(30px,5vw,44px)/1 " + SG + ";letter-spacing:-.03em;margin:12px 0 6px", overall + '%'));
+    tot.append(el('div', "font:400 15.5px/1.45 " + NR + ";color:rgb(var(--ink-rgb) / 0.78)", (secT ? secD + ' / ' + secT + " bo'lim tugallandi · " : '') + totalOk + ' / ' + totalQ + " savol o'zlashtirildi"));
+    const nav = el('div', 'display:flex;flex-wrap:wrap;gap:8px;margin-top:14px');
+    [['Sxemalar galereyasi', 'figs.html'], ['Cheat sheet', 'cheat.html'], ['🎬 Video darsliklar', 'video.html']].forEach(([t, href]) => {
+      const b = el('a', "font:500 12px " + SG + ";letter-spacing:.04em;padding:7px 11px;border:1px solid rgb(var(--ink-rgb) / 0.22);color:rgb(var(--ink-rgb) / 0.9);text-decoration:none", t);
+      b.href = encodeURI(href);
+      nav.appendChild(b);
+    });
+    tot.appendChild(nav);
+    const io = el('div', 'display:flex;flex-wrap:wrap;gap:8px;margin-top:10px');
+    const mk = (label, fn) => {
+      const b = el('button', "font:500 12px " + SG + ";letter-spacing:.04em;padding:7px 11px;border:1px solid rgb(var(--ink-rgb) / 0.22);background:transparent;color:rgb(var(--ink-rgb) / 0.9);cursor:pointer", label);
+      b.type = 'button'; b.onclick = fn; return b;
+    };
+    io.appendChild(mk('⬇ Progressni saqlash', () => this.exportProgress()));
+    io.appendChild(mk('⬆ Progressni yuklash', () => this.importProgress()));
+    tot.appendChild(io);
+    host.appendChild(tot);
+  }
+
+  storeKeys() {
+    const pre = this.bank().subjects.map((s) => s.key);
+    const out = [];
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (!k) continue;
+        if (pre.some((p) => k.indexOf(p) === 0) || k.indexOf('devops-') === 0 || k.indexOf('linux-extras') === 0) out.push(k);
+      }
+    } catch (e) {}
+    return out;
+  }
+
+  exportProgress() {
+    const data = {};
+    this.storeKeys().forEach((k) => { try { data[k] = localStorage.getItem(k); } catch (e) {} });
+    const blob = new Blob([JSON.stringify({ v: 1, at: new Date().toISOString(), data: data }, null, 1)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'devops-progress.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }
+
+  importProgress() {
+    const f = document.createElement('input');
+    f.type = 'file';
+    f.accept = '.json,application/json';
+    f.onchange = () => {
+      const file = f.files && f.files[0];
+      if (!file) return;
+      const r = new FileReader();
+      r.onload = () => {
+        let obj = null;
+        try { obj = JSON.parse(String(r.result)); } catch (e) {}
+        const data = obj && obj.data ? obj.data : obj;
+        if (!data || typeof data !== 'object') { alert("Fayl o'qilmadi — devops-progress.json ni tanlang."); return; }
+        let n = 0;
+        Object.keys(data).forEach((k) => { try { localStorage.setItem(k, data[k]); n++; } catch (e) {} });
+        alert(n + " yozuv yuklandi. Sahifa yangilanadi.");
+        this.buildHome(); this.buildToday(); this.buildWeak();
+      };
+      r.readAsText(file);
+    };
+    f.click();
+  }
+
+  /* ---------- bugun nimani takrorlash ---------- */
+  buildToday() {
+    const host = document.querySelector('[data-today]');
+    if (!host) return;
+    host.innerHTML = '';
+    const m = this.my();
+    const sched = m.sched || {};
+    const now = Date.now();
+    const bank = this.bank();
+    const due = [];
+    bank.questions.forEach((q) => {
+      const s = sched[q.subject + '/' + q.qid];
+      if (s && s.due <= now) due.push({ q: q, box: s.box || 1 });
+    });
+    // hech narsa rejalashtirilmagan bo'lsa — hali o'zlashtirilmaganlardan
+    let fallback = [];
+    if (!due.length) {
+      bank.subjects.forEach((sj) => {
+        const p = this.prog(sj.key);
+        const pool = bank.questions.filter((q) => q.subject === sj.name && p[q.qid] !== 'ok');
+        for (let i = 0; i < 3 && i < pool.length; i++) fallback.push(pool[Math.floor(Math.random() * pool.length)]);
+      });
+    }
+    const box = el('div', 'border:1px solid rgb(var(--ink-rgb) / 0.15);background:var(--bg2);padding:20px;margin:26px 0 0');
+    box.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:" + YE, '📅 Bugun takrorlash'));
+    if (due.length) {
+      box.append(el('div', "font:400 17px/1.55 " + NR + ";color:rgb(var(--ink-rgb) / 0.96);margin:10px 0 14px;text-wrap:pretty", due.length + " savol muddati keldi. Flashcard rejimida takrorlang — har to'g'ri javob keyingi muddatni uzaytiradi."));
+      const b = el('button', "background:oklch(calc(var(--lk) * 0.6 + var(--lb)) 0.077 40 / 0.08);border:1px solid oklch(calc(var(--lk) * 0.6 + var(--lb)) 0.077 40 / 0.5);color:" + YE + ";font:500 12.5px " + SG + ";letter-spacing:.04em;padding:9px 15px;cursor:pointer", '🃏 Takrorlashni boshlash');
+      b.type = 'button';
+      b.onclick = () => { this.myWrite({ cardsMode: 'due' }); this.setView('cards'); };
+      box.appendChild(b);
+    } else {
+      box.append(el('div', "font:400 17px/1.55 " + NR + ";color:rgb(var(--ink-rgb) / 0.96);margin:10px 0 14px;text-wrap:pretty", "Takrorlash jadvalida bugunga savol yo'q. Quyidagilardan boshlang — har mavzudan hali o'zlashtirilmaganlar:"));
+      const list = el('div', 'display:flex;flex-direction:column;gap:8px');
+      fallback.slice(0, 8).forEach((q) => {
+        if (!q) return;
+        const row = el('div', 'display:flex;gap:10px;align-items:baseline;flex-wrap:wrap');
+        row.append(el('span', "font:500 10.5px " + MO + ";letter-spacing:.1em;text-transform:uppercase;color:" + CY + ";min-width:78px", q.subject));
+        row.append(el('span', "font:400 15.5px/1.45 " + NR + ";color:rgb(var(--ink-rgb) / 1);flex:1 1 220px", q.q));
+        list.appendChild(row);
+      });
+      box.appendChild(list);
+      const b = el('button', "background:oklch(calc(var(--lk) * 0.6 + var(--lb)) 0.077 40 / 0.08);border:1px solid oklch(calc(var(--lk) * 0.6 + var(--lb)) 0.077 40 / 0.5);color:" + YE + ";font:500 12.5px " + SG + ";letter-spacing:.04em;padding:9px 15px;cursor:pointer;margin-top:14px", '🃏 Flashcard bilan boshlash');
+      b.type = 'button';
+      b.onclick = () => { this.myWrite({ cardsMode: 'new' }); this.setView('cards'); };
+      box.appendChild(b);
+    }
+    host.appendChild(box);
+  }
+
+  /* ---------- kuchsiz joylar ---------- */
+  buildWeak() {
+    const host = document.querySelector('[data-weak]');
+    if (!host) return;
+    host.innerHTML = '';
+    const bank = this.bank();
+    const groups = {};
+    bank.subjects.forEach((sj) => {
+      const p = this.prog(sj.key);
+      bank.questions.filter((q) => q.subject === sj.name).forEach((q) => {
+        const k = q.subject + ' · ' + (q.group || '—');
+        groups[k] = groups[k] || { total: 0, ok: 0, subject: q.subject, color: sj.color };
+        groups[k].total++;
+        if (p[q.qid] === 'ok') groups[k].ok++;
+      });
+    });
+    const rows = Object.keys(groups).map((k) => {
+      const g = groups[k];
+      return { name: k, pct: Math.round((g.ok / g.total) * 100), ok: g.ok, total: g.total, color: g.color };
+    }).filter((r) => r.total >= 5).sort((a, b) => a.pct - b.pct).slice(0, 8);
+    if (!rows.length) return;
+    const box = el('div', 'border:1px solid rgb(var(--ink-rgb) / 0.15);background:var(--bg2);padding:20px;margin:16px 0 0');
+    box.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:" + RD, '📉 Eng kuchsiz sakkiz bo\'lim'));
+    box.append(el('div', "font:400 15.5px/1.5 " + NR + ";color:rgb(var(--ink-rgb) / 0.8);margin:10px 0 16px", "O'zlashtirish foizi eng past bo'limlar — shu yerdan boshlash foydali."));
+    const list = el('div', 'display:flex;flex-direction:column;gap:10px');
+    rows.forEach((r) => {
+      const row = el('div');
+      const top = el('div', 'display:flex;gap:10px;justify-content:space-between;align-items:baseline;margin-bottom:5px;flex-wrap:wrap');
+      top.append(el('span', "font:400 15px/1.4 " + NR + ";color:rgb(var(--ink-rgb) / 1)", r.name));
+      top.append(el('span', "font:500 11.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.68);flex:none", r.ok + '/' + r.total + '  ' + r.pct + '%'));
+      row.appendChild(top);
+      const track = el('div', 'height:3px;background:rgb(var(--ink-rgb) / 0.11)');
+      track.appendChild(el('div', 'height:3px;width:' + Math.max(2, r.pct) + '%;background:' + (r.pct < 30 ? RD : r.pct < 70 ? YE : GR)));
+      row.appendChild(track);
+      list.appendChild(row);
+    });
+    box.appendChild(list);
+    host.appendChild(box);
+  }
+
+  /* ---------- qidiruv ---------- */
+  buildSearch() {
+    const inp = document.querySelector('[data-q]');
+    const filters = document.querySelector('[data-filters]');
+    if (!inp || this._searchReady) { if (this._searchReady) this.runSearch(); return; }
+    this._searchReady = true;
+    this.activeSubj = new Set();
+    const mk = (name, color) => {
+      const b = el('button', "font:500 12px " + SG + ";letter-spacing:.04em;padding:7px 12px;border:1px solid rgb(var(--ink-rgb) / 0.2);background:transparent;color:rgb(var(--ink-rgb) / 0.84);cursor:pointer", name);
+      b.type = 'button';
+      b.onclick = () => {
+        if (this.activeSubj.has(name)) this.activeSubj.delete(name); else this.activeSubj.add(name);
+        const on = this.activeSubj.has(name);
+        b.style.borderColor = on ? color : 'rgb(var(--ink-rgb) / 0.2)';
+        b.style.background = on ? 'color-mix(in oklch, ' + color + ' 12%, transparent)' : 'transparent';
+        b.style.color = on ? 'var(--ink)' : 'rgb(var(--ink-rgb) / 0.84)';
+        this.runSearch();
+      };
+      return b;
+    };
+    this.bank().subjects.forEach((s) => filters.appendChild(mk(s.name, s.color)));
+    let t = null;
+    inp.oninput = () => { clearTimeout(t); t = setTimeout(() => this.runSearch(), 140); };
+    this.runSearch();
+  }
+
+  runSearch() {
+    const inp = document.querySelector('[data-q]');
+    const res = document.querySelector('[data-results]');
+    const cnt = document.querySelector('[data-count]');
+    if (!inp || !res) return;
+    const raw = inp.value.trim();
+    const words = norm(raw).split(/\s+/).filter((w) => w.length >= 2 && !STOPW.has(w));
+    const bank = this.bank();
+    const subjFilter = this.activeSubj && this.activeSubj.size ? this.activeSubj : null;
+    let items = [];
+    if (!words.length) {
+      items = [];
+      if (cnt) cnt.textContent = bank.questions.length + ' savol tayyor';
+      res.innerHTML = '';
+      const hint = el('div', 'background:var(--bg2);padding:20px');
+      hint.append(el('div', "font:400 16.5px/1.6 " + NR + ";color:rgb(var(--ink-rgb) / 0.84);text-wrap:pretty", "Atama yozing — masalan «inode», «OOM», «ENTRYPOINT», «rebase», «canary», «504», «readiness». Savollar va bo'limlar bo'ylab qidiradi."));
+      res.appendChild(hint);
+      return;
+    }
+    bank.questions.forEach((q) => {
+      if (subjFilter && !subjFilter.has(q.subject)) return;
+      const hayQ = norm(q.q), hayA = norm(q.a);
+      let score = 0;
+      words.forEach((w) => {
+        if (hayQ.includes(w)) score += 6;
+        else if (hayQ.split(/\s+/).some((x) => stem(x) === stem(w))) score += 4;
+        if (hayA.includes(w)) score += 2;
+      });
+      if (score) items.push({ type: 'q', score: score, data: q });
+    });
+    bank.sections.forEach((s) => {
+      if (subjFilter && !subjFilter.has(s.subject)) return;
+      const hay = norm(s.title + ' ' + s.tag);
+      let score = 0;
+      words.forEach((w) => { if (hay.includes(w)) score += 5; });
+      if (score) items.push({ type: 's', score: score + 1, data: s });
+    });
+    items.sort((a, b) => b.score - a.score);
+    if (cnt) cnt.textContent = items.length + ' natija';
+    res.innerHTML = '';
+    const colorOf = (name) => (bank.subjects.find((x) => x.name === name) || {}).color || CY;
+    const fileOf = (name) => (bank.subjects.find((x) => x.name === name) || {}).file || '';
+    const hi = (text) => {
+      let out = text;
+      words.forEach((w) => {
+        const re = new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+        out = out.replace(re, '<mark style="background:oklch(calc(var(--lk) * 0.6 + var(--lb)) 0.077 40 / 0.3);color:var(--ink)">$1</mark>');
+      });
+      return out;
+    };
+    items.slice(0, 120).forEach((it) => {
+      const row = el('div', 'background:var(--bg2);padding:14px 16px');
+      const top = el('div', 'display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;margin-bottom:6px');
+      top.append(el('span', "font:500 10.5px " + MO + ";letter-spacing:.12em;text-transform:uppercase;color:" + colorOf(it.data.subject) + ";flex:none", it.data.subject));
+      if (it.type === 'q') {
+        top.append(el('span', "font:500 10.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.58)", it.data.group || ''));
+        row.appendChild(top);
+        const qq = el('div', "font:400 17px/1.5 " + NR + ";color:var(--ink);text-wrap:pretty;margin-bottom:6px");
+        qq.innerHTML = hi(it.data.q);
+        row.appendChild(qq);
+        const det = el('details', 'margin:0');
+        const sum = el('summary', "font:500 11.5px " + SG + ";letter-spacing:.14em;text-transform:uppercase;color:" + YE + ";cursor:pointer;padding:4px 0", '🧠 Javob');
+        det.appendChild(sum);
+        const ans = el('div', "font:400 16px/1.6 " + NR + ";color:rgb(var(--ink-rgb) / 0.96);padding:8px 0 4px;text-wrap:pretty");
+        ans.innerHTML = it.data.a;
+        det.appendChild(ans);
+        const link = el('a', "display:inline-block;font:500 11.5px " + SG + ";letter-spacing:.04em;color:" + CY + ";text-decoration:none;padding-top:4px", 'sahifada ochish →');
+        link.href = encodeURI(fileOf(it.data.subject)) + '#' + it.data.groupId;
+        det.appendChild(link);
+        row.appendChild(det);
+      } else {
+        top.append(el('span', "font:500 10.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.58)", "bo'lim"));
+        row.appendChild(top);
+        const a = el('a', "font:400 17px/1.5 " + NR + ";color:var(--ink);text-decoration:none;display:block");
+        a.innerHTML = hi(it.data.title) + ' <span style="color:' + CY + ';font:500 12px ' + SG + '">→</span>';
+        a.href = encodeURI(fileOf(it.data.subject)) + '#' + it.data.id;
+        row.appendChild(a);
+        if (it.data.tag) row.appendChild(el('div', "font:500 11px " + MO + ";color:rgb(var(--ink-rgb) / 0.6);padding-top:4px", it.data.tag));
+      }
+      res.appendChild(row);
+    });
+    if (!items.length) {
+      const none = el('div', 'background:var(--bg2);padding:20px');
+      none.append(el('div', "font:400 16.5px/1.6 " + NR + ";color:rgb(var(--ink-rgb) / 0.84)", "Natija topilmadi. Boshqa atama bilan urinib ko'ring."));
+      res.appendChild(none);
+    }
+  }
+
+  /* ---------- aralash intervyu ---------- */
+  buildInterview() {
+    const host = document.querySelector('[data-view-interview]');
+    if (!host) return;
+    host.innerHTML = '';
+    const st = this.iv;
+    if (!st) return this.interviewIntro(host);
+    this.interviewRun(host);
+  }
+
+  interviewIntro(host) {
+    const wrap = el('div', 'border:1px solid rgb(var(--ink-rgb) / 0.15);background:var(--bg2);padding:clamp(18px,3vw,28px)');
+    wrap.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:" + CY, '🎤 Aralash intervyu'));
+    wrap.append(el('h2', "font:500 clamp(24px,4vw,34px)/1.15 " + SG + ";letter-spacing:-.025em;margin:12px 0 12px", '20 savol · beshta mavzudan aralash'));
+    wrap.append(el('p', "font:400 17px/1.6 " + NR + ";color:rgb(var(--ink-rgb) / 0.92);max-width:600px;margin:0 0 18px;text-wrap:pretty", "Har savolga javobingizni yozasiz — tizim kalit so'zlar bo'yicha baholaydi. Oxirida ball, vaqt va qaysi mavzuda kuchsiz ekaningiz ko'rsatiladi."));
+    const opts = el('div', 'display:flex;flex-wrap:wrap;gap:18px;margin-bottom:20px');
+    const mkSel = (label, id, values) => {
+      const box = el('div', 'display:flex;flex-direction:column;gap:6px');
+      box.append(el('label', "font:500 11px " + SG + ";letter-spacing:.16em;text-transform:uppercase;color:rgb(var(--ink-rgb) / 0.68)", label));
+      const s = el('select', "background:var(--bg);border:1px solid rgb(var(--ink-rgb) / 0.22);color:var(--ink);font:500 13px " + MO + ";padding:9px 11px;outline:none");
+      s.dataset.iv = id;
+      values.forEach(([v, t]) => { const o = el('option', null, t); o.value = v; s.appendChild(o); });
+      box.appendChild(s);
+      return box;
+    };
+    opts.appendChild(mkSel('Savol soni', 'n', [['10', '10 savol'], ['20', '20 savol'], ['30', '30 savol']]));
+    opts.appendChild(mkSel('Vaqt', 'time', [['0', 'Vaqt cheklovsiz'], ['600', '10 daqiqa'], ['1200', '20 daqiqa'], ['1800', '30 daqiqa']]));
+    opts.appendChild(mkSel('Manba', 'pool', [['all', 'Hamma savol'], ['weak', "Faqat o'zlashtirilmaganlar"]]));
+    const subj = el('div', 'display:flex;flex-direction:column;gap:6px;flex:1 1 260px');
+    subj.append(el('label', "font:500 11px " + SG + ";letter-spacing:.16em;text-transform:uppercase;color:rgb(var(--ink-rgb) / 0.68)", 'Mavzular'));
+    const chips = el('div', 'display:flex;flex-wrap:wrap;gap:6px');
+    this._ivSubj = new Set(this.bank().subjects.map((s) => s.name));
+    this.bank().subjects.forEach((s) => {
+      const b = el('button', "font:500 12px " + SG + ";padding:7px 11px;border:1px solid " + s.color + ";background:color-mix(in oklch, " + s.color + " 12%, transparent);color:var(--ink);cursor:pointer", s.name);
+      b.type = 'button';
+      b.onclick = () => {
+        const on = this._ivSubj.has(s.name);
+        if (on) this._ivSubj.delete(s.name); else this._ivSubj.add(s.name);
+        const now = this._ivSubj.has(s.name);
+        b.style.borderColor = now ? s.color : 'rgb(var(--ink-rgb) / 0.2)';
+        b.style.background = now ? 'color-mix(in oklch, ' + s.color + ' 12%, transparent)' : 'transparent';
+        b.style.color = now ? 'var(--ink)' : 'rgb(var(--ink-rgb) / 0.78)';
+      };
+      chips.appendChild(b);
+    });
+    subj.appendChild(chips);
+    opts.appendChild(subj);
+    wrap.appendChild(opts);
+    const start = el('button', "background:oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.08);border:1px solid oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.5);color:" + CY + ";font:500 13.5px " + SG + ";letter-spacing:.04em;padding:12px 20px;cursor:pointer", '▶ Boshlash');
+    start.type = 'button';
+    start.onclick = () => {
+      const gv = (id) => (document.querySelector('[data-iv="' + id + '"]') || {}).value;
+      const n = +gv('n') || 20;
+      const limit = +gv('time') || 0;
+      const pool = gv('pool');
+      let qs = this.bank().questions.filter((q) => this._ivSubj.has(q.subject));
+      if (pool === 'weak') {
+        const keyOf = {};
+        this.bank().subjects.forEach((s) => { keyOf[s.name] = this.prog(s.key); });
+        const w = qs.filter((q) => keyOf[q.subject][q.qid] !== 'ok');
+        if (w.length >= n) qs = w;
+      }
+      qs = qs.slice().sort(() => Math.random() - 0.5).slice(0, n);
+      if (!qs.length) return;
+      this.iv = { qs: qs, i: 0, marks: [], started: Date.now(), limit: limit };
+      this.buildInterview();
+      if (limit) this.ivTick();
+    };
+    wrap.appendChild(start);
+    const bankBtn = el('button', "background:oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 145 / 0.08);border:1px solid oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 145 / 0.55);color:oklch(calc(var(--lk) * 0.54 + var(--lb)) 0.13 145);font:500 13.5px " + SG + ";letter-spacing:.04em;padding:12px 20px;cursor:pointer;margin-left:10px", '🏦 Agrobank intervyusi — 20 savol, 30 daqiqa');
+    bankBtn.type = 'button';
+    bankBtn.onclick = () => {
+      const set = (id, v) => { const s = document.querySelector('[data-iv="' + id + '"]'); if (s) s.value = v; };
+      set('n', '20'); set('time', '1800'); set('pool', 'all');
+      this._ivSubj = new Set(['Agrobank']);
+      start.click();
+    };
+    wrap.appendChild(bankBtn);
+    const shBtn = el('button', "background:oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.07);border:1px solid oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.5);color:" + CY + ";font:500 13.5px " + SG + ";letter-spacing:.04em;padding:12px 20px;cursor:pointer;margin-left:10px", '🎯 Suhbat 2026 intervyusi — 25 savol');
+    shBtn.type = 'button';
+    shBtn.onclick = () => {
+      const set = (id, v) => { const x = document.querySelector('[data-iv="' + id + '"]'); if (x) x.value = v; };
+      set('n', '30'); set('time', '1800'); set('pool', 'all');
+      this._ivSubj = new Set(['Suhbat 2026']);
+      start.click();
+    };
+    wrap.appendChild(shBtn);
+    wrap.appendChild(el('div', "font:400 15px/1.55 " + NR + ";color:rgb(var(--ink-rgb) / 0.78);margin-top:12px;text-wrap:pretty", "Agrobank rejimi vakansiya talablari asosida tuzilgan 24 savoldan 20 tasini beradi: GitLab CI, Kubernetes, observability, DevSecOps, Terraform, bank sektori."));
+    const last = this.my().lastIv;
+    if (last) {
+      const p = el('div', "font:400 15px/1.5 " + NR + ";color:rgb(var(--ink-rgb) / 0.73);margin-top:16px", "Oxirgi natija: " + last.score + '/' + last.total + '  ·  ' + last.pct + '%  ·  ' + last.when);
+      wrap.appendChild(p);
+    }
+    host.appendChild(wrap);
+  }
+
+  ivTick() {
+    clearInterval(this._ivTimer);
+    this._ivTimer = setInterval(() => {
+      if (!this.iv || !this.iv.limit) return clearInterval(this._ivTimer);
+      const left = this.iv.limit - Math.floor((Date.now() - this.iv.started) / 1000);
+      const t = document.querySelector('[data-iv-timer]');
+      if (t) {
+        const mm = Math.max(0, Math.floor(left / 60)), ss = Math.max(0, left % 60);
+        t.textContent = '⏱ ' + mm + ':' + String(ss).padStart(2, '0');
+        t.style.color = left < 60 ? RD : 'rgb(var(--ink-rgb) / 0.78)';
+      }
+      if (left <= 0) { clearInterval(this._ivTimer); this.ivFinish(); }
+    }, 1000);
+  }
+
+  keywords(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const codes = Array.from(tmp.querySelectorAll('code')).map((c) => c.textContent.trim()).filter((t) => t.length > 1).slice(0, 8);
+    const words = norm(tmp.textContent).split(/\s+/).filter((w) => w.length >= 5 && !STOPW.has(w));
+    const seen = new Set(), terms = [];
+    words.forEach((w) => { const k = stem(w); if (!seen.has(k)) { seen.add(k); terms.push(w); } });
+    return { terms: terms.slice(0, 14), codes: codes };
+  }
+
+  grade(html, text) {
+    const kw = this.keywords(html);
+    const mine = new Set(norm(text).split(/\s+/).filter(Boolean).map(stem));
+    const rawMine = norm(text);
+    const hitT = kw.terms.filter((t) => mine.has(stem(t)));
+    const hitC = kw.codes.filter((c) => rawMine.includes(norm(c).split(/\s+/)[0]));
+    const total = kw.terms.length + kw.codes.length * 2;
+    const got = hitT.length + hitC.length * 2;
+    const r = total ? got / total : 0;
+    const missC = kw.codes.filter((c) => hitC.indexOf(c) < 0).slice(0, 4);
+    const missT = kw.terms.filter((t) => hitT.indexOf(t) < 0).slice(0, 6);
+    return { r: r, miss: missC.concat(missT) };
+  }
+
+  interviewRun(host) {
+    const st = this.iv;
+    const q = st.qs[st.i];
+    if (!q) return this.ivFinish();
+    const bar = el('div', 'display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;margin-bottom:14px');
+    bar.append(el('div', "font:500 12.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.78)", (st.i + 1) + ' / ' + st.qs.length + '  ·  ball: ' + st.marks.filter((m) => m >= 0.45).length));
+    const timer = el('div', "font:500 13px " + MO + ";color:rgb(var(--ink-rgb) / 0.78)");
+    timer.dataset.ivTimer = '1';
+    if (st.limit) bar.appendChild(timer);
+    host.appendChild(bar);
+    const track = el('div', 'height:3px;background:rgb(var(--ink-rgb) / 0.11);margin-bottom:22px');
+    track.appendChild(el('div', 'height:3px;width:' + ((st.i / st.qs.length) * 100) + '%;background:' + CY));
+    host.appendChild(track);
+    const wrap = el('div', 'border:1px solid rgb(var(--ink-rgb) / 0.15);background:var(--bg2);padding:clamp(18px,3vw,26px)');
+    const color = (this.bank().subjects.find((x) => x.name === q.subject) || {}).color || CY;
+    wrap.append(el('div', "font:500 10.5px " + MO + ";letter-spacing:.14em;text-transform:uppercase;color:" + color, q.subject + (q.group ? '  ·  ' + q.group : '')));
+    wrap.append(el('div', "font:400 clamp(19px,3vw,24px)/1.45 " + NR + ";color:var(--ink);margin:12px 0 18px;text-wrap:pretty", q.q));
+    const ta = el('textarea', "width:100%;box-sizing:border-box;resize:vertical;background:var(--bg);border:1px solid rgb(var(--ink-rgb) / 0.22);color:var(--ink);font:400 16px/1.55 " + NR + ";padding:12px 14px;outline:none");
+    ta.rows = 4; ta.placeholder = "Javobingizni o'z so'zingiz bilan yozing…";
+    wrap.appendChild(ta);
+    const verdict = el('div', "font:500 14px " + SG + ";padding-top:12px");
+    const miss = el('div', "font:400 14.5px/1.55 " + NR + ";color:rgb(var(--ink-rgb) / 0.88);padding-top:6px;display:none");
+    const ansBox = el('div', "font:400 16px/1.6 " + NR + ";color:rgb(var(--ink-rgb) / 0.96);padding:14px 0 0;display:none;text-wrap:pretty");
+    ansBox.innerHTML = q.a;
+    const ctl = el('div', 'display:flex;flex-wrap:wrap;gap:8px;padding-top:14px');
+    const submit = el('button', "background:oklch(calc(var(--lk) * 0.6 + var(--lb)) 0.077 40 / 0.08);border:1px solid oklch(calc(var(--lk) * 0.6 + var(--lb)) 0.077 40 / 0.5);color:" + YE + ";font:500 12.5px " + SG + ";letter-spacing:.04em;padding:9px 15px;cursor:pointer", 'Tekshir');
+    const skip = el('button', "background:transparent;border:1px solid rgb(var(--ink-rgb) / 0.22);color:rgb(var(--ink-rgb) / 0.83);font:500 12.5px " + SG + ";letter-spacing:.04em;padding:9px 15px;cursor:pointer", "O'tkazib yuborish");
+    const next = el('button', "background:oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 150 / 0.07);border:1px solid oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 150 / 0.45);color:" + GR + ";font:500 12.5px " + SG + ";letter-spacing:.04em;padding:9px 15px;cursor:pointer;display:none", 'Keyingi savol →');
+    const quit = el('button', "background:transparent;border:1px solid rgb(var(--ink-rgb) / 0.18);color:rgb(var(--ink-rgb) / 0.68);font:500 12.5px " + SG + ";letter-spacing:.04em;padding:9px 15px;cursor:pointer", 'Tugatish');
+    [submit, skip, next, quit].forEach((b) => { b.type = 'button'; ctl.appendChild(b); });
+    submit.onclick = () => {
+      const txt = ta.value.trim();
+      if (!txt) { verdict.textContent = 'Avval javobingizni yozing.'; verdict.style.color = 'rgb(var(--ink-rgb) / 0.78)'; return; }
+      const g = this.grade(q.a, txt);
+      st.marks.push(g.r);
+      verdict.textContent = (g.r >= 0.45 ? "✓ To'g'ri — mohiyatini aytdingiz" : g.r >= 0.2 ? '≈ Qismán — asosiy nuqta yetmayapti' : "✗ Yetarli emas") + '  (' + Math.round(g.r * 100) + '%)';
+      verdict.style.color = g.r >= 0.45 ? GR : g.r >= 0.2 ? YE : RD;
+      if (g.miss.length) { miss.style.display = 'block'; miss.innerHTML = "Yetmagan kalit so'zlar: " + g.miss.map((w) => '<span style="font:500 13px ' + MO + ';color:' + CY + '">' + w + '</span>').join(', '); }
+      ansBox.style.display = 'block';
+      submit.style.display = 'none'; skip.style.display = 'none'; next.style.display = 'inline-block';
+    };
+    skip.onclick = () => { st.marks.push(0); st.i++; host.innerHTML = ''; this.interviewRun(host); };
+    next.onclick = () => { st.i++; host.innerHTML = ''; this.interviewRun(host); };
+    quit.onclick = () => this.ivFinish();
+    wrap.append(verdict, miss, ansBox, ctl);
+    host.appendChild(wrap);
+    ta.focus();
+  }
+
+  ivFinish() {
+    clearInterval(this._ivTimer);
+    const st = this.iv;
+    const host = document.querySelector('[data-view-interview]');
+    if (!st || !host) return;
+    const done = st.marks.length;
+    const score = st.marks.filter((m) => m >= 0.45).length;
+    const pct = done ? Math.round((score / done) * 100) : 0;
+    const secs = Math.floor((Date.now() - st.started) / 1000);
+    const bySubj = {};
+    st.qs.slice(0, done).forEach((q, i) => {
+      bySubj[q.subject] = bySubj[q.subject] || { ok: 0, n: 0 };
+      bySubj[q.subject].n++;
+      if (st.marks[i] >= 0.45) bySubj[q.subject].ok++;
+    });
+    const when = new Date().toLocaleDateString('uz-UZ');
+    this.myWrite({ lastIv: { score: score, total: done, pct: pct, when: when } });
+    host.innerHTML = '';
+    const wrap = el('div', 'border:1px solid rgb(var(--ink-rgb) / 0.15);background:var(--bg2);padding:clamp(18px,3vw,28px)');
+    wrap.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:" + (pct >= 70 ? GR : pct >= 40 ? YE : RD), 'Natija'));
+    wrap.append(el('div', "font:500 clamp(40px,8vw,68px)/1 " + SG + ";letter-spacing:-.03em;margin:14px 0 8px", pct + '%'));
+    wrap.append(el('div', "font:400 17px/1.6 " + NR + ";color:rgb(var(--ink-rgb) / 0.92);margin-bottom:20px", score + ' / ' + done + " to'g'ri  ·  " + Math.floor(secs / 60) + ' daq ' + (secs % 60) + ' sek  ·  ' + (done ? Math.round(secs / done) : 0) + ' sek/savol'));
+    wrap.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:rgb(var(--ink-rgb) / 0.68);margin-bottom:12px", 'Mavzu bo\'yicha'));
+    const list = el('div', 'display:flex;flex-direction:column;gap:10px;margin-bottom:22px');
+    Object.keys(bySubj).sort((a, b) => (bySubj[a].ok / bySubj[a].n) - (bySubj[b].ok / bySubj[b].n)).forEach((k) => {
+      const g = bySubj[k];
+      const p = Math.round((g.ok / g.n) * 100);
+      const row = el('div');
+      const top = el('div', 'display:flex;gap:10px;justify-content:space-between;align-items:baseline;margin-bottom:5px');
+      top.append(el('span', "font:400 15.5px " + NR + ";color:rgb(var(--ink-rgb) / 1)", k));
+      top.append(el('span', "font:500 11.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.68)", g.ok + '/' + g.n + '  ' + p + '%'));
+      row.appendChild(top);
+      const tr = el('div', 'height:3px;background:rgb(var(--ink-rgb) / 0.11)');
+      tr.appendChild(el('div', 'height:3px;width:' + Math.max(2, p) + '%;background:' + (p < 40 ? RD : p < 70 ? YE : GR)));
+      row.appendChild(tr);
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+    const ctl = el('div', 'display:flex;flex-wrap:wrap;gap:8px');
+    const again = el('button', "background:oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.08);border:1px solid oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.5);color:" + CY + ";font:500 12.5px " + SG + ";letter-spacing:.04em;padding:10px 16px;cursor:pointer", '↻ Yana bir marta');
+    const homeB = el('button', "background:transparent;border:1px solid rgb(var(--ink-rgb) / 0.22);color:rgb(var(--ink-rgb) / 0.86);font:500 12.5px " + SG + ";letter-spacing:.04em;padding:10px 16px;cursor:pointer", 'Bosh sahifa');
+    [again, homeB].forEach((b) => { b.type = 'button'; ctl.appendChild(b); });
+    again.onclick = () => { this.iv = null; this.buildInterview(); };
+    homeB.onclick = () => { this.iv = null; this.setView('home'); };
+    wrap.appendChild(ctl);
+    host.appendChild(wrap);
+    this.iv = null;
+  }
+
+  /* ---------- flashcard ---------- */
+  buildCards() {
+    const host = document.querySelector('[data-view-cards]');
+    if (!host) return;
+    host.innerHTML = '';
+    if (!this.fc) {
+      const mode = this.my().cardsMode || 'new';
+      const bank = this.bank();
+      const sched = this.my().sched || {};
+      const now = Date.now();
+      let pool;
+      if (mode === 'due') {
+        pool = bank.questions.filter((q) => { const s = sched[q.subject + '/' + q.qid]; return s && s.due <= now; });
+      } else {
+        const keyOf = {};
+        bank.subjects.forEach((s) => { keyOf[s.name] = this.prog(s.key); });
+        pool = bank.questions.filter((q) => keyOf[q.subject][q.qid] !== 'ok');
+      }
+      if (!pool.length) pool = bank.questions.slice();
+      this.fc = { qs: pool.sort(() => Math.random() - 0.5).slice(0, 40), i: 0, shown: false, stats: { easy: 0, hard: 0 } };
+    }
+    const st = this.fc;
+    const q = st.qs[st.i];
+    if (!q) {
+      const wrap = el('div', 'border:1px solid ' + GR + ';background:oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 150 / 0.035);padding:clamp(18px,3vw,28px)');
+      wrap.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:" + GR, 'Takrorlash tugadi'));
+      wrap.append(el('div', "font:400 18px/1.6 " + NR + ";color:rgb(var(--ink-rgb) / 0.98);margin:12px 0 18px", st.stats.easy + " ta bildim, " + st.stats.hard + " ta qaytariladi. Bilganlari jadvalda uzaytirildi."));
+      const b = el('button', "background:oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.08);border:1px solid oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.5);color:" + CY + ";font:500 12.5px " + SG + ";padding:10px 16px;cursor:pointer", '↻ Yangi to\'plam');
+      b.type = 'button';
+      b.onclick = () => { this.fc = null; this.buildCards(); };
+      wrap.appendChild(b);
+      host.appendChild(wrap);
+      return;
+    }
+    const color = (this.bank().subjects.find((x) => x.name === q.subject) || {}).color || CY;
+    const bar = el('div', 'display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;margin-bottom:14px');
+    bar.append(el('div', "font:500 12.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.78)", (st.i + 1) + ' / ' + st.qs.length));
+    bar.append(el('div', "font:500 12.5px " + MO + ";color:rgb(var(--ink-rgb) / 0.63)", '✓ ' + st.stats.easy + '   ↻ ' + st.stats.hard));
+    host.appendChild(bar);
+    const card = el('div', 'border:1px solid rgb(var(--ink-rgb) / 0.18);background:var(--bg2);padding:clamp(22px,4vw,36px);min-height:min(46vh,320px);display:flex;flex-direction:column;justify-content:center;cursor:pointer');
+    card.append(el('div', "font:500 10.5px " + MO + ";letter-spacing:.14em;text-transform:uppercase;color:" + color + ";margin-bottom:14px", q.subject + (q.group ? '  ·  ' + q.group : '')));
+    card.append(el('div', "font:400 clamp(20px,3.4vw,28px)/1.4 " + NR + ";color:var(--ink);text-wrap:pretty", q.q));
+    const ans = el('div', "font:400 clamp(16px,2.3vw,18px)/1.62 " + NR + ";color:rgb(var(--ink-rgb) / 0.96);border-top:1px solid rgb(var(--ink-rgb) / 0.13);margin-top:20px;padding-top:18px;display:none;text-wrap:pretty");
+    ans.innerHTML = q.a;
+    card.appendChild(ans);
+    const tapHint = el('div', "font:500 11.5px " + SG + ";letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--ink-rgb) / 0.3);margin-top:20px", 'Javobni ko\'rish uchun bosing');
+    card.appendChild(tapHint);
+    const ctl = el('div', 'display:flex;flex-wrap:wrap;gap:8px;margin-top:16px');
+    const easy = el('button', "background:oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 150 / 0.07);border:1px solid oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 150 / 0.45);color:" + GR + ";font:500 12.5px " + SG + ";letter-spacing:.04em;padding:11px 18px;cursor:pointer;display:none", '✓ Bildim');
+    const hard = el('button', "background:transparent;border:1px solid " + RD + ";color:" + RD + ";font:500 12.5px " + SG + ";letter-spacing:.04em;padding:11px 18px;cursor:pointer;display:none", '↻ Bilmadim');
+    const quit = el('button', "background:transparent;border:1px solid rgb(var(--ink-rgb) / 0.18);color:rgb(var(--ink-rgb) / 0.68);font:500 12.5px " + SG + ";letter-spacing:.04em;padding:11px 18px;cursor:pointer", 'Tugatish');
+    [easy, hard, quit].forEach((b) => { b.type = 'button'; ctl.appendChild(b); });
+    const flip = () => { ans.style.display = 'block'; tapHint.style.display = 'none'; easy.style.display = 'inline-block'; hard.style.display = 'inline-block'; };
+    card.onclick = flip;
+    const advance = (good) => {
+      const k = q.subject + '/' + q.qid;
+      const sched = this.my().sched || {};
+      const prev = sched[k] || { box: 1 };
+      const box = good ? Math.min(5, (prev.box || 1) + 1) : 1;
+      const gaps = [0, 1, 2, 4, 8, 16];
+      sched[k] = { box: box, due: Date.now() + gaps[box] * DAY };
+      this.myWrite({ sched: sched });
+      if (good) st.stats.easy++; else { st.stats.hard++; st.qs.push(q); }
+      st.i++;
+      this.buildCards();
+    };
+    easy.onclick = (e) => { e.stopPropagation(); advance(true); };
+    hard.onclick = (e) => { e.stopPropagation(); advance(false); };
+    quit.onclick = () => { this.fc = null; this.setView('home'); };
+    host.append(card, ctl);
+    const hint = el('div', "font:400 14.5px/1.55 " + NR + ";color:rgb(var(--ink-rgb) / 0.68);padding-top:14px;text-wrap:pretty", "«Bildim» — savol keyingi qutiga o'tadi va muddati uzayadi (1 → 2 → 4 → 8 → 16 kun). «Bilmadim» — birinchi qutiga tushadi va shu to'plam oxirida qaytadi.");
+    host.appendChild(hint);
+  }
+
+  /* ---------- javob shabloni ---------- */
+  buildTalk() {
+    const host = document.querySelector('[data-view-talk]');
+    if (!host || host.children.length) return;
+    const TPL = [
+      { t: "Ta'rif savoli", q: 'masalan: «inode nima?» · «Service nima?»', steps: ['Bir jumlada mohiyati', "Nima uchun kerak (qanday muammoni yechadi)", 'Bitta aniq misol yoki buyruq', "Chegarasi: nima u emas"], ex: "«Service — Pod'larga barqaror manzil va nom beruvchi abstraksiya. Kerakligi: Pod IP'lari o'zgaradi, Service nomi o'zgarmaydi. Masalan backend 'postgres:5432' deb ulanadi. Lekin Service yuk balansi qoidasi, Pod'ni yaratmaydi — uni Deployment qiladi.»" },
+      { t: 'Farq savoli', q: 'masalan: «merge va rebase?» · «CMD va ENTRYPOINT?»', steps: ['Ikkisining umumiy maqsadi', 'Asosiy farq bitta jumlada', 'Har birining afzalligi', 'Qachon qaysi birini tanlaysiz'], ex: "«Ikkisi ham branchni yangilaydi. Farq: merge tarixni saqlaydi va birlashtiruvchi commit qo'shadi, rebase commitlarni yangi asos ustiga qayta yozadi. Merge xavfsiz, rebase tarixni toza qiladi. Shuning uchun umumiy branchda merge, yolg'iz ishlagan branchda rebase.»" },
+      { t: 'Troubleshooting savoli', q: 'masalan: «502 keldi, nima qilasiz?»', steps: ['Xato nimani anglatadi — bir jumla', 'Gipoteza: qaysi qatlam ehtimoli yuqori', 'Tekshiruv zanjiri — har qadamda bitta buyruq', 'Dalil: nima ko\'rsam shu qatlamni tasdiqlaydi', 'Tezkor chora va keyin haqiqiy sabab'], ex: "«502 — proxy backend'dan yaroqsiz javob oldi, ya'ni chetki qatlam ishlayapti. Birinchi gipoteza: endpoints bo'sh yoki Pod sog'lom emas. Tekshiraman: kubectl get endpoints — bo'sh bo'lsa readiness; kubectl get pods — CrashLoop bormi; kubectl logs — dastur nima deyapti. Tezkor chora rollback, keyin sababni tuzataman.»" },
+      { t: 'Arxitektura savoli', q: 'masalan: «so\'rov yo\'lini tushuntiring»', steps: ["Zanjirni nomlab chiqish (5-7 bo'g'in)", 'Har bo\'g\'in nima qiladi — qisqa', 'Qaysi bo\'g\'inda nima buzilishi mumkin', 'Nimani o\'zgartirsam nima o\'zgaradi'], ex: "«DNS → Load Balancer → Ingress → Service → Pod → konteyner. DNS nomni IPga aylantiradi, LB klasterga kiritadi, Ingress TLS'ni tugatib marshrutlaydi, Service sog'lom Pod'larga taqsimlaydi, konteyner javob beradi. Nom yechilmasa DNS'da, 502 bo'lsa endpoints'da, 504 bo'lsa dasturning sekinligida.»" },
+      { t: 'Tanlov savoli', q: 'masalan: «qaysi deploy strategiyasini tanlaysiz?»', steps: ['Tanlov mezonlarini aytish (risk, resurs, tezlik)', 'Har variantni bitta jumla bilan', 'Kontekstga qarab tanlov', "Tanlovning narxini tan olish"], ex: "«Mezon: xato narxi, resurs va qaytish tezligi. Rolling arzon, lekin qaytish sekinroq. Blue-green darhol qaytadi, lekin resurs ikki barobar. Canary eng xavfsiz, lekin trafik boshqaruvi va metrics kerak. To'lov xizmati bo'lsa canary tanlardim — xato narxi yuqori; ichki panel bo'lsa rolling yetadi.»" },
+      { t: 'Bilmagan savol', q: "javobini bilmasangiz — bu ham ko'nikma", steps: ["Nimani bilganingizni aytish (yaqin tushuncha)", 'Halol tan olish: «bu qismini aniq bilmayman»', "Qanday aniqlashni aytish: qaysi buyruq, qaysi hujjat", "Taxminni gipoteza sifatida aytish, fakt sifatida emas"], ex: "«etcd backup'ning aniq buyruq sintaksisini yodlamaganman. Bilganim: etcd — klaster holatining yagona manbasi, shuning uchun backup snapshot orqali olinadi va restore'da quorum muhim. Amalda etcdctl snapshot save bilan olinadi — aniq flaglarni hujjatdan tekshirardim.»" },
+    ];
+    const head = el('div', 'margin-bottom:24px');
+    head.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.2em;text-transform:uppercase;color:" + CY, '🗣 Javob shabloni'));
+    head.append(el('h2', "font:500 clamp(24px,4vw,34px)/1.15 " + SG + ";letter-spacing:-.025em;margin:12px 0 12px", 'Nimani bilish emas — qanday aytish'));
+    head.append(el('p', "font:400 17px/1.6 " + NR + ";color:rgb(var(--ink-rgb) / 0.9);max-width:620px;margin:0;text-wrap:pretty", "Intervyuda javobning tuzilishi mazmuni bilan teng ahamiyatga ega. Savol turini taniysiz — shabloniga tushasiz."));
+    host.appendChild(head);
+    const list = el('div', 'display:flex;flex-direction:column;gap:14px');
+    TPL.forEach((tp) => {
+      const box = el('div', 'border:1px solid rgb(var(--ink-rgb) / 0.15);background:var(--bg2);padding:18px');
+      box.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.18em;text-transform:uppercase;color:" + YE, tp.t));
+      box.append(el('div', "font:500 12px " + MO + ";color:rgb(var(--ink-rgb) / 0.63);margin:6px 0 14px", tp.q));
+      const steps = el('div', 'display:flex;flex-direction:column;gap:7px;margin-bottom:14px');
+      tp.steps.forEach((s, i) => {
+        const r = el('div', 'display:flex;gap:10px;align-items:baseline');
+        r.append(el('span', "font:500 12px " + MO + ";color:" + CY + ";min-width:16px", (i + 1) + '.'));
+        r.append(el('span', "font:400 16px/1.5 " + NR + ";color:rgb(var(--ink-rgb) / 1);flex:1", s));
+        steps.appendChild(r);
+      });
+      box.appendChild(steps);
+      const det = el('details', 'background:rgb(var(--acc-rgb) / 0.03);border:1px solid rgb(var(--acc-rgb) / 0.24);padding:0 16px');
+      det.appendChild(el('summary', "font:500 11.5px " + SG + ";letter-spacing:.16em;text-transform:uppercase;color:" + YE + ";cursor:pointer;padding:13px 0", 'Namuna javob'));
+      det.appendChild(el('div', "font:italic 400 16.5px/1.65 " + NR + ";color:rgb(var(--ink-rgb) / 0.98);padding:0 0 16px;text-wrap:pretty", tp.ex));
+      box.appendChild(det);
+      list.appendChild(box);
+    });
+    host.appendChild(list);
+    const tips = el('div', 'border:1px solid rgb(var(--ink-rgb) / 0.15);background:var(--bg2);padding:18px;margin-top:14px');
+    tips.append(el('div', "font:500 11.5px " + SG + ";letter-spacing:.18em;text-transform:uppercase;color:" + GR, 'Umumiy qoidalar'));
+    const rules = ["Birinchi jumla — javobning o'zi. Kirish so'zlar keyin.", "Har da'voni bitta aniq buyruq yoki misol bilan mustahkamlang.", "«Bilmayman» — yomon javob emas; «taxmin qilib gapirish» yomon.", "Zanjir savollarida ovoz chiqarib tartibni aytish sistemali fikrlashni ko'rsatadi.", "Javobni tanlov narxini tan olib yakunlang — bu tajriba belgisi."];
+    const rl = el('div', 'display:flex;flex-direction:column;gap:8px;margin-top:12px');
+    rules.forEach((r) => {
+      const row = el('div', 'display:flex;gap:10px;align-items:baseline');
+      row.append(el('span', "color:" + GR + ";font:500 13px " + MO, '·'));
+      row.append(el('span', "font:400 16px/1.55 " + NR + ";color:rgb(var(--ink-rgb) / 0.98);flex:1;text-wrap:pretty", r));
+      rl.appendChild(row);
+    });
+    tips.appendChild(rl);
+    host.appendChild(tips);
+  }
+
+  componentDidMount() {
+    const boot = () => {
+      if (!window.DevOpsBank) return;
+      this.buildTabs();
+      this.buildHome();
+      this.buildToday();
+      this.buildWeak();
+    };
+    [0, 200, 600, 1400, 2600].forEach((d) => setTimeout(boot, d));
+  }
+  componentWillUnmount() { clearInterval(this._ivTimer); }
+
+  renderVals() { return {}; }
+}
+
+(function(){var c=new Component();if(c.componentDidMount)c.componentDidMount();var rv=c.renderVals?c.renderVals():{};
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-go]');if(b&&rv.go)rv.go({currentTarget:b,preventDefault:function(){}});});})();
+</script>
+</body></html>

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DevOps Yo'l">
+<meta name="theme-color" content="#f3f2f2">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>DevOps Yo'l</title>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0e1b2d"></rect><rect x="18" y="18" width="64" height="64" fill="none" stroke="#d4a25c" stroke-width="2"></rect><text x="50" y="60" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="#e6edf6">Do</text></svg></template>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('devops-theme')||'light'}catch(e){}if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});</script>
+<link rel="stylesheet" href="_ds/classical-a33ac8c1-c349-49da-acef-e2ae46ebadc9/styles.css">
+<link rel="stylesheet" href="themes.css">
+<script src="_ds/classical-a33ac8c1-c349-49da-acef-e2ae46ebadc9/_ds_bundle.js"></script>
+<script src="devops-data.js"></script>
+<script src="cloud.js"></script>
+<style>
+html,body{margin:0;-webkit-text-size-adjust:100%;overscroll-behavior-y:none}
+*{-webkit-tap-highlight-color:transparent}
+a{color:var(--color-accent-700);text-decoration-color:var(--color-accent-300);text-underline-offset:3px}
+a:hover{color:var(--color-accent-800)}
+button{font-family:inherit}
+@keyframes rise{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div style="max-width:560px;margin:0 auto;min-height:100dvh;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:15px;line-height:1.5;padding-bottom:calc(84px + env(safe-area-inset-bottom));box-sizing:border-box">
+
+<header style="position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--color-bg) 88%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--color-divider);padding:env(safe-area-inset-top) var(--space-4) 0">
+  <div style="display:flex;align-items:center;gap:var(--space-2);min-height:56px">
+    <sc-if value="{{ hasBack }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ back }}" aria-label="Orqaga" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--color-accent-700);cursor:pointer;margin-left:-12px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+      </button>
+    </sc-if>
+    <div style="font-family:var(--font-heading);font-weight:600;font-size:23px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ title }}</div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:6px">
+      <button onClick="{{ cycleTheme }}" aria-label="Rejimni almashtirish" title="Rejim: {{ themeName }}" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid var(--color-divider);border-radius:999px;background:transparent;color:var(--color-text);cursor:pointer">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"></path></svg>
+      </button>
+      <div style="display:flex;align-items:center;gap:5px;height:40px;box-sizing:border-box;font-variant-numeric:tabular-nums;font-size:14px;color:var(--color-accent-700);border:1px solid var(--color-accent-300);border-radius:999px;padding:0 12px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+        <span>{{ streak }}</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{ notReady }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:60px 20px;text-align:center;color:var(--color-neutral-600)">Yuklanmoqda…</div>
+</sc-if>
+
+<!-- BUGUN -->
+<sc-if value="{{ show.bugun }}" hint-placeholder-val="{{ true }}">
+<main style="padding:var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-6)">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-700);font-variant-numeric:tabular-nums">{{ dateLabel }}</div>
+    <h1 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:40px;line-height:1.02">{{ greeting }}</h1>
+  </div>
+
+  <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ true }}">
+  <section onClick="{{ next.open }}" style="cursor:pointer;border:1px solid var(--color-accent-300);border-radius:var(--radius-lg);padding:var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-3);background:var(--card-bg);box-shadow:var(--shadow-sm)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-2)">
+      <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);font-variant-numeric:tabular-nums">Davom etish · {{ next.n }}-bosqich</span>
+      <span style="font-size:13px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ next.stagePct }}</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <div style="font-family:var(--font-heading);font-size:26px;line-height:1.1;font-weight:500">{{ next.topic }}</div>
+      <div style="font-size:14px;color:var(--color-neutral-700)">{{ next.stage }} · yana {{ next.left }} ta mavzu</div>
+    </div>
+    <div style="height:4px;background:var(--color-divider);border-radius:4px;overflow:hidden"><div style="height:100%;width:{{ next.stagePct }};background:var(--color-accent);border-radius:4px"></div></div>
+    <div style="display:flex;justify-content:flex-end"><span class="btn btn-primary" style="min-height:44px;display:inline-flex;align-items:center;white-space:nowrap">Davom etish →</span></div>
+  </section>
+  </sc-if>
+
+  <section style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:var(--space-4);align-items:center">
+    <div style="position:relative;width:120px;height:120px">
+      <svg width="120" height="120" viewBox="0 0 120 120" style="transform:rotate(-90deg)">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--color-divider)" stroke-width="6"></circle>
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--color-accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="{{ ringDash }}" style="transition:stroke-dasharray .5s"></circle>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <div style="font-family:var(--font-heading);font-size:30px;line-height:1;font-variant-numeric:tabular-nums">{{ todayLabel }}</div>
+        <div style="font-size:12px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">/ {{ goalLabel }}</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+      <div style="font-family:var(--font-heading);font-size:21px;font-weight:600;line-height:1.1">Kunlik maqsad</div>
+      <div style="font-size:14px;color:var(--color-neutral-700)">{{ goalNote }}</div>
+      <sc-if value="{{ timerOn }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ stopTimer }}" class="btn btn-primary" style="min-height:44px;font-variant-numeric:tabular-nums">To'xtatish · {{ timerLabel }}</button>
+      </sc-if>
+      <sc-if value="{{ timerOff }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ startTimer }}" class="btn btn-primary" style="min-height:44px">Fokus taymer</button>
+      </sc-if>
+      <div style="display:flex;gap:var(--space-2)">
+        <button onClick="{{ add15 }}" class="btn btn-ghost" style="min-height:40px;flex:1">+15 daq</button>
+        <button onClick="{{ add60 }}" class="btn btn-ghost" style="min-height:40px;flex:1">+1 soat</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">
+    <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+        <div style="font-size:11px;letter-spacing:.06em;color:{{ d.lc }}">{{ d.label }}</div>
+        <div style="width:34px;height:34px;border-radius:50%;border:{{ d.border }};background:{{ d.bg }};display:flex;align-items:center;justify-content:center;color:{{ d.ic }};box-sizing:border-box">
+          <sc-if value="{{ d.met }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+    <sc-for list="{{ quick }}" as="q" hint-placeholder-count="4">
+      <button onClick="{{ q.go }}" style="text-align:left;border:1px solid var(--color-divider);background:var(--card-bg);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-3);min-height:108px;cursor:pointer;color:inherit;display:flex;flex-direction:column;gap:6px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-700)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ q.icon }}"></path></svg>
+        <span style="font-family:var(--font-heading);font-size:28px;line-height:1;font-variant-numeric:tabular-nums;margin-top:auto">{{ q.v }}</span>
+        <span style="font-size:13px;color:var(--color-neutral-700)">{{ q.t }}</span>
+      </button>
+    </sc-for>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div style="font-family:var(--font-heading);font-size:22px;font-weight:600">Kutubxona</div>
+      <button onClick="{{ goLib }}" style="border:0;background:transparent;color:var(--color-accent-700);font-size:14px;cursor:pointer;min-height:40px;padding:0">Hammasi →</button>
+    </div>
+    <div style="display:flex;gap:var(--space-3);overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--space-4));padding:0 var(--space-4) 4px;scrollbar-width:none">
+      <sc-for list="{{ libTop }}" as="l" hint-placeholder-count="5">
+        <a href="{{ l.href }}" style="flex:0 0 156px;scroll-snap-align:start;border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-3);min-height:128px;box-sizing:border-box;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;background:var(--card-bg)">
+          <span style="font-family:var(--font-heading);font-size:34px;line-height:1;color:var(--color-accent);font-variant-numeric:tabular-nums">{{ l.num }}</span>
+          <span style="font-family:var(--font-heading);font-size:19px;font-weight:600;line-height:1.1;margin-top:auto">{{ l.t }}</span>
+          <span style="font-size:12px;color:var(--color-neutral-600)">{{ l.s }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:var(--space-2);border-top:1px solid var(--color-divider);padding-top:var(--space-4)">
+    <div style="display:flex;justify-content:space-between;font-size:13px;font-variant-numeric:tabular-nums">
+      <span style="color:var(--color-neutral-700)">{{ level }}-daraja · {{ xp }} XP</span><span style="color:var(--color-neutral-600)">{{ lvlLeft }} XP qoldi</span>
+    </div>
+    <div style="height:4px;background:var(--color-divider);border-radius:4px;overflow:hidden"><div style="height:100%;width:{{ lvlPct }};background:var(--color-accent)"></div></div>
+    <div style="font-size:13px;color:var(--color-neutral-600)">Umumiy yo'l: {{ totalPct }} · {{ planNote }}</div>
+  </section>
+</main>
+</sc-if>
+
+<!-- YO'L -->
+<sc-if value="{{ show.yol }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-6)">
+  <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+    <h1 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:34px;line-height:1.05">17 haftalik yo'l</h1>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">O'rta daraja, kuniga 4+ soat. Maqsad: Junior/Middle DevOps lavozimi, AWS va CKA sertifikatlari.</p>
+  </div>
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ stages }}" as="s" hint-placeholder-count="10">
+      <button onClick="{{ s.open }}" style="display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:var(--space-3);text-align:left;border:0;background:transparent;padding:0;cursor:pointer;color:inherit">
+        <span style="display:flex;flex-direction:column;align-items:center;align-self:stretch">
+          <span style="width:44px;height:44px;flex:none;border-radius:50%;border:{{ s.nodeBorder }};background:{{ s.nodeBg }};color:{{ s.nodeC }};display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:20px;font-variant-numeric:tabular-nums;box-sizing:border-box">
+            <sc-if value="{{ s.complete }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+            <sc-if value="{{ s.open2 }}">{{ s.n }}</sc-if>
+          </span>
+          <span style="flex:1;width:2px;min-height:18px;background:{{ s.lineBg }}"></span>
+        </span>
+        <span style="display:flex;flex-direction:column;gap:6px;min-width:0;padding:10px 0 var(--space-6)">
+          <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:{{ s.kc }}">{{ s.kicker }}</span>
+          <span style="font-family:var(--font-heading);font-size:21px;font-weight:600;line-height:1.12">{{ s.title }}</span>
+          <span style="height:3px;background:var(--color-divider);border-radius:3px;overflow:hidden;display:block;max-width:220px"><span style="display:block;height:100%;width:{{ s.pct }};background:var(--color-accent)"></span></span>
+          <span style="font-size:12px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ s.meta }}</span>
+        </span>
+        <span style="font-size:12px;color:var(--color-accent-700);font-variant-numeric:tabular-nums;padding-top:12px">{{ s.badge }}</span>
+      </button>
+    </sc-for>
+  </div>
+</main>
+</sc-if>
+
+<!-- STAGE -->
+<sc-if value="{{ show.stage }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-6)">
+  <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);font-variant-numeric:tabular-nums">Bosqich {{ st.n }} · {{ st.weeks }} hafta</div>
+    <h1 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:34px;line-height:1.05">{{ st.title }}</h1>
+    <p style="margin:0;color:var(--color-neutral-700);text-wrap:pretty">{{ st.why }}</p>
+    <sc-if value="{{ st.hasCert }}" hint-placeholder-val="{{ false }}">
+      <div style="align-self:flex-start;font-size:12px;border:1px solid var(--color-accent-300);color:var(--color-accent-800);border-radius:999px;padding:3px 10px">Sertifikat: {{ st.cert }}</div>
+    </sc-if>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:5px">
+    <sc-for list="{{ st.steps }}" as="p" hint-placeholder-count="5">
+      <button onClick="{{ p.go }}" style="display:flex;flex-direction:column;align-items:center;gap:5px;border:1px solid {{ p.bc }};background:{{ p.bg }};border-radius:var(--radius-md);padding:8px 2px;min-height:60px;cursor:pointer;color:inherit;opacity:{{ p.op }};min-width:0;width:100%;box-sizing:border-box">
+        <span style="width:26px;height:26px;border-radius:50%;border:1.5px solid {{ p.dc }};background:{{ p.dbg }};color:{{ p.dtc }};display:flex;align-items:center;justify-content:center;font-size:12px;font-variant-numeric:tabular-nums;box-sizing:border-box">{{ p.mark }}</span>
+        <span style="display:block;width:100%;font-size:12px;line-height:1.2;text-align:center;overflow-wrap:anywhere">{{ p.t }}</span>
+      </button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ st.locked }}" hint-placeholder-val="{{ false }}">
+    <section style="border:1px dashed var(--color-neutral-400);border-radius:var(--radius-lg);padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3)">
+      <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">{{ st.lockTitle }}</div>
+      <div style="font-size:16px;text-wrap:pretty">{{ st.lockText }}</div>
+      <button onClick="{{ st.lockGo }}" class="btn btn-primary" style="min-height:48px;align-self:flex-start">{{ st.lockBtn }}</button>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ st.p.read }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ st.hasLib }}" hint-placeholder-val="{{ false }}">
+      <a href="{{ st.libHref }}" style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);border:1px solid var(--color-accent-300);border-radius:var(--radius-lg);padding:var(--space-4);text-decoration:none;color:inherit;background:var(--card-bg)">
+        <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+          <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">To'liq nazariya</span>
+          <span style="font-family:var(--font-heading);font-size:21px;font-weight:600;line-height:1.15">{{ st.libName }}</span>
+          <span style="font-size:13px;color:var(--color-neutral-600)">Har bo'limda: nazariya → fikrim → test → laboratoriya → intervyu</span>
+        </span>
+        <span style="flex:none;color:var(--color-accent-700);font-size:20px">↗</span>
+      </a>
+    </sc-if>
+    <section style="display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:var(--space-2);border-bottom:1px solid var(--color-divider)">
+        <div style="font-family:var(--font-heading);font-size:21px;font-weight:600">Mavzular</div>
+        <div style="font-size:13px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ st.doneLabel }}</div>
+      </div>
+      <sc-for list="{{ st.topics }}" as="t" hint-placeholder-count="6">
+        <button onClick="{{ t.toggle }}" style="display:flex;gap:var(--space-3);align-items:flex-start;text-align:left;border:0;border-bottom:1px solid var(--color-divider);background:transparent;padding:var(--space-3) 0;min-height:52px;cursor:pointer;color:inherit;font-size:15px">
+          <span style="flex:none;width:22px;height:22px;margin-top:1px;border:1.5px solid {{ t.bc }};background:{{ t.bg }};border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-bg);box-sizing:border-box">
+            <sc-if value="{{ t.on }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+          </span>
+          <span style="color:{{ t.c }};text-decoration:{{ t.dec }};text-decoration-color:var(--color-neutral-400)">{{ t.t }}</span>
+        </button>
+      </sc-for>
+    </section>
+    <section style="display:flex;flex-direction:column;gap:var(--space-2)">
+      <div style="font-family:var(--font-heading);font-size:21px;font-weight:600">Bepul manbalar</div>
+      <sc-for list="{{ st.res }}" as="r" hint-placeholder-count="3">
+        <a href="{{ r.u }}" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;gap:var(--space-3);padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider);text-decoration:none;min-height:44px;align-items:center">
+          <span>{{ r.n }}</span><span style="flex:none">↗</span>
+        </a>
+      </sc-for>
+    </section>
+    <button onClick="{{ st.readDone }}" class="btn btn-primary" style="min-height:50px">O'rganib bo'ldim → Xulosa yozish</button>
+  </sc-if>
+
+  <sc-if value="{{ st.p.note }}" hint-placeholder-val="{{ false }}">
+    <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <div style="font-family:var(--font-heading);font-size:24px;font-weight:500">Qisqacha xulosa</div>
+      <div style="color:var(--color-neutral-700);text-wrap:pretty">O'rganganingizni o'z so'zingiz bilan yozing. Mavzularning kamida 80% i xulosada tilga olinishi kerak:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <sc-for list="{{ st.noteTopics }}" as="c" hint-placeholder-count="5">
+          <span style="font-size:12.5px;border:1px solid {{ c.bc }};color:{{ c.c }};border-radius:999px;padding:3px 10px">{{ c.t }}</span>
+        </sc-for>
+      </div>
+      <textarea value="{{ st.note }}" onChange="{{ st.onNote }}" placeholder="Mening tushunishimcha…" style="min-height:200px;border:1px solid var(--color-divider);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--color-text);padding:var(--space-3);font:inherit;font-size:16px;line-height:1.6;resize:vertical"></textarea>
+      <div style="font-size:13px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ st.noteMeta }}</div>
+      <sc-if value="{{ st.canAI }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ st.aiCheck }}" class="btn btn-secondary" style="min-height:48px">{{ st.aiBtn }}</button>
+      </sc-if>
+      <sc-if value="{{ st.hasAiRes }}" hint-placeholder-val="{{ false }}">
+        <div style="border:1.5px solid {{ st.aiC }};background:{{ st.aiBg }};border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;flex-direction:column;gap:6px">
+          <div style="font-family:var(--font-heading);font-size:22px;font-weight:600;color:{{ st.aiC }};font-variant-numeric:tabular-nums">AI bahosi: {{ st.aiScore }}/100</div>
+          <div style="font-size:15px;text-wrap:pretty">{{ st.aiFb }}</div>
+          <sc-if value="{{ st.aiHasMiss }}"><div style="font-size:14px;color:var(--color-neutral-700)">Yetishmagan: {{ st.aiMiss }}</div></sc-if>
+        </div>
+      </sc-if>
+      <button onClick="{{ st.noteNext }}" class="btn btn-primary" style="min-height:50px;opacity:{{ st.noteOp }}">Nazariy savollarga →</button>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ st.p.test }}" hint-placeholder-val="{{ false }}">
+    <section style="display:flex;flex-direction:column;gap:var(--space-3);border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-4);background:var(--card-bg)">
+      <div style="font-family:var(--font-heading);font-size:24px;font-weight:500">Nazariy savollar</div>
+      <div style="color:var(--color-neutral-700)">{{ st.quizNote }}</div>
+      <button onClick="{{ st.startQuiz }}" class="btn btn-primary" style="min-height:50px">{{ st.quizBtn }}</button>
+    </section>
+    <sc-if value="{{ st.quizPassed }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ st.toLab }}" class="btn btn-secondary" style="min-height:50px">Laboratoriyaga o'tish →</button>
+    </sc-if>
+  </sc-if>
+
+  <sc-if value="{{ st.p.lab }}" hint-placeholder-val="{{ false }}">
+    <section style="display:flex;flex-direction:column;gap:var(--space-3);border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-4);background:var(--card-bg)">
+      <div style="font-family:var(--font-heading);font-size:24px;font-weight:500">Laboratoriya</div>
+      <div style="color:var(--color-neutral-700)">{{ st.labNote }}</div>
+      <button onClick="{{ st.goLabs }}" class="btn btn-primary" style="min-height:50px">Terminalni ochish · {{ st.labCount }}</button>
+      <a href="{{ st.realHref }}" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);border-top:1px solid var(--color-divider);padding-top:var(--space-3);text-decoration:none;min-height:44px">
+        <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Haqiqiy serverda, bepul</span><span style="color:var(--color-text)">{{ st.realName }} — shu buyruqlarni takrorlang</span></span><span>↗</span>
+      </a>
+      <sc-if value="{{ st.hasLib }}" hint-placeholder-val="{{ false }}">
+        <a href="{{ st.libHref }}" style="font-size:14px">Kutubxonada yana ko'p laboratoriya bor ↗</a>
+      </sc-if>
+    </section>
+    <button onClick="{{ st.toIv }}" class="btn btn-secondary" style="min-height:50px">Qo'shimchaga →</button>
+  </sc-if>
+
+  <sc-if value="{{ st.p.iv }}" hint-placeholder-val="{{ false }}">
+    <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <div style="font-family:var(--font-heading);font-size:24px;font-weight:500">Qo'shimcha: intervyu savollari</div>
+      <div style="font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">Avval ovoz chiqarib javob bering, keyin namunani oching. Kutubxonadagi har bo'limda hh.uz e'lonlaridan olingan qo'shimcha savollar ham bor.</div>
+      <sc-for list="{{ st.ivs }}" as="q" hint-placeholder-count="3">
+        <div style="border:1px solid {{ q.bc }};border-radius:var(--radius-lg);background:var(--card-bg);display:flex;flex-direction:column">
+          <button onClick="{{ q.toggle }}" style="text-align:left;border:0;background:transparent;color:inherit;cursor:pointer;padding:var(--space-4);display:flex;gap:var(--space-3);align-items:flex-start;font-size:16px">
+            <span style="flex:none;font-size:13px;color:{{ q.nc }};font-variant-numeric:tabular-nums;padding-top:2px">{{ q.mark }}</span>
+            <span style="flex:1;font-family:var(--font-heading);font-size:20px;line-height:1.2;font-weight:500">{{ q.q }}</span>
+          </button>
+          <sc-if value="{{ q.open }}">
+            <div style="padding:0 var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:var(--space-3)">
+              <div style="border-top:1px solid var(--color-divider);padding-top:var(--space-3);font-size:15.5px;line-height:1.6;text-wrap:pretty">{{ q.a }}</div>
+              <button onClick="{{ q.ok }}" class="btn btn-secondary" style="min-height:44px;align-self:flex-start">{{ q.okLabel }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </section>
+  </sc-if>
+</main>
+</sc-if>
+
+<!-- QUIZ -->
+<sc-if value="{{ show.quiz }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-4)">
+  <div style="display:flex;gap:4px">
+    <sc-for list="{{ qz.dots }}" as="d" hint-placeholder-count="4">
+      <div style="flex:1;height:4px;border-radius:4px;background:{{ d.bg }}"></div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ qz.running }}" hint-placeholder-val="{{ true }}">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);font-variant-numeric:tabular-nums">Savol {{ qz.num }} / {{ qz.total }}</div>
+    <h2 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:28px;line-height:1.15;text-wrap:pretty">{{ qz.q }}</h2>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+      <sc-for list="{{ qz.opts }}" as="o" hint-placeholder-count="4">
+        <button onClick="{{ o.pick }}" style="text-align:left;border:1.5px solid {{ o.bc }};background:{{ o.bg }};border-radius:var(--radius-lg);padding:var(--space-3);min-height:56px;cursor:pointer;color:inherit;font-size:15px;display:flex;align-items:center;gap:var(--space-3)">
+          <span style="flex:none;width:28px;height:28px;border-radius:50%;border:1px solid {{ o.lc }};color:{{ o.lc }};display:flex;align-items:center;justify-content:center;font-size:13px;font-variant-numeric:tabular-nums">{{ o.letter }}</span>
+          <span style="flex:1">{{ o.t }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ qz.picked }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1.5px solid {{ qz.fc }};background:{{ qz.fbg }};border-radius:var(--radius-lg);padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2)">
+        <div style="font-family:var(--font-heading);font-size:22px;font-weight:600;color:{{ qz.fc }}">{{ qz.fTitle }}</div>
+        <p style="margin:0;font-size:15px;color:var(--color-text);text-wrap:pretty">{{ qz.e }}</p>
+      </div>
+      <button onClick="{{ qz.next }}" class="btn btn-primary" style="min-height:50px">{{ qz.nextLabel }}</button>
+    </sc-if>
+  </sc-if>
+  <sc-if value="{{ qz.finished }}" hint-placeholder-val="{{ false }}">
+    <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--space-3);padding:var(--space-8) 0">
+      <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-700)">Natija</div>
+      <div style="font-family:var(--font-heading);font-size:72px;line-height:1;font-variant-numeric:tabular-nums">{{ qz.score }}/{{ qz.total }}</div>
+      <div style="font-size:14px;color:var(--color-accent-700);border:1px solid var(--color-accent-300);border-radius:999px;padding:4px 14px;font-variant-numeric:tabular-nums">+{{ qz.xpWon }} XP</div>
+      <div style="color:var(--color-neutral-700);max-width:320px;text-wrap:pretty">{{ qz.verdict }}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);width:100%;margin-top:var(--space-4)">
+        <button onClick="{{ qz.retry }}" class="btn btn-secondary" style="min-height:50px">Qayta</button>
+        <button onClick="{{ back }}" class="btn btn-primary" style="min-height:50px">Bosqichga</button>
+      </div>
+    </div>
+  </sc-if>
+</main>
+</sc-if>
+
+<!-- KUTUBXONA -->
+<sc-if value="{{ show.lib }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-6)">
+  <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+    <h1 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:34px;line-height:1.05">Kutubxona</h1>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">Asl darslar: 151 bo'lim, 766 savol, 50+ terminal laboratoriya va 119 harakatdagi sxema.</p>
+  </div>
+  <sc-if value="{{ hasLast }}" hint-placeholder-val="{{ false }}">
+    <a href="{{ last.href }}" style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);border:1px solid var(--color-accent-300);border-radius:var(--radius-lg);padding:var(--space-4);text-decoration:none;color:inherit;background:var(--card-bg)">
+      <span style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Oxirgi ochilgan</span>
+        <span style="font-family:var(--font-heading);font-size:22px;font-weight:600">{{ last.t }}</span>
+      </span>
+      <span class="btn btn-primary" style="min-height:44px;display:inline-flex;align-items:center;white-space:nowrap">Davom →</span>
+    </a>
+  </sc-if>
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ lib }}" as="l" hint-placeholder-count="10">
+      <a href="{{ l.href }}" style="display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:var(--space-3);align-items:center;border-bottom:1px solid var(--color-divider);padding:var(--space-3) 0;min-height:68px;text-decoration:none;color:inherit">
+        <span style="font-family:var(--font-heading);font-size:28px;line-height:1;color:var(--color-accent);font-variant-numeric:tabular-nums">{{ l.num }}</span>
+        <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+          <span style="font-family:var(--font-heading);font-size:20px;font-weight:600;line-height:1.15">{{ l.t }}</span>
+          <span style="font-size:13px;color:var(--color-neutral-600)">{{ l.s }}</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-700)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+      </a>
+    </sc-for>
+  </div>
+</main>
+</sc-if>
+
+<!-- MASHQ -->
+<sc-if value="{{ show.mashq }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4)">
+  <div role="tablist" style="display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--color-divider);border-radius:999px;padding:3px;gap:3px">
+    <sc-for list="{{ segs }}" as="g" hint-placeholder-count="3">
+      <button onClick="{{ g.go }}" role="tab" style="min-height:40px;border-radius:999px;border:1px solid {{ g.bc }};background:{{ g.bg }};color:{{ g.c }};cursor:pointer;font-size:14px">{{ g.t }}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ pr.term }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);font-variant-numeric:tabular-nums">Mashq {{ lab.num }} / {{ labsTotal }} · {{ lab.stage }}</div>
+      <h2 style="margin:0;font-family:var(--font-heading);font-weight:500;font-size:26px;line-height:1.1">{{ lab.t }}</h2>
+      <p style="margin:0;color:var(--color-neutral-700)">{{ lab.g }}</p>
+    </div>
+    <div style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-divider);box-shadow:var(--shadow-md)">
+      <div style="background:var(--term-bg);display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08)">
+        <span style="width:10px;height:10px;border-radius:50%;background:#e0685a"></span><span style="width:10px;height:10px;border-radius:50%;background:#e2b04a"></span><span style="width:10px;height:10px;border-radius:50%;background:#62b26a"></span>
+        <span style="margin-left:8px;font:12px ui-monospace,Menlo,monospace;color:var(--term-dim)">deploy@srv: ~</span>
+      </div>
+      <div ref="{{ termRef }}" onClick="{{ focusTerm }}" style="background:var(--term-bg);color:var(--term-fg);padding:var(--space-3);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.55;height:250px;overflow-y:auto;-webkit-overflow-scrolling:touch">
+        <sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
+          <div style="white-space:pre-wrap;word-break:break-word;color:{{ l.c }}">{{ l.t }}</div>
+        </sc-for>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span style="color:#e2b672;flex:none">$</span>
+          <input ref="{{ inputRef }}" value="{{ cmd }}" onChange="{{ onCmd }}" onKeyDown="{{ onKey }}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" enterkeyhint="send" aria-label="Buyruq" style="flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--term-fg);font:inherit;font-size:16px;padding:4px 0;caret-color:#e2b672">
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-2)">
+      <button onClick="{{ prevLab }}" class="btn btn-ghost" style="min-height:44px">← Oldingi</button>
+      <button onClick="{{ showHint }}" class="btn btn-secondary" style="min-height:44px">Yordam</button>
+      <button onClick="{{ nextLab }}" class="btn btn-ghost" style="min-height:44px">Keyingi →</button>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <sc-for list="{{ labDots }}" as="d" hint-placeholder-count="15">
+        <button onClick="{{ d.go }}" aria-label="Mashq {{ d.num }}" style="width:34px;height:34px;border-radius:50%;border:1.5px solid {{ d.bc }};background:{{ d.bg }};color:{{ d.c }};font-size:12px;font-variant-numeric:tabular-nums;cursor:pointer;padding:0">{{ d.num }}</button>
+      </sc-for>
+    </div>
+    <p style="margin:0;font-size:13px;color:var(--color-neutral-600);text-wrap:pretty">Bu simulyator. Kutubxonadagi har bo'limda yana 200+ laboratoriya topshirig'i bor. Haqiqiy serverda bepul takrorlang: <a href="https://killercoda.com/playgrounds/scenario/ubuntu" target="_blank" rel="noopener">Killercoda Ubuntu</a> · <a href="https://killercoda.com/playgrounds/scenario/kubernetes" target="_blank" rel="noopener">Kubernetes</a> · <a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">Play with Docker</a>.</p>
+  </sc-if>
+
+  <sc-if value="{{ pr.cards }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">
+      <span>Bugun: {{ dueCount }} ta</span><span>O'zlashtirilgan: {{ learned }} / {{ cardsTotal }}</span>
+    </div>
+    <sc-if value="{{ hasCard }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ flip }}" style="border:1px solid var(--color-divider);background:var(--card-bg);box-shadow:var(--shadow-md);border-radius:var(--radius-lg);min-height:320px;padding:var(--space-6) var(--space-4);cursor:pointer;color:inherit;display:flex;flex-direction:column;gap:var(--space-4);text-align:left">
+        <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">{{ card.tag }}</span>
+        <span style="font-family:var(--font-heading);font-size:28px;line-height:1.15;font-weight:500">{{ card.f }}</span>
+        <sc-if value="{{ cardFlip }}" hint-placeholder-val="{{ false }}">
+          <span style="border-top:1px solid var(--color-divider);padding-top:var(--space-4);font-size:16px;line-height:1.6">{{ card.b }}</span>
+        </sc-if>
+        <sc-if value="{{ cardHidden }}" hint-placeholder-val="{{ true }}">
+          <span style="margin-top:auto;font-size:13px;color:var(--color-neutral-600)">Javobni o'ylang, keyin bosing</span>
+        </sc-if>
+      </button>
+      <sc-if value="{{ cardFlip }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-2)">
+          <button onClick="{{ rateAgain }}" class="btn btn-ghost" style="min-height:50px">Bilmadim</button>
+          <button onClick="{{ rateHard }}" class="btn btn-secondary" style="min-height:50px">Qiyin</button>
+          <button onClick="{{ rateGood }}" class="btn btn-primary" style="min-height:50px">Bildim</button>
+        </div>
+      </sc-if>
+    </sc-if>
+    <sc-if value="{{ noCard }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:var(--space-8) 0;display:flex;flex-direction:column;gap:var(--space-2)">
+        <div style="font-family:var(--font-heading);font-size:30px">Bugungi takror tugadi</div>
+        <div style="color:var(--color-neutral-700)">Keyingi kartochkalar ertaga chiqadi.</div>
+      </div>
+    </sc-if>
+    <p style="margin:0;font-size:13px;color:var(--color-neutral-600);text-wrap:pretty">Leitner tizimi: “Bildim” bosilgan kartochka 1, 3, 7, 16, 35 kundan keyin qaytadi.</p>
+  </sc-if>
+
+</main>
+</sc-if>
+
+<!-- PROFIL -->
+<sc-if value="{{ show.more }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-6)">
+  <section style="display:flex;align-items:center;gap:var(--space-4)">
+    <div style="position:relative;width:84px;height:84px;flex:none">
+      <svg width="84" height="84" viewBox="0 0 84 84" style="transform:rotate(-90deg)"><circle cx="42" cy="42" r="38" fill="none" stroke="var(--color-divider)" stroke-width="4"></circle><circle cx="42" cy="42" r="38" fill="none" stroke="var(--color-accent)" stroke-width="4" stroke-linecap="round" stroke-dasharray="{{ lvlDash }}"></circle></svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><span style="font-family:var(--font-heading);font-size:30px;line-height:1;font-variant-numeric:tabular-nums">{{ level }}</span><span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-600)">daraja</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <div style="font-family:var(--font-heading);font-size:26px;font-weight:500;line-height:1.1">{{ rank }}</div>
+      <div style="font-size:14px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">{{ xp }} XP · {{ streak }} kun ketma-ket</div>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider)">
+    <sc-for list="{{ stats }}" as="x" hint-placeholder-count="4">
+      <div style="padding:var(--space-3) 4px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center">
+        <span style="font-family:var(--font-heading);font-size:24px;line-height:1;font-variant-numeric:tabular-nums">{{ x.v }}</span>
+        <span style="font-size:11px;color:var(--color-neutral-600);line-height:1.3">{{ x.t }}</span>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-family:var(--font-heading);font-size:22px;font-weight:600">Yutuqlar</div><div style="font-size:13px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ badgeCount }}</div></div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-3) var(--space-2)">
+      <sc-for list="{{ badges }}" as="b" hint-placeholder-count="8">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;opacity:{{ b.op }}">
+          <div style="width:56px;height:56px;border-radius:50%;border:1.5px solid {{ b.bc }};background:{{ b.bg }};display:flex;align-items:center;justify-content:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="{{ b.ic }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.icon }}"></path></svg>
+          </div>
+          <span style="font-size:11px;line-height:1.25;color:var(--color-neutral-700)">{{ b.t }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+    <div style="font-family:var(--font-heading);font-size:22px;font-weight:600">Rejim</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2)">
+      <sc-for list="{{ themes }}" as="t" hint-placeholder-count="3">
+        <button onClick="{{ t.set }}" aria-pressed="{{ t.on }}" style="border:1.5px solid {{ t.bc }};border-radius:var(--radius-lg);background:transparent;padding:8px;cursor:pointer;color:inherit;display:flex;flex-direction:column;gap:8px;align-items:stretch">
+          <span style="height:64px;border-radius:6px;background:{{ t.bg }};border:1px solid rgba(128,128,128,.25);display:flex;flex-direction:column;justify-content:flex-end;gap:5px;padding:8px;box-sizing:border-box">
+            <span style="height:6px;width:70%;border-radius:3px;background:{{ t.fg }}"></span>
+            <span style="height:6px;width:45%;border-radius:3px;background:#d4a25c"></span>
+          </span>
+          <span style="font-size:14px">{{ t.t }}</span>
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column">
+    <sc-for list="{{ menu }}" as="m" hint-placeholder-count="5">
+      <button onClick="{{ m.go }}" style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);text-align:left;border:0;border-bottom:1px solid var(--color-divider);background:transparent;padding:var(--space-3) 0;min-height:64px;cursor:pointer;color:inherit">
+        <span style="display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:var(--font-heading);font-size:20px;font-weight:600">{{ m.t }}</span>
+          <span style="font-size:13px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ m.s }}</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-700)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+      </button>
+    </sc-for>
+  </section>
+</main>
+</sc-if>
+
+<!-- LOYIHALAR -->
+<sc-if value="{{ show.projects }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3)">
+  <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">Har birini GitHub'ga README va sxema bilan joylang. Suhbatda aynan shular haqida so'rashadi.</p>
+  <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+    <button onClick="{{ p.open }}" class="card" style="text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:var(--space-4);color:inherit;width:100%;background:var(--card-bg)">
+      <span class="card-kicker">{{ p.lvl }} · {{ p.prog }}</span>
+      <span class="card-title" style="font-size:20px">{{ p.t }}</span>
+      <span style="font-size:13px;color:var(--color-neutral-600)">{{ p.stack }}</span>
+    </button>
+  </sc-for>
+</main>
+</sc-if>
+
+<sc-if value="{{ show.project }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4)">
+  <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">{{ pj.lvl }}</div>
+    <h1 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:32px;line-height:1.05">{{ pj.t }}</h1>
+    <p style="margin:0;color:var(--color-neutral-700);text-wrap:pretty">{{ pj.d }}</p>
+    <div style="font-size:13px;color:var(--color-accent-800)">{{ pj.stack }}</div>
+  </div>
+  <div style="display:flex;flex-direction:column;border-top:1px solid var(--color-divider)">
+    <sc-for list="{{ pj.steps }}" as="t" hint-placeholder-count="5">
+      <button onClick="{{ t.toggle }}" style="display:flex;gap:var(--space-3);align-items:flex-start;text-align:left;border:0;border-bottom:1px solid var(--color-divider);background:transparent;padding:var(--space-3) 0;min-height:52px;cursor:pointer;color:inherit;font-size:15px">
+        <span style="flex:none;width:22px;height:22px;margin-top:1px;border:1.5px solid {{ t.bc }};background:{{ t.bg }};border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-bg);box-sizing:border-box">
+          <sc-if value="{{ t.on }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+        </span>
+        <span style="color:{{ t.c }}">{{ t.t }}</span>
+      </button>
+    </sc-for>
+  </div>
+</main>
+</sc-if>
+
+<!-- REZYUME -->
+<sc-if value="{{ show.resume }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3)">
+  <div style="display:flex;justify-content:space-between;font-size:13px;font-variant-numeric:tabular-nums"><span style="color:var(--color-neutral-700)">Tayyorlik</span><span>{{ resumePct }}</span></div>
+  <div style="height:4px;background:var(--color-divider);border-radius:4px;overflow:hidden"><div style="height:100%;width:{{ resumePct }};background:var(--color-accent)"></div></div>
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ resume }}" as="t" hint-placeholder-count="10">
+      <button onClick="{{ t.toggle }}" style="display:flex;gap:var(--space-3);align-items:flex-start;text-align:left;border:0;border-bottom:1px solid var(--color-divider);background:transparent;padding:var(--space-3) 0;min-height:52px;cursor:pointer;color:inherit;font-size:15px">
+        <span style="flex:none;width:22px;height:22px;margin-top:1px;border:1.5px solid {{ t.bc }};background:{{ t.bg }};border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-bg);box-sizing:border-box">
+          <sc-if value="{{ t.on }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+        </span>
+        <span style="color:{{ t.c }}">{{ t.t }}</span>
+      </button>
+    </sc-for>
+  </div>
+</main>
+</sc-if>
+
+<!-- O'RNATISH -->
+<sc-if value="{{ show.install }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4)">
+  <p style="margin:0;text-wrap:pretty">Ilova PWA sifatida ishlaydi: App Store'siz va bepul. GitHub Pages hosting beradi. Kompyuterda Chrome/Edge manzil satridagi “O'rnatish” belgisi orqali o'rnatiladi.</p>
+  <ol style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:var(--space-3)">
+    <li>github.com'da <b>devops-app</b> nomli public repo yarating.</li>
+    <li><b>deploy</b> papkasidagi hamma fayl va papkalarni (kutubxona/ va _ds/ bilan) yuklang yoki push qiling:
+      <pre style="margin:8px 0 0;background:var(--term-bg);color:var(--term-fg);border-radius:var(--radius-md);padding:var(--space-3);font-size:12px;line-height:1.6;overflow-x:auto;white-space:pre">cd devops-app
+git init -b main
+git add .
+git commit -m "DevOps app"
+git remote add origin https://github.com/USERNAME/devops-app.git
+git push -u origin main</pre>
+    </li>
+    <li>Settings → Pages → Branch: <b>main</b>, <b>/ (root)</b> → Save. Manzil: <b>https://USERNAME.github.io/devops-app/</b></li>
+    <li>iPhone'da manzilni <b>Safari</b>'da oching → Ulashish → <b>“Bosh ekranga qo'shish”</b>.</li>
+    <li>Birinchi marta internet bilan oching — keyin oflayn ishlaydi.</li>
+  </ol>
+</main>
+</sc-if>
+
+<!-- SOZLAMALAR -->
+<sc-if value="{{ show.settings }}" hint-placeholder-val="{{ false }}">
+<main style="padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-6)">
+  <section style="display:flex;flex-direction:column;gap:var(--space-2)">
+    <div style="font-family:var(--font-heading);font-size:21px;font-weight:600">Kunlik maqsad</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2)">
+      <sc-for list="{{ goals }}" as="g" hint-placeholder-count="4">
+        <button onClick="{{ g.set }}" style="min-height:48px;border:1.5px solid {{ g.bc }};background:{{ g.bg }};border-radius:var(--radius-md);cursor:pointer;color:inherit;font-variant-numeric:tabular-nums">{{ g.t }}</button>
+      </sc-for>
+    </div>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:var(--space-2)">
+    <div style="font-family:var(--font-heading);font-size:21px;font-weight:600">Ma'lumotlar</div>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700)">Progress faqat shu qurilmada saqlanadi. Kutubxonada “Progressni saqlash” orqali faylga eksport qilish mumkin.</p>
+    <button onClick="{{ resetAll }}" class="btn btn-ghost" style="min-height:44px;align-self:flex-start">Ilova progressini o'chirish</button>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-2)"><div style="font-family:var(--font-heading);font-size:21px;font-weight:600">Bulut sinxron</div><div style="font-size:12px;color:{{ cl.sc }}">{{ cl.statusT }}</div></div>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">Firebase (bepul) orqali progress telefon va kompyuterda bir xil bo'ladi. Har daqiqada avtomatik saqlanadi.</p>
+    <sc-if value="{{ cl.needCfg }}" hint-placeholder-val="{{ true }}">
+      <textarea value="{{ cl.cfgText }}" onChange="{{ cl.onCfg }}" placeholder="Firebase config'ni shu yerga qo'ying: { apiKey: …, authDomain: …, projectId: … }" style="min-height:110px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--card-bg);color:var(--color-text);padding:var(--space-2);font:12px ui-monospace,Menlo,monospace"></textarea>
+      <button onClick="{{ cl.saveCfg }}" class="btn btn-primary" style="min-height:44px;align-self:flex-start">Sozlamani saqlash</button>
+    </sc-if>
+    <sc-if value="{{ cl.needLogin }}" hint-placeholder-val="{{ false }}">
+      <input value="{{ cl.email }}" onChange="{{ cl.onEmail }}" type="email" autocomplete="email" placeholder="Email" style="min-height:44px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--card-bg);color:var(--color-text);padding:0 var(--space-3);font:inherit;font-size:16px">
+      <input value="{{ cl.pw }}" onChange="{{ cl.onPw }}" type="password" autocomplete="current-password" placeholder="Parol (kamida 6 belgi)" style="min-height:44px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--card-bg);color:var(--color-text);padding:0 var(--space-3);font:inherit;font-size:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2)">
+        <button onClick="{{ cl.signIn }}" class="btn btn-primary" style="min-height:48px">Kirish</button>
+        <button onClick="{{ cl.signUp }}" class="btn btn-secondary" style="min-height:48px">Ro'yxatdan o'tish</button>
+      </div>
+      <button onClick="{{ cl.editCfg }}" class="btn btn-ghost" style="min-height:40px;align-self:flex-start">Firebase sozlamasini o'zgartirish</button>
+    </sc-if>
+    <sc-if value="{{ cl.loggedIn }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:14px">Kirgansiz: <b>{{ cl.userEmail }}</b></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2)">
+        <button onClick="{{ cl.push }}" class="btn btn-primary" style="min-height:48px">Hozir saqlash</button>
+        <button onClick="{{ cl.pull }}" class="btn btn-secondary" style="min-height:48px">Bulutdan olish</button>
+      </div>
+      <button onClick="{{ cl.signOut }}" class="btn btn-ghost" style="min-height:40px;align-self:flex-start">Chiqish</button>
+    </sc-if>
+    <sc-if value="{{ cl.hasMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--color-accent-700)">{{ cl.msg }}</div></sc-if>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-2)"><div style="font-family:var(--font-heading);font-size:21px;font-weight:600">AI tekshiruv</div><div style="font-size:12px;color:{{ ai.sc }}">{{ ai.statusT }}</div></div>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">Google Gemini (bepul) xulosangizni ma'nosiga qarab baholaydi va nimani tushunmaganingizni aytadi. Kalit faqat shu qurilmada saqlanadi.</p>
+    <input value="{{ ai.keyText }}" onChange="{{ ai.onKey }}" type="password" autocomplete="off" placeholder="Gemini API kaliti (AIza…)" style="min-height:44px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--card-bg);color:var(--color-text);padding:0 var(--space-3);font:inherit;font-size:16px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2)">
+      <button onClick="{{ ai.save }}" class="btn btn-primary" style="min-height:48px">Saqlash</button>
+      <button onClick="{{ ai.test }}" class="btn btn-secondary" style="min-height:48px">Sinab ko'rish</button>
+    </div>
+    <sc-if value="{{ ai.hasMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--color-accent-700)">{{ ai.msg }}</div></sc-if>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:var(--space-2)">
+    <div style="font-family:var(--font-heading);font-size:21px;font-weight:600">Telegram eslatma</div>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">Har kuni 19:00 da botdan eslatma va bitta savol (javobi yashirin) keladi.</p>
+    <a href="https://t.me/jerojgdgf2423bot" target="_blank" rel="noopener" class="btn btn-secondary" style="min-height:44px;align-self:flex-start;display:inline-flex;align-items:center;text-decoration:none">Botni ochish ↗</a>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:var(--space-3)">
+    <div style="font-family:var(--font-heading);font-size:21px;font-weight:600">Boshqa qurilmaga ko'chirish</div>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">Butun progress (ilova, kutubxona, xulosalar, daftar) bitta faylga saqlanadi. Boshqa qurilmada shu faylni yuklasangiz, hammasi tiklanadi.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2)">
+      <button onClick="{{ exportAll }}" class="btn btn-primary" style="min-height:48px">Faylga saqlash</button>
+      <button onClick="{{ pickImport }}" class="btn btn-secondary" style="min-height:48px">Fayldan tiklash</button>
+    </div>
+    <button onClick="{{ copyAll }}" class="btn btn-ghost" style="min-height:44px;align-self:flex-start">Matn sifatida nusxa olish</button>
+    <textarea value="{{ importText }}" onChange="{{ onImportText }}" placeholder="Yoki nusxa olingan matnni shu yerga qo'ying…" style="min-height:80px;border:1px solid var(--color-divider);border-radius:var(--radius-md);background:var(--card-bg);color:var(--color-text);padding:var(--space-2);font:12px ui-monospace,Menlo,monospace"></textarea>
+    <sc-if value="{{ hasImportText }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ applyImportText }}" class="btn btn-primary" style="min-height:44px;align-self:flex-start">Matndan tiklash</button>
+    </sc-if>
+    <sc-if value="{{ hasSyncMsg }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:14px;color:var(--color-accent-700)">{{ syncMsg }}</div>
+    </sc-if>
+    <input ref="{{ fileRef }}" type="file" accept="application/json,.json,.txt" onChange="{{ onFile }}" style="display:none">
+  </section>
+</main>
+</sc-if>
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;border:1px solid var(--color-accent);background:var(--color-bg);color:var(--color-accent-700);border-radius:999px;padding:8px 18px;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;box-shadow:var(--shadow-md);animation:rise .25s ease-out">{{ toast }}</div>
+</sc-if>
+
+<nav style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;background:color-mix(in srgb,var(--color-bg) 92%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--color-divider);padding-bottom:env(safe-area-inset-bottom);z-index:10;display:grid;grid-template-columns:repeat(5,1fr)">
+  <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+    <button onClick="{{ t.go }}" aria-label="{{ t.t }}" style="border:0;background:transparent;color:{{ t.c }};min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;cursor:pointer;position:relative">
+      <span style="position:absolute;top:0;left:30%;right:30%;height:2px;border-radius:2px;background:{{ t.bar }}"></span>
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.icon }}"></path></svg>{{ t.t }}
+    </button>
+  </sc-for>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;393px&quot;,&quot;height&quot;:&quot;852px&quot;}}">
+const KEY = 'devops-app-v1';
+const IVL = [0, 1, 3, 7, 16, 35];
+const WD = ['Ya', 'Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh'];
+const OY = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+const EMPTY = { stages: [], labs: [], cards: [], interview: [], projects: [], resume: [] };
+const dn = (d) => { d = d || new Date(); return Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000); };
+const fmtMin = (m) => m < 60 ? m + ' daq' : m % 60 ? Math.floor(m / 60) + 's ' + (m % 60) + 'd' : Math.floor(m / 60) + ' soat';
+const pad = (n) => String(n).padStart(2, '0');
+const A = 'var(--color-accent)', A7 = 'var(--color-accent-700)', DIV = 'var(--color-divider)', N6 = 'var(--color-neutral-600)';
+const IC = {
+  sun: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41',
+  map: 'M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0zM15 5.764v15M9 3.236v15',
+  book: 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20',
+  term: 'm4 17 6-6-6-6M12 19h8',
+  user: 'M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21a8 8 0 0 1 16 0',
+  layers: 'm12 2 9 5-9 5-9-5 9-5zm-9 10 9 5 9-5',
+  check: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm-4 9 3 3 5-6',
+  chat: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+  flame: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z',
+  flag: 'M4 22V4a1 1 0 0 1 1-1h11l-2 4 2 4H5',
+  star: 'm12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z',
+  brief: 'M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+};
+const LIB = [
+  { k: 'linux', t: 'Linux Shahri', s: "34 bo'lim · laboratoriyalar" },
+  { k: 'net', t: 'Networking Pochtasi', s: "20 bo'lim · DNS, TCP, NAT" },
+  { k: 'docker', t: 'Docker Qutixonasi', s: "18 bo'lim · 124 savol" },
+  { k: 'k8s', t: 'Kubernetes Zavodi', s: "38 bo'lim · CKA uslubida" },
+  { k: 'cicd', t: 'CI/CD Konveyeri', s: "41 bo'lim · Git, Argo, Terraform" },
+  { k: 'figs', t: 'Sxemalar galereyasi', s: '119 harakatdagi sxema' },
+  { k: 'video', t: 'Video darsliklar', s: '16 kurs' },
+  { k: 'cheat', t: 'Cheat sheet', s: '6 varaq, chop etishga tayyor' },
+  { k: 'hub', t: 'Kutubxona markazi', s: 'Progress, qidiruv, flashcard, intervyu' },
+];
+const THEMES = [
+  { k: 'light', t: 'Oq', bg: '#f3f2f2', fg: '#201f1d' },
+  { k: 'dark', t: 'Qora', bg: '#0b0b0a', fg: '#ecebe8' },
+  { k: 'navy', t: "To'q ko'k", bg: '#0e1b2d', fg: '#e6edf6' },
+];
+const STAGE_LIB = { linux: ['linux', 'Linux Shahri'], net: ['net', 'Networking Pochtasi'], git: ['cicd', 'CI/CD Konveyeri · Git'], docker: ['docker', 'Docker Qutixonasi'], cicd: ['cicd', 'CI/CD Konveyeri'], iac: ['cicd', 'CI/CD Konveyeri · Terraform, Ansible'], k8s: ['k8s', 'Kubernetes Zavodi'], obs: ['cicd', 'CI/CD Konveyeri · Monitoring'] };
+const IV_TAG = { Linux: 'linux', Tarmoq: 'net', Docker: 'docker', 'CI/CD': 'cicd', Bulut: 'cloud', IaC: 'iac', K8s: 'k8s', Monitoring: 'obs', Behavioral: 'job' };
+const REAL_LAB = { linux: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], net: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], git: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], docker: ['Play with Docker', 'https://labs.play-with-docker.com/'], cicd: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], iac: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], k8s: ['Killercoda · Kubernetes', 'https://killercoda.com/playgrounds/scenario/kubernetes'], obs: ['Killercoda · Kubernetes', 'https://killercoda.com/playgrounds/scenario/kubernetes'], cloud: ['AWS Free Tier', 'https://aws.amazon.com/free/'], job: ['Killercoda', 'https://killercoda.com/'] };
+const STEP_N = [['read', 'Nazariya'], ['note', 'Xulosa'], ['test', 'Savollar'], ['lab', 'Lab'], ['iv', "Qo'shimcha"]];
+const RANKS = ['Yangi boshlovchi', 'Terminal shogirdi', 'Shell ustasi', 'Konteyner quruvchi', 'Klaster boshqaruvchi', 'Pipeline arxitektori', 'SRE nomzodi', 'DevOps muhandis'];
+function loadS() {
+  let s = {};
+  try { s = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  return Object.assign({ days: {}, done: {}, quiz: {}, labs: {}, cards: {}, steps: {}, resume: {}, iv: {}, notes: {}, flow: {}, ivok: {}, goal: 240, timer: null }, s);
+}
+function getTheme() { try { return localStorage.getItem('devops-theme') || 'light'; } catch (e) { return 'light'; } }
+const TITLES = { bugun: 'DevOps Yo\'l', yol: 'Yo\'l xaritasi', lib: 'Kutubxona', mashq: 'Mashq', more: 'Profil', projects: 'Loyihalar', resume: 'Rezyume va GitHub', install: 'O\'rnatish', settings: 'Sozlamalar' };
+
+class Component extends DCLogic {
+  S = loadS();
+  state = { tab: 'bugun', view: null, stageId: null, projId: null, quiz: null, lab: 0, lines: [], cmd: '', cardFlip: false, ivI: 0, ivPhase: 'idle', ivStart: null, seen: {}, cloud: (window.DevopsCloud ? window.DevopsCloud.state() : {}), cfgText: '', editCfg: false, email: '', pw: '', keyText: '', aiMsg: '', aiBusy: false, aiRes: {}, importText: '', syncMsg: '', stStep: null, ivOpen: {}, ready: !!window.DEVOPS_DATA, pr: 'term', theme: getTheme(), toast: null };
+  termRef = React.createRef();
+  fileRef = React.createRef();
+  inputRef = React.createRef();
+
+  componentDidMount() {
+    this.applyTheme(this.state.theme);
+    if (window.DevopsCloud) { this.offCloud = window.DevopsCloud.on((c) => this.setState({ cloud: c })); this.setState({ keyText: window.DevopsCloud.getKey() }); }
+    this.onPulled = () => { this.S = loadS(); this.setTheme(getTheme()); this.forceUpdate(); };
+    window.addEventListener('devops-cloud-pulled', this.onPulled);
+    this.tick = setInterval(() => {
+      if (!this.state.ready && window.DEVOPS_DATA) { this.setState({ ready: true }); this.resetTerm(this.state.lab); }
+      if (this.S.timer || this.state.ivStart) this.forceUpdate();
+    }, 1000);
+    if (window.DEVOPS_DATA) this.resetTerm(0);
+  }
+  componentWillUnmount() { clearInterval(this.tick); clearTimeout(this.tt); if (this.offCloud) this.offCloud(); window.removeEventListener('devops-cloud-pulled', this.onPulled); }
+  componentDidUpdate() { const t = this.termRef.current; if (t) t.scrollTop = t.scrollHeight; }
+  applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+    const th = THEMES.find(x => x.k === t) || THEMES[0];
+    document.querySelectorAll('meta[name="theme-color"]').forEach(m => m.setAttribute('content', th.bg));
+  }
+  setTheme(t) { try { localStorage.setItem('devops-theme', t); } catch (e) {} this.applyTheme(t); this.setState({ theme: t }); }
+  D() { return window.DEVOPS_DATA || EMPTY; }
+  dump() { const o = {}; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); o[k] = localStorage.getItem(k); } } catch (e) {} return JSON.stringify({ app: 'devops-yol', v: 1, at: new Date().toISOString(), data: o }); }
+  restore(txt) {
+    let j; try { j = JSON.parse(txt); } catch (e) { return this.setState({ syncMsg: 'Fayl o\u2018qilmadi — noto\u2018g\u2018ri format.' }); }
+    if (!j || j.app !== 'devops-yol' || !j.data) return this.setState({ syncMsg: 'Bu DevOps Yo\u2018l progress fayli emas.' });
+    if (!window.confirm('Shu qurilmadagi progress fayldagisi bilan almashtiriladi. Davom etasizmi?')) return;
+    let n = 0; try { Object.keys(j.data).forEach(k => { localStorage.setItem(k, j.data[k]); n++; }); } catch (e) {}
+    this.S = loadS(); this.setTheme(getTheme());
+    this.setState({ syncMsg: '✓ Tiklandi: ' + n + ' ta yozuv (' + String(j.at || '').slice(0, 10) + ').', importText: '' });
+  }
+  save() { try { localStorage.setItem(KEY, JSON.stringify(this.S)); } catch (e) {} this.forceUpdate(); }
+  act(xp, min) {
+    const k = dn(); const d = this.S.days[k] || { xp: 0, min: 0 }; d.xp += xp || 0; d.min += min || 0; this.S.days[k] = d; this.save();
+    if (xp > 0) { clearTimeout(this.tt); this.setState({ toast: '+' + xp + ' XP' }); this.tt = setTimeout(() => this.setState({ toast: null }), 1600); }
+  }
+  active(k) { const d = this.S.days[k]; return !!(d && (d.min > 0 || d.xp > 0)); }
+  go(tab, extra) { this.setState(Object.assign({ tab, view: null }, extra || {})); window.scrollTo(0, 0); }
+  open(view, extra) { this.setState(Object.assign({ view }, extra || {})); window.scrollTo(0, 0); }
+
+  resetTerm(i) {
+    const lab = this.D().labs[i]; if (!lab) return;
+    this.setState({ lab: i, cmd: '', lines: [{ t: '# Vazifa: ' + lab.g, k: 'sys' }, { t: '# "hint" — yordam, "clear" — tozalash', k: 'sys' }] });
+  }
+  runCmd() {
+    const raw = this.state.cmd.trim(); if (!raw) return;
+    const lab = this.D().labs[this.state.lab];
+    let lines = this.state.lines.concat([{ t: '$ ' + raw, k: 'cmd' }]);
+    if (raw === 'clear') return this.setState({ cmd: '', lines: [] });
+    if (raw === 'hint' || raw === 'yordam' || raw === 'help') lines.push({ t: 'Yordam: ' + lab.h, k: 'sys' });
+    else if (lab.re.test(raw)) {
+      if (lab.out) lines.push({ t: lab.out, k: 'out' });
+      const first = !this.S.labs[lab.id];
+      lines.push({ t: '✓ To\'g\'ri! ' + (first ? '+20 XP. ' : '') + '"Keyingi →" ni bosing.', k: 'ok' });
+      this.S.labs[lab.id] = true; this.act(first ? 20 : 0, 0);
+    } else lines.push({ t: '✕ Kutilgan natija emas. Qayta urinib ko\'ring yoki "hint" yozing.', k: 'err' });
+    this.setState({ cmd: '', lines });
+  }
+  rate(kind, id) {
+    const c = this.S.cards[id] || { box: 0, due: 0 }; const t = dn();
+    if (kind === 'again') { c.box = 0; c.due = t; }
+    else if (kind === 'hard') { c.due = t + 1; }
+    else { c.box = Math.min(5, c.box + 1); c.due = t + IVL[c.box]; }
+    this.S.cards[id] = c;
+    const seen = Object.assign({}, this.state.seen, { [id]: Date.now() });
+    this.setState({ cardFlip: false, seen }); this.act(2, 0);
+  }
+
+  renderVals() {
+    const D = this.D(), S = this.S, st = this.state;
+    const today = dn(), td = S.days[today] || { xp: 0, min: 0 };
+    const timerMin = S.timer ? Math.floor((Date.now() - S.timer) / 60000) : 0;
+    const todayMin = td.min + timerMin, goal = S.goal;
+    const C = 2 * Math.PI * 52, pct = Math.min(1, todayMin / goal);
+    let streak = 0, k = today; if (!this.active(k) && !S.timer) k--; while (this.active(k) || (k === today && S.timer)) { streak++; k--; }
+    const xp = Math.max(0, Object.values(S.days).reduce((a, d) => a + (d.xp || 0), 0));
+    const level = Math.floor(xp / 500) + 1, lvlFrac = (xp % 500) / 500;
+    let timerLabel = '';
+    if (S.timer) { const s = Math.floor((Date.now() - S.timer) / 1000); timerLabel = (s >= 3600 ? Math.floor(s / 3600) + ':' : '') + pad(Math.floor(s / 60) % 60) + ':' + pad(s % 60); }
+    const now = new Date();
+    const week = [];
+    for (let i = 6; i >= 0; i--) {
+      const dt = new Date(now.getTime() - i * 86400000), m = (S.days[today - i] || {}).min || 0, x = (S.days[today - i] || {}).xp || 0, met = m >= goal, any = m > 0 || x > 0;
+      week.push({ label: WD[dt.getDay()], met, bg: met ? A : 'transparent', border: met ? '1.5px solid ' + A : any ? '1.5px solid var(--color-accent-400)' : (i === 0 ? '1.5px dashed var(--color-accent-400)' : '1.5px solid ' + DIV), ic: 'var(--color-bg)', lc: i === 0 ? A7 : N6 });
+    }
+    const stages = D.stages;
+    let allT = 0, doneT = 0, next = null;
+    stages.forEach(s => s.topics.forEach((t, j) => { allT++; const key = s.id + ':' + j; if (S.done[key]) doneT++; else if (!next) next = { s, j }; }));
+    const totalPct = allT ? Math.round(doneT / allT * 100) + '%' : '0%';
+    const cards = D.cards.map((c, i) => ({ id: 'c' + i, tag: (stages.find(s => s.id === c[0]) || {}).title || c[0], f: c[1], b: c[2] }));
+    const due = cards.filter(c => !S.cards[c.id] || S.cards[c.id].due <= today).sort((a, b) => (st.seen[a.id] || 0) - (st.seen[b.id] || 0));
+    const learned = cards.filter(c => S.cards[c.id] && S.cards[c.id].box >= 3).length;
+    const labsDone = D.labs.filter(l => S.labs[l.id]).length;
+    const view = st.view, tab = st.tab;
+    const show = { bugun: !view && tab === 'bugun', yol: !view && tab === 'yol', lib: !view && tab === 'lib', mashq: !view && tab === 'mashq', more: !view && tab === 'more', stage: view === 'stage', quiz: view === 'quiz', projects: view === 'projects', project: view === 'project', resume: view === 'resume', install: view === 'install', settings: view === 'settings' };
+    const check = (on, toggle, t) => ({ t, on, toggle, bc: on ? A : 'var(--color-neutral-400)', bg: on ? A : 'transparent', c: on ? N6 : 'var(--color-text)', dec: on ? 'line-through' : 'none' });
+    const quizzesDone = stages.filter(s => S.quiz[s.id] != null).length;
+    const perfect = stages.some(s => S.quiz[s.id] === s.quiz.length);
+
+    const stObj = stages.find(s => s.id === st.stageId);
+    let stv = {};
+    if (stObj) {
+      const sid = stObj.id;
+      const dc = stObj.topics.filter((_, j) => S.done[sid + ':' + j]).length;
+      const best = S.quiz[sid];
+      const sLabs = D.labs.filter(l => l.st === sid), sLabsDone = sLabs.filter(l => S.labs[l.id]).length;
+      const ivs = D.interview.map((x, i) => ({ x, i })).filter(o => IV_TAG[o.x[0]] === sid);
+      const ivDone = ivs.filter(o => S.ivok[o.i]).length;
+      const note = S.notes[sid] || '';
+      const tok = (s) => String(s).toLowerCase().replace(/[‘’'`´]/g, '').replace(/[^a-z0-9\s\/\-]/g, ' ').split(/\s+/).filter(w => w.length >= 3).map(w => w.slice(0, 5));
+      const mine = {}; tok(note).forEach(w => { mine[w] = 1; mine[w.slice(0, 4)] = 1; });
+      const topicCov = stObj.topics.map(tp => { const k = tok(String(tp).split(/[:(—,]/)[0]).slice(0, 3); return k.length && k.some(w => mine[w] || mine[w.slice(0, 4)]); });
+      const covPct = stObj.topics.length ? Math.round(topicCov.filter(Boolean).length / stObj.topics.length * 100) : 100;
+      const done = { read: !!S.flow[sid + ':read'], note: note.trim().length >= 40 && (covPct >= 80 || (S.flow[sid + ':ai'] || 0) >= 80), test: best != null && best >= Math.ceil(stObj.quiz.length * 0.8), lab: sLabsDone >= sLabs.length, iv: ivDone >= Math.min(3, ivs.length) };
+      const order = STEP_N.map(s => s[0]);
+      const unlocked = (k) => order.slice(0, order.indexOf(k)).every(x => done[x]);
+      const firstTodo = order.find(k => !done[k]) || 'read';
+      const cur = st.stStep || firstTodo;
+      const open = unlocked(cur);
+      const goStep = (k) => { this.setState({ stStep: k }); window.scrollTo(0, 0); };
+      const NEED = { read: "Avval mavzularni o'rganing va “O'rganib bo'ldim” tugmasini bosing.", note: "Avval qisqacha xulosa yozing — mavzularning kamida 80% i tilga olinsin.", test: 'Avval nazariy savollardan kamida 80% bilan o\u2018ting.', lab: "Avval shu bosqichning terminal mashqlarini bajaring." };
+      const lib = STAGE_LIB[sid];
+      stv = {
+        n: stObj.n, title: stObj.title, why: stObj.why, weeks: stObj.weeks, cert: stObj.cert, hasCert: !!stObj.cert,
+        steps: STEP_N.map(([k, t], i) => { const on = k === cur, ok = done[k], op = unlocked(k); return { t, go: () => goStep(k), mark: ok ? '✓' : String(i + 1), bc: on ? A : 'transparent', bg: on ? 'var(--color-accent-100)' : 'transparent', op: op ? 1 : 0.5, dc: ok || on ? A : 'var(--color-neutral-400)', dbg: ok ? A : 'transparent', dtc: ok ? 'var(--color-bg)' : on ? A7 : 'var(--color-neutral-600)' }; }),
+        p: { read: open && cur === 'read', note: open && cur === 'note', test: open && cur === 'test', lab: open && cur === 'lab', iv: open && cur === 'iv' },
+        locked: !open, lockTitle: (STEP_N.find(s => s[0] === cur) || [])[1] + ' hali yopiq', lockText: NEED[firstTodo] || '', lockBtn: (STEP_N.find(s => s[0] === firstTodo) || [])[1] + 'ga o\u2018tish →', lockGo: () => goStep(firstTodo),
+        hasLib: !!lib, libHref: lib ? 'kutubxona/' + lib[0] + '.html' : '', libName: lib ? lib[1] : '',
+        doneLabel: dc + ' / ' + stObj.topics.length,
+        topics: stObj.topics.map((t, j) => { const key = sid + ':' + j; return check(!!S.done[key], () => { if (S.done[key]) { delete S.done[key]; this.act(-10, 0); } else { S.done[key] = true; this.act(10, 0); } }, t); }),
+        res: stObj.res.map(r => ({ n: r[0], u: r[1] })),
+        readDone: () => { if (!S.flow[sid + ':read']) { S.flow[sid + ':read'] = 1; this.act(10, 0); } goStep('note'); },
+        note, onNote: (e) => { S.notes[sid] = e.target.value; this.save(); },
+        noteMeta: 'Mavzular qamrovi: ' + covPct + '%' + (covPct < 80 ? ' · kamida 80% kerak' : ' · yetarli') + (S.flow[sid + ':ai'] != null ? ' · AI: ' + S.flow[sid + ':ai'] : ''),
+        canAI: !!(window.DevopsCloud && window.DevopsCloud.hasAI()) && note.trim().length >= 40, aiBtn: st.aiBusy ? 'AI tekshirmoqda…' : 'AI bilan tekshirish',
+        hasAiRes: !!st.aiRes[sid], aiScore: (st.aiRes[sid] || {}).score, aiFb: (st.aiRes[sid] || {}).feedback || (st.aiRes[sid] || {}).err || '', aiHasMiss: !!((st.aiRes[sid] || {}).missing || []).length, aiMiss: ((st.aiRes[sid] || {}).missing || []).join(' · '),
+        aiC: (st.aiRes[sid] || {}).score >= 80 ? 'var(--ok)' : 'var(--bad)', aiBg: (st.aiRes[sid] || {}).score >= 80 ? 'var(--ok-bg)' : 'var(--bad-bg)',
+        aiCheck: () => { if (st.aiBusy) return; this.setState({ aiBusy: true }); const theory = stObj.title + '. ' + (stObj.why || '') + '\nMavzular:\n- ' + stObj.topics.join('\n- '); window.DevopsCloud.gradeSummary(stObj.title, theory, note).then((r) => { S.flow[sid + ':ai'] = r.score; this.save(); this.setState({ aiBusy: false, aiRes: Object.assign({}, this.state.aiRes, { [sid]: r }) }); }, (e) => this.setState({ aiBusy: false, aiRes: Object.assign({}, this.state.aiRes, { [sid]: { score: 0, err: e.message } }) })); }, noteTopics: stObj.topics.map((tp, j) => ({ t: String(tp).split(/[:(—]/)[0].trim(), bc: topicCov[j] ? 'var(--ok)' : DIV, c: topicCov[j] ? 'var(--ok)' : N6 })), noteOp: done.note ? 1 : 0.5,
+        noteNext: () => { if (done.note) { if (!S.flow[sid + ':note']) { S.flow[sid + ':note'] = 1; this.act(15, 0); } goStep('test'); } },
+        quizTaken: best != null, quizPassed: best != null && best >= Math.ceil(stObj.quiz.length * 0.8),
+        quizNote: best != null ? 'Eng yaxshi natija: ' + best + ' / ' + stObj.quiz.length + (best >= Math.ceil(stObj.quiz.length * 0.8) ? '. O\u2018tdingiz — laboratoriya ochildi.' : '. Laboratoriya uchun kamida ' + Math.ceil(stObj.quiz.length * 0.8) + ' ta to\u2018g\u2018ri javob kerak.') : stObj.quiz.length + ' ta savol. Har to\u2018g\u2018ri javob +15 XP.',
+        quizBtn: best != null ? 'Qayta topshirish' : 'Testni boshlash',
+        startQuiz: () => this.open('quiz', { quiz: { id: sid, i: 0, picked: null, score: 0, done: false } }),
+        toLab: () => goStep('lab'), toIv: () => goStep('iv'),
+        labNote: sLabs.length ? sLabsDone + ' / ' + sLabs.length + ' mashq bajarildi.' : "Bu bosqichda alohida terminal mashqi yo'q — keyingi qadamga o'tishingiz mumkin.",
+        labCount: sLabs.length + ' ta', realName: (REAL_LAB[sid] || REAL_LAB.job)[0], realHref: (REAL_LAB[sid] || REAL_LAB.job)[1],
+        goLabs: () => { const i = D.labs.findIndex(l => l.st === sid); this.go('mashq', { pr: 'term' }); if (i >= 0) this.resetTerm(i); },
+        ivs: ivs.map(({ x, i }, n) => { const ok = !!S.ivok[i], opn = !!st.ivOpen[i]; return { q: x[1], a: x[2], open: opn, mark: ok ? '✓' : (n + 1) + '.', nc: ok ? A7 : N6, bc: ok ? 'var(--color-accent-300)' : DIV, okLabel: ok ? 'Tayyorman ✓' : 'Javob bera olaman', toggle: () => this.setState({ ivOpen: Object.assign({}, st.ivOpen, { [i]: !opn }) }), ok: () => { if (!S.ivok[i]) { S.ivok[i] = 1; this.act(10, 0); } } }; }),
+      };
+    }
+
+    let qz = {};
+    if (st.quiz) {
+      const qs = stages.find(s => s.id === st.quiz.id), q = st.quiz, cur = qs.quiz[q.i] || qs.quiz[0];
+      const ok = q.picked != null && q.picked === cur.a;
+      qz = {
+        running: !q.done, finished: q.done, num: q.i + 1, total: qs.quiz.length, q: cur.q, e: cur.e, picked: q.picked != null, score: q.score, xpWon: q.score * 15,
+        fTitle: ok ? 'To\'g\'ri!' : 'Noto\'g\'ri', fc: ok ? 'var(--ok)' : 'var(--bad)', fbg: ok ? 'var(--ok-bg)' : 'var(--bad-bg)',
+        dots: qs.quiz.map((_, j) => ({ bg: j < q.i || q.done || (j === q.i && q.picked != null) ? A : DIV })),
+        opts: cur.o.map((t, j) => {
+          const p = q.picked, right = j === cur.a;
+          const state = p == null ? 'idle' : right ? 'right' : j === p ? 'wrong' : 'dim';
+          return { t, letter: 'ABCDEF'[j],
+            bc: state === 'right' ? 'var(--ok)' : state === 'wrong' ? 'var(--bad)' : DIV,
+            bg: state === 'right' ? 'var(--ok-bg)' : state === 'wrong' ? 'var(--bad-bg)' : 'var(--card-bg)',
+            lc: state === 'right' ? 'var(--ok)' : state === 'wrong' ? 'var(--bad)' : 'var(--color-neutral-500)',
+            pick: () => { if (q.picked != null) return; const good = j === cur.a; this.setState({ quiz: Object.assign({}, q, { picked: j, score: q.score + (good ? 1 : 0) }) }); if (good) this.act(15, 0); } };
+        }),
+        nextLabel: q.i + 1 < qs.quiz.length ? 'Davom etish' : 'Natijani ko\'rish',
+        next: () => { if (q.i + 1 < qs.quiz.length) this.setState({ quiz: Object.assign({}, q, { i: q.i + 1, picked: null }) }); else { S.quiz[qs.id] = Math.max(S.quiz[qs.id] || 0, q.score); this.save(); this.setState({ quiz: Object.assign({}, q, { done: true }) }); } },
+        verdict: q.score === qs.quiz.length ? 'A\'lo. Keyingi bosqichga o\'tishingiz mumkin.' : q.score >= qs.quiz.length / 2 ? 'Yaxshi. Xato qilgan mavzularni qayta ko\'rib chiqing.' : 'Mavzularni qayta o\'qib, yana topshiring.',
+        retry: () => this.setState({ quiz: { id: qs.id, i: 0, picked: null, score: 0, done: false } })
+      };
+    }
+
+    const lab = D.labs[st.lab] || { t: '', g: '' };
+    const LC = { cmd: 'var(--term-fg)', out: 'var(--term-dim)', ok: '#8fd19a', err: '#ee8e80', sys: 'var(--term-dim)' };
+    const card = due[0];
+    const pjObj = D.projects.find(p => p.id === st.projId);
+    const ivList = D.interview, ivCur = ivList[st.ivI % (ivList.length || 1)] || ['', '', ''];
+    const ivVals = Object.values(S.iv);
+    let clock = '2:00';
+    if (st.ivStart) { const left = Math.max(0, 120 - Math.floor((Date.now() - st.ivStart) / 1000)); clock = Math.floor(left / 60) + ':' + pad(left % 60); }
+    const ivNext = () => this.setState({ ivI: (st.ivI + 1) % ivList.length, ivPhase: 'idle', ivStart: null });
+    const resumeDone = D.resume.filter((_, i) => S.resume[i]).length;
+    const projDone = D.projects.filter(p => p.steps.every((_, j) => S.steps[p.id + ':' + j])).length;
+    const h = now.getHours();
+    let lastLib = null; try { lastLib = localStorage.getItem('devops-last-lib'); } catch (e) {}
+    const lastObj = LIB.find(l => l.k + '.html' === lastLib);
+    const libRows = LIB.map((l, i) => ({ num: pad(i + 1), t: l.t, s: l.s, href: 'kutubxona/' + l.k + '.html' }));
+    const curStageIdx = next ? stages.indexOf(next.s) : stages.length;
+    const goPr = (p) => this.go('mashq', { pr: p });
+    const BADGES = [
+      ['Birinchi qadam', IC.flag, doneT >= 1], ['3 kun olov', IC.flame, streak >= 3], ['7 kun olov', IC.flame, streak >= 7],
+      ['Terminalchi', IC.term, labsDone >= 5], ['Terminal ustasi', IC.term, D.labs.length > 0 && labsDone === D.labs.length],
+      ['Xotira', IC.layers, learned >= 10], ['A\'lochi', IC.star, perfect], ['Portfolio', IC.brief, projDone >= 1],
+    ];
+    const tabDef = [['bugun', 'Bugun', IC.sun], ['yol', 'Yo\'l', IC.map], ['lib', 'Kutubxona', IC.book], ['mashq', 'Mashq', IC.term], ['more', 'Profil', IC.user]];
+    const thIdx = THEMES.findIndex(t => t.k === st.theme);
+
+    return {
+      notReady: !st.ready,
+      show, title: view ? TITLES[view] || (stObj ? stObj.title : '') : TITLES[tab],
+      hasBack: !!view, back: () => { if (view === 'quiz') this.setState({ view: 'stage', quiz: null, stStep: 'test' }); else if (view === 'project') this.setState({ view: 'projects' }); else this.setState({ view: null }); window.scrollTo(0, 0); },
+      cycleTheme: () => this.setTheme(THEMES[(thIdx + 1) % THEMES.length].k), themeName: (THEMES[thIdx] || THEMES[0]).t,
+      themes: THEMES.map(t => ({ t: t.t, bg: t.bg, fg: t.fg, on: t.k === st.theme, bc: t.k === st.theme ? A : DIV, set: () => this.setTheme(t.k) })),
+      streak, xp, level, rank: RANKS[Math.min(RANKS.length - 1, level - 1)],
+      lvlPct: Math.round(lvlFrac * 100) + '%', lvlLeft: 500 - (xp % 500),
+      lvlDash: (lvlFrac * 2 * Math.PI * 38).toFixed(1) + ' ' + (2 * Math.PI * 38).toFixed(1),
+      dateLabel: WD[now.getDay()] + ' · ' + now.getDate() + ' ' + OY[now.getMonth()],
+      greeting: h < 12 ? 'Xayrli tong' : h < 18 ? 'Xayrli kun' : 'Xayrli kech',
+      ringDash: (pct * C).toFixed(1) + ' ' + C.toFixed(1),
+      todayLabel: fmtMin(todayMin), goalLabel: fmtMin(goal),
+      goalNote: pct >= 1 ? 'Bugungi maqsad bajarildi.' : 'Yana ' + fmtMin(goal - todayMin) + ' qoldi.',
+      timerOn: !!S.timer, timerOff: !S.timer, timerLabel,
+      startTimer: () => { S.timer = Date.now(); this.save(); },
+      stopTimer: () => { const m = Math.floor((Date.now() - S.timer) / 60000); S.timer = null; this.act(Math.floor(m / 15) * 5, m); },
+      add15: () => this.act(5, 15), add60: () => this.act(20, 60),
+      week,
+      hasNext: !!next,
+      next: next ? (() => { const sd = next.s.topics.filter((_, j) => S.done[next.s.id + ':' + j]).length; return { n: next.s.n, stage: next.s.title, topic: next.s.topics[next.j], left: next.s.topics.length - sd, stagePct: Math.round(sd / next.s.topics.length * 100) + '%', open: () => { this.setState({ tab: 'yol', view: 'stage', stageId: next.s.id, stStep: null }); window.scrollTo(0, 0); } }; })() : {},
+      quick: [
+        { t: 'kartochka takrorlash', v: due.length, icon: IC.layers, go: () => goPr('cards') },
+        { t: 'terminal mashq', v: labsDone + '/' + D.labs.length, icon: IC.term, go: () => goPr('term') },
+        { t: 'bosqich testi', v: quizzesDone + '/' + stages.length, icon: IC.check, go: () => { const s = next ? next.s : stages[0]; if (s) this.setState({ tab: 'yol', view: 'stage', stageId: s.id, stStep: 'test' }); window.scrollTo(0, 0); } },
+        { t: 'fikrlarim', v: Object.values(S.notes).filter(v => v.trim().length >= 60).length, icon: IC.chat, go: () => { const s = next ? next.s : stages[0]; if (s) this.setState({ tab: 'yol', view: 'stage', stageId: s.id, stStep: 'note' }); window.scrollTo(0, 0); } },
+      ],
+      libTop: libRows.slice(0, 6), lib: libRows, hasLast: !!lastObj, last: lastObj ? { t: lastObj.t, href: 'kutubxona/' + lastObj.k + '.html' } : {},
+      goLib: () => this.go('lib'),
+      dueCount: due.length, cardsTotal: cards.length, learned,
+      labsDone, labsTotal: D.labs.length, totalPct,
+      planNote: doneT + ' / ' + allT + ' mavzu',
+      stages: stages.map((s, i) => {
+        const dc = s.topics.filter((_, j) => S.done[s.id + ':' + j]).length, b = S.quiz[s.id];
+        const complete = dc === s.topics.length, cur = i === curStageIdx;
+        return { n: s.n, title: s.title, complete, open2: !complete, pct: Math.round(dc / s.topics.length * 100) + '%',
+          kicker: complete ? 'Tugallandi' : cur ? 'Hozir' : s.weeks + ' hafta', kc: complete || cur ? A7 : N6,
+          nodeBorder: complete ? '2px solid ' + A : cur ? '2px solid ' + A : '1.5px solid ' + DIV,
+          nodeBg: complete ? A : cur ? 'var(--color-accent-100)' : 'transparent', nodeC: complete ? 'var(--color-bg)' : cur ? A7 : N6,
+          lineBg: i === stages.length - 1 ? 'transparent' : complete ? A : DIV,
+          meta: dc + '/' + s.topics.length + ' mavzu' + (s.cert ? ' · ' + s.cert : ''), badge: b != null ? b + '/' + s.quiz.length : '', open: () => this.open('stage', { stageId: s.id, stStep: null }) };
+      }),
+      st: stv, qz,
+      segs: [['term', 'Terminal'], ['cards', 'Takror']].map(([key, t]) => ({ t, go: () => this.setState({ pr: key }), bc: st.pr === key ? A : 'transparent', bg: st.pr === key ? 'var(--color-accent-100)' : 'transparent', c: st.pr === key ? A7 : 'var(--color-text)' })),
+      pr: { term: st.pr === 'term', cards: st.pr === 'cards', iv: st.pr === 'iv' },
+      lab: { num: st.lab + 1, t: lab.t, g: lab.g, stage: (stages.find(s => s.id === lab.st) || {}).title || '' },
+      lines: st.lines.map(l => ({ t: l.t, c: LC[l.k] })),
+      cmd: st.cmd, termRef: this.termRef, inputRef: this.inputRef,
+      onCmd: (e) => this.setState({ cmd: e.target.value }),
+      onKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.runCmd(); } },
+      focusTerm: () => this.inputRef.current && this.inputRef.current.focus(),
+      showHint: () => this.setState({ lines: st.lines.concat([{ t: 'Yordam: ' + lab.h, k: 'sys' }]) }),
+      prevLab: () => this.resetTerm((st.lab - 1 + D.labs.length) % D.labs.length),
+      nextLab: () => this.resetTerm((st.lab + 1) % D.labs.length),
+      labDots: D.labs.map((l, i) => { const on = !!S.labs[l.id], cur = i === st.lab; return { num: i + 1, go: () => this.resetTerm(i), bc: cur ? A7 : on ? A : DIV, bg: on ? 'var(--color-accent-100)' : 'transparent', c: cur ? A7 : 'var(--color-text)' }; }),
+      hasCard: !!card, noCard: !card, card: card || {}, cardFlip: st.cardFlip, cardHidden: !st.cardFlip,
+      flip: () => this.setState({ cardFlip: !st.cardFlip }),
+      rateAgain: () => card && this.rate('again', card.id), rateHard: () => card && this.rate('hard', card.id), rateGood: () => card && this.rate('good', card.id),
+      stats: [{ v: doneT, t: 'mavzu' }, { v: quizzesDone, t: 'test' }, { v: labsDone, t: 'mashq' }, { v: learned, t: 'kartochka' }],
+      badges: BADGES.map(([t, icon, on]) => ({ t, icon, op: on ? 1 : 0.72, bc: on ? A : DIV, bg: on ? 'var(--color-accent-100)' : 'transparent', ic: on ? 'var(--color-accent-700)' : 'var(--color-neutral-500)' })),
+      badgeCount: BADGES.filter(b => b[2]).length + ' / ' + BADGES.length,
+      menu: [
+        { t: 'Loyihalar', s: D.projects.length + ' ta portfolio loyiha · ' + projDone + ' tayyor', go: () => this.open('projects') },
+        { t: 'Rezyume va GitHub', s: resumeDone + ' / ' + D.resume.length + ' bajarildi', go: () => this.open('resume') },
+        { t: 'Sozlamalar va ko\'chirish', s: 'Kunlik maqsad: ' + fmtMin(goal) + ' · progressni boshqa qurilmaga o\'tkazish', go: () => this.open('settings') },
+        { t: 'O\'rnatish', s: 'iPhone, Android va kompyuter', go: () => this.open('install') },
+      ],
+      projects: D.projects.map(p => { const d = p.steps.filter((_, j) => S.steps[p.id + ':' + j]).length; return { t: p.t, lvl: p.lvl, stack: p.stack, prog: d + '/' + p.steps.length + ' qadam', open: () => this.open('project', { projId: p.id }) }; }),
+      pj: pjObj ? { t: pjObj.t, lvl: pjObj.lvl, d: pjObj.d, stack: pjObj.stack, steps: pjObj.steps.map((t, j) => { const key = pjObj.id + ':' + j; return check(!!S.steps[key], () => { if (S.steps[key]) { delete S.steps[key]; this.act(-25, 0); } else { S.steps[key] = true; this.act(25, 0); } }, t); }) } : {},
+      iv: {
+        tag: ivCur[0], q: ivCur[1], a: ivCur[2], num: (st.ivI % (ivList.length || 1)) + 1, total: ivList.length, clock,
+        idle: st.ivPhase === 'idle', answering: st.ivPhase === 'answer', revealed: st.ivPhase === 'reveal',
+        good: ivVals.filter(v => v === 'g').length, bad: ivVals.filter(v => v === 'b').length,
+        start: () => this.setState({ ivPhase: 'answer', ivStart: Date.now() }),
+        reveal: () => this.setState({ ivPhase: 'reveal', ivStart: null }),
+        rateGood: () => { S.iv[st.ivI] = 'g'; this.act(5, 0); ivNext(); },
+        rateBad: () => { S.iv[st.ivI] = 'b'; this.act(5, 0); ivNext(); },
+        skip: ivNext
+      },
+      resume: D.resume.map((t, i) => check(!!S.resume[i], () => { if (S.resume[i]) { delete S.resume[i]; this.act(-5, 0); } else { S.resume[i] = true; this.act(5, 0); } }, t)),
+      resumePct: D.resume.length ? Math.round(resumeDone / D.resume.length * 100) + '%' : '0%',
+      goals: [120, 180, 240, 300].map(g => ({ t: fmtMin(g), set: () => { S.goal = g; this.save(); }, bc: g === goal ? A : DIV, bg: g === goal ? 'var(--color-accent-100)' : 'transparent' })),
+      resetAll: () => { if (window.confirm('Ilova progressi o\'chiriladi. Davom etasizmi?')) { this.S = Object.assign(loadS(), { days: {}, done: {}, quiz: {}, labs: {}, cards: {}, steps: {}, resume: {}, iv: {}, notes: {}, flow: {}, ivok: {}, timer: null }); this.save(); } },
+      exportAll: () => { const blob = new Blob([this.dump()], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'devops-yol-progress-' + new Date().toISOString().slice(0, 10) + '.json'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); this.setState({ syncMsg: '✓ Fayl saqlandi. Uni boshqa qurilmaga yuboring (Telegram, AirDrop, email).' }); },
+      copyAll: () => { const s = this.dump(); const done = () => this.setState({ syncMsg: '✓ Nusxa olindi. Boshqa qurilmada shu maydonga qo\u2018ying.' }); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(s).then(done, () => this.setState({ importText: s, syncMsg: 'Matn pastda — belgilab nusxa oling.' })); else this.setState({ importText: s, syncMsg: 'Matn pastda — belgilab nusxa oling.' }); },
+      pickImport: () => this.fileRef.current && this.fileRef.current.click(), fileRef: this.fileRef,
+      onFile: (e) => { const f = e.target.files && e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => this.restore(String(r.result)); r.readAsText(f); e.target.value = ''; },
+      importText: st.importText, onImportText: (e) => this.setState({ importText: e.target.value }), hasImportText: st.importText.trim().length > 20 && st.importText.trim()[0] === '{',
+      applyImportText: () => this.restore(st.importText.trim()),
+      hasSyncMsg: !!st.syncMsg, syncMsg: st.syncMsg,
+      cl: (() => { const DC = window.DevopsCloud, c = st.cloud || {}, has = !!(DC && DC.hasFb()) && !st.editCfg; const run = (p) => p.then(() => this.setState({ pw: '' }), (e) => this.setState({ cloud: Object.assign({}, this.state.cloud, { msg: e.message }) }));
+        return { needCfg: !has, needLogin: has && c.status !== 'in', loggedIn: has && c.status === 'in', userEmail: (c.user || {}).email || '',
+          statusT: !has ? 'sozlanmagan' : c.status === 'in' ? 'ulangan' : c.status === 'err' ? 'xato' : 'kirilmagan', sc: c.status === 'in' ? 'var(--ok)' : N6,
+          cfgText: st.cfgText, onCfg: (e) => this.setState({ cfgText: e.target.value }),
+          saveCfg: () => { if (!DC || !DC.parseCfg(st.cfgText)) return this.setState({ cloud: Object.assign({}, c, { msg: 'Config o‘qilmadi — Firebase’dagi firebaseConfig = { … } qismini to‘liq nusxalang.' }) }); DC.setCfg(st.cfgText); this.setState({ editCfg: false, cloud: Object.assign({}, c, { msg: 'Saqlandi. Endi email va parol bilan kiring.' }) }); },
+          editCfg: () => this.setState({ editCfg: true, cfgText: DC ? DC.getCfg() : '' }),
+          email: st.email, pw: st.pw, onEmail: (e) => this.setState({ email: e.target.value }), onPw: (e) => this.setState({ pw: e.target.value }),
+          signIn: () => run(DC.signIn(st.email.trim(), st.pw)), signUp: () => run(DC.signUp(st.email.trim(), st.pw)), signOut: () => DC.signOut(),
+          push: () => DC.push(true), pull: () => { if (window.confirm('Shu qurilmadagi progress bulutdagisi bilan almashtiriladi. Davom etasizmi?')) DC.pull(false); },
+          hasMsg: !!c.msg, msg: c.msg || '' }; })(),
+      ai: (() => { const DC = window.DevopsCloud, has = !!(DC && DC.hasAI());
+        return { statusT: has ? 'yoqilgan' : 'o‘chiq', sc: has ? 'var(--ok)' : N6, keyText: st.keyText, onKey: (e) => this.setState({ keyText: e.target.value }),
+          save: () => { DC.setKey(st.keyText); this.setState({ aiMsg: st.keyText.trim() ? '✓ Kalit saqlandi.' : 'Kalit o‘chirildi.' }); },
+          test: () => { DC.setKey(st.keyText); this.setState({ aiMsg: 'Tekshirilmoqda…' }); DC.ai('Faqat "OK" deb javob ber.').then((r) => this.setState({ aiMsg: '✓ Ishlayapti: ' + String(r).trim().slice(0, 40) }), (e) => this.setState({ aiMsg: e.message })); },
+          hasMsg: !!st.aiMsg, msg: st.aiMsg }; })(),
+      hasToast: !!st.toast, toast: st.toast || '',
+      tabs: tabDef.map(([key, t, icon]) => ({ t, icon, go: () => this.go(key), c: tab === key ? A7 : N6, bar: tab === key ? A : 'transparent' })),
+    };
+  }
+}
+</script>
+</body>
+</html>

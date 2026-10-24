@@ -1,0 +1,14 @@
+:root{--ok:oklch(0.52 0.09 145);--ok-bg:oklch(0.52 0.09 145 / .1);--bad:oklch(0.5 0.13 30);--bad-bg:oklch(0.5 0.13 30 / .09);--term-bg:#1d1c1a;--term-fg:#ecebe8;--term-dim:#a9a49c;--card-bg:#faf9f7;--sheet:#faf9f7}
+html[data-theme="dark"]{
+--color-bg:#0b0b0a;--color-surface:#161513;--color-text:#ecebe8;--color-accent:#d4a25c;--color-accent-2:#d4a25c;--color-divider:color-mix(in srgb,#ecebe8 14%,transparent);
+--color-neutral-100:#1a1918;--color-neutral-200:#24231f;--color-neutral-300:#34322e;--color-neutral-400:#55524c;--color-neutral-500:#7a766f;--color-neutral-600:#9c978f;--color-neutral-700:#bcb7ae;--color-neutral-800:#d8d4cd;--color-neutral-900:#f0eeea;
+--color-accent-100:#231a0e;--color-accent-200:#33250f;--color-accent-300:#5b4220;--color-accent-400:#8c6531;--color-accent-500:#c28d41;--color-accent-600:#d9a65c;--color-accent-700:#e6b978;--color-accent-800:#f1d09f;--color-accent-900:#fae6c8;
+--shadow-sm:0 1px 2px rgba(0,0,0,.5);--shadow-md:0 4px 14px rgba(0,0,0,.5);--shadow-lg:0 12px 32px rgba(0,0,0,.6);
+--ok:oklch(0.74 0.11 145);--ok-bg:oklch(0.74 0.11 145 / .12);--bad:oklch(0.72 0.13 30);--bad-bg:oklch(0.72 0.13 30 / .12);--term-bg:#000;--term-fg:#ecebe8;--term-dim:#8d887f;--card-bg:#141412;--sheet:#141412;color-scheme:dark}
+html[data-theme="navy"]{
+--color-bg:#0e1b2d;--color-surface:#15253b;--color-text:#e6edf6;--color-accent:#d4a25c;--color-accent-2:#d4a25c;--color-divider:color-mix(in srgb,#e6edf6 14%,transparent);
+--color-neutral-100:#132339;--color-neutral-200:#1a2d47;--color-neutral-300:#263d5c;--color-neutral-400:#435a7c;--color-neutral-500:#687f9f;--color-neutral-600:#8fa3bf;--color-neutral-700:#b4c3d7;--color-neutral-800:#d4deea;--color-neutral-900:#eef3f9;
+--color-accent-100:#1f2228;--color-accent-200:#2e2a22;--color-accent-300:#5b4626;--color-accent-400:#8c6a35;--color-accent-500:#c28d41;--color-accent-600:#d9a65c;--color-accent-700:#e6b978;--color-accent-800:#f1d09f;--color-accent-900:#fae6c8;
+--shadow-sm:0 1px 2px rgba(0,8,20,.5);--shadow-md:0 4px 14px rgba(0,8,20,.5);--shadow-lg:0 12px 32px rgba(0,8,20,.6);
+--ok:oklch(0.76 0.11 150);--ok-bg:oklch(0.76 0.11 150 / .12);--bad:oklch(0.74 0.12 30);--bad-bg:oklch(0.74 0.12 30 / .12);--term-bg:#07101c;--term-fg:#e6edf6;--term-dim:#8fa3bf;--card-bg:#132238;--sheet:#132238;color-scheme:dark}
+html,body{background:var(--color-bg);transition:background-color .2s}

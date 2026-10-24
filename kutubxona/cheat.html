@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="uz"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>cheat · DevOps Yo'l</title>
+<link rel="stylesheet" href="lib/classical-fonts.css">
+<script>(function(){try{var t=localStorage.getItem('devops-theme')||'light';document.documentElement.dataset.theme=t;var c={light:'#f3f2f2',dark:'#0b0b0a',navy:'#0e1b2d'}[t];document.write('<meta name="theme-color" content="'+c+'">');localStorage.setItem('devops-last-lib',location.pathname.split('/').pop());}catch(e){}})();</script>
+<link rel="stylesheet" href="lib/kutubxona.css">
+<link rel="stylesheet" href="lib/svg-theme.css">
+<script src="lib/shell.js" defer></script>
+<script src="../cloud.js"></script>
+
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/c39ef070ae66.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/9836f315b5c3.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/6c8912d7cfd8.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/4af8cef522bd.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("lib/bb87500e3204.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/a458a7d1793d.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/caa0275bed3d.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/ed50e3834136.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/3e942f428e7d.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("lib/d32f0e0701ac.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  a { color: #1a6a86; }
+  a:hover { color: #0f4a5e; }
+</style>
+<script src="lib/d870e017c287.js"></script>
+
+
+
+</head>
+<body>
+
+<div style="display:flex;flex-wrap:wrap;gap:6px;padding:14px 16px;background:#0b0d11">
+  <a href="hub.html" style="font:500 12.5px Lora,sans-serif;letter-spacing:.04em;padding:8px 14px;border:1px solid rgba(233,238,244,0.16);color:rgba(233,238,244,0.62);text-decoration:none">← Bosh sahifa</a>
+  <a href="figs.html" style="font:500 12.5px Lora,sans-serif;letter-spacing:.04em;padding:8px 14px;border:1px solid rgba(233,238,244,0.16);color:rgba(233,238,244,0.62);text-decoration:none">Sxemalar galereyasi →</a>
+  <span style="font:500 12.5px 'IBM Plex Mono',monospace;padding:8px 14px;color:rgba(233,238,244,0.45)">chop etish: Ctrl/Cmd + P</span>
+</div>
+<doc-page size="a4">
+
+  <section class="page" id="p1" style="box-sizing:border-box;padding:12mm 11mm;background:#f6f4ef;color:#15181c;font-family:Lora,ui-sans-serif,sans-serif;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #15181c;padding-bottom:5px;margin-bottom:9px">
+      <div style="font:600 28px/1 'Cormorant Garamond',sans-serif;letter-spacing:-.02em">Linux — shahar</div>
+      <div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#6b7280">DevOps Learning · 1/6</div>
+    </div>
+    <div style="column-count:2;column-gap:8mm;font-size:0">
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Process — kim ishlayapti</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>ps aux</b> — butun fotosurat<br><b>ps aux --sort=-%cpu | head</b> — ochko'zlar<br><b>ps aux --sort=-%mem | head</b> — xotira<br><b>pgrep -a nginx</b> — ism bilan topish<br><b>top</b> / <b>htop</b> — jonli monitor<br><b>docker top</b> / <b>kubectl top</b> — quti ichida</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Signal — to'xtatish</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>kill PID</b> — SIGTERM: "yig'ishtir va chiq"<br><b>kill -9 PID</b> — SIGKILL: rubilnik<br>exit <b>143</b> = SIGTERM · <b>137</b> = SIGKILL/OOM<br>zombie = ota imzolamagan · orphan → PID 1</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">systemd — dispetcher</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>systemctl status X</b> — chiroq qaysi rang<br><b>start / stop</b> — hozir yoq / o'chir<br><b>restart</b> — buzib qayta (downtime)<br><b>reload</b> — yangi yo'riqnoma (downtimesiz)<br><b>enable --now</b> — boot ro'yxati + hozir<br><b>journalctl -u X -n 50</b> — qora kitob<br><b>journalctl -f</b> jonli · <b>-b</b> bootdan · <b>-k</b> kernel</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Disk va fayl</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>df -h</b> — joy · <b>df -i</b> — inode (boshqa narsa!)<br><b>du -sh /var/*</b> — kim yeyapti<br><b>lsof +L1</b> — o'chirilgan, lekin ochiq fayl<br><b>ls -li</b> — inode raqami (hard link tekshiruvi)<br><b>ln a b</b> hard · <b>ln -s a b</b> symlink<br><b>ulimit -n</b> · <b>lsof -p PID</b> — FD chiptalari</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Ruxsat — 4·2·1</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937">r=4 w=2 x=1 · owner group other<br><b>755</b> skript/papka · <b>644</b> oddiy fayl · <b>600</b> kalit<br>papkada <b>x</b> = "ichkariga kirish", ishga tushirish emas</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Xotira</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>free -h</b> → <b>ps --sort=-%mem</b> → <b>journalctl -k</b><br>load average = navbat / kassa (yadro) soni<br>1 &gt; 15 — o'syapti · swap ko'p → thrashing</div>
+      </div>
+
+      <div style="break-inside:avoid">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1a6a86;margin-bottom:4px">Tekshiruv zanjiri</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">1. process tirikmi — <b>pgrep -a</b><br>2. eshik ochiqmi — <b>ss -lntup</b><br>3. xizmat holati — <b>systemctl status</b><br>4. resurs — <b>free -h</b>, <b>df -h</b><br>5. log — <b>journalctl -n 50</b></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="page" id="p2" style="box-sizing:border-box;padding:12mm 11mm;background:#f6f4ef;color:#15181c;font-family:Lora,ui-sans-serif,sans-serif">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #15181c;padding-bottom:5px;margin-bottom:9px">
+      <div style="font:600 28px/1 'Cormorant Garamond',sans-serif;letter-spacing:-.02em">Networking — pochta</div>
+      <div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#6b7280">DevOps Learning · 2/6</div>
+    </div>
+    <div style="column-count:2;column-gap:8mm">
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Manzil va yo'l</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>ip addr</b> — manzilim bormi?<br><b>ip route</b> — tashqariga yo'lim bormi?<br><b>ip route get 8.8.8.8</b> — qaysi yo'ldan<br><b>ip neigh</b> — ARP: bu IP kimda?<br>/24 = 256 manzil · birinchi = network<br>oxirgi = broadcast · default gw = 0.0.0.0/0</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Eshik va nom</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>ss -lntup</b> — kim qaysi portda eshityapti<br><b>nc -vz host port</b> — TCP ulanadimi<br><b>getent hosts X</b> — tizim qanday ko'radi<br><b>dig X</b> / <b>dig @8.8.8.8 X +short</b> — DNS to'g'ridan<br><b>curl -I https://X</b> — HTTPS javobi<br>dig ishlab getent ishlamasa → resolv.conf</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b3261e;margin-bottom:4px">Timeout va refused</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937"><b>timeout = sukunat</b> — javob kelmadi: DNS, route, firewall DROP, tarmoq, server o'lik. Butun zanjir tekshiriladi.<br><b>refused = rad javobi</b> — paket yetib bordi, o'sha portda listener yo'q. Bitta joy: <b>ss -lntup</b>.</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Qavatlar</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937">L2 MAC · L3 IP · L4 TCP/UDP · L7 HTTP/DNS/SSH<br>TCP: SYN → SYN-ACK → ACK<br>ishonchlilik: seq + ACK + retransmit + window<br>UDP: handshake yo'q, kafolat yo'q, tez</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">DNS recordlar</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>A</b> IPv4 · <b>AAAA</b> IPv6 · <b>CNAME</b> alias<br><b>MX</b> pochta · <b>TXT</b> metadata · <b>NS</b> authoritative<br><b>PTR</b> teskari · <b>TTL</b> — cache umri<br>propagation = TTL tugashini kutish</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">NAT va HTTP</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>SNAT</b> = chiqish · <b>DNAT</b> = kirish (port forward)<br>4xx clientda · 5xx serverda<br><b>502</b> yaroqsiz javob · <b>504</b> javob kechikdi<br><b>401</b> autentifikatsiya · <b>403</b> ruxsat · <b>429</b> ko'p so'rov</div>
+      </div>
+
+      <div style="break-inside:avoid">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1a6a86;margin-bottom:4px">Narvon — pastdan yuqoriga</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">Name → IP → Route → TCP port → TLS/HTTP → Application. Har pog'onada bitta savol, bitta buyruq.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="page" id="p3" style="box-sizing:border-box;padding:12mm 11mm;background:#f6f4ef;color:#15181c;font-family:Lora,ui-sans-serif,sans-serif">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #15181c;padding-bottom:5px;margin-bottom:9px">
+      <div style="font:600 28px/1 'Cormorant Garamond',sans-serif;letter-spacing:-.02em">Docker — qutixona</div>
+      <div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#6b7280">DevOps Learning · 3/6</div>
+    </div>
+    <div style="column-count:2;column-gap:8mm">
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Yo'nalish</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">Dockerfile → <b>build</b> → Image → <b>run</b> → Container → Application. Container to'rt o'lchamda: process, network, filesystem, resources.</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Dockerfile</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>FROM</b> asos · <b>WORKDIR</b> katalog · <b>COPY</b> fayl<br><b>RUN</b> build vaqtida · <b>CMD</b> run vaqtida<br><b>ENTRYPOINT</b> ijrochi + <b>CMD</b> argument<br><b>EXPOSE</b> faqat hujjat — port ochmaydi<br><b>USER</b> root'dan chiqish · <b>ENV</b> sozlama<br>cache: dependency yuqorida, <b>COPY . .</b> pastda</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Kundalik buyruqlar</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>docker ps -a</b> — exit code bilan<br><b>docker logs -f --tail 50 X</b><br><b>docker inspect X</b> — OOMKilled, CMD, mount<br><b>docker exec -it X sh</b> — ichkariga kirish<br><b>docker top X</b> — PID 1 kim?<br><b>docker stats</b> — CPU, xotira, I/O<br><b>docker system df</b> / <b>prune</b> — disk</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b3261e;margin-bottom:4px">Eng ko'p uchraydigan xato</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">Dastur <b>127.0.0.1</b>ga bind qilingan → hostdan yetib borilmaydi. <b>0.0.0.0</b>ga bind qilinishi kerak. Tekshirish: <b>docker exec -it X ss -lntup</b>.</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Tarmoq va volume</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>-p 8000:8000</b> — DNAT (haqiqiy ochish)<br>container localhost = o'zi, host emas<br>nom orqali topish → o'z tarmog'ida (bridge emas)<br><b>docker network create app-net</b> + <b>connect</b><br><b>-v vol:/path</b> volume · <b>-v /host:/path</b> bind<br>holat container ichida turmaydi</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Resurs va signal</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>-m 512m</b> — oshsa <b>OOMKilled</b> (137)<br><b>--cpus=1.5</b> — oshsa throttling (sekinlashadi)<br>xotira o'ldiradi, CPU sekinlashtiradi<br>exec form CMD → PID 1 dastur → SIGTERM yetadi</div>
+      </div>
+
+      <div style="break-inside:avoid">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1a6a86;margin-bottom:4px">Zanjir</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">darhol chiqdi → <b>ps -a</b>, <b>logs</b>, <b>inspect</b><br>ishlayapti-yu javob yo'q → log → process → port → bind → tarmoq → config → dependency</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="page" id="p4" style="box-sizing:border-box;padding:12mm 11mm;background:#f6f4ef;color:#15181c;font-family:Lora,ui-sans-serif,sans-serif">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #15181c;padding-bottom:5px;margin-bottom:9px">
+      <div style="font:600 28px/1 'Cormorant Garamond',sans-serif;letter-spacing:-.02em">Kubernetes — zavod</div>
+      <div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#6b7280">DevOps Learning · 4/6</div>
+    </div>
+    <div style="column-count:2;column-gap:8mm">
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">So'rovning yo'li</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">kubectl → <b>API server</b> (auth → admission → etcd) → <b>scheduler</b> → <b>kubelet</b> → runtime → Pod.<br>Trafik: DNS → LB → Ingress → Service → Pod.</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Kundalik buyruqlar</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>kubectl get pods -o wide</b><br><b>kubectl describe pod X</b> — events, exit code<br><b>kubectl logs X --previous</b> — o'lgan konteyner<br><b>kubectl get endpoints X</b> — bo'shmi?<br><b>kubectl exec -it X -- sh</b><br><b>kubectl rollout status|undo deploy/X</b><br><b>kubectl top pods</b> · <b>get events --sort-by=...</b></div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b3261e;margin-bottom:4px">Xato lug'ati</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>Pending</b> — joy yo'q / taint / PVC kutyapti<br><b>ImagePullBackOff</b> — teg, repo yoki secret<br><b>CrashLoopBackOff</b> — dastur yiqilyapti → logs<br><b>OOMKilled</b> (137) — limitga urildi<br><b>Terminating</b> qotdi — finalizer / grace<br><b>NotReady</b> node — kubelet, pressure, CNI</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Probe</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>readiness</b> — trafik bermi? (endpointdan chiqaradi)<br><b>liveness</b> — tirikmi? (qayta ishga tushiradi)<br><b>startup</b> — sekin startga vaqt beradi<br>liveness juda qattiq → cheksiz restart</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Obyektlar</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>Deployment</b> → ReplicaSet → Pod (stateless)<br><b>StatefulSet</b> — barqaror nom va disk<br><b>DaemonSet</b> — har node'da bitta<br><b>Job / CronJob</b> — bir martalik / jadvalli<br><b>Service</b> ClusterIP/NodePort/LoadBalancer<br><b>ConfigMap</b> ochiq · <b>Secret</b> maxfiy · <b>PVC</b> disk</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Resurs va availability</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>requests</b> — rejalashtirish uchun kafolat<br><b>limits</b> — yuqori chegara (xotira o'ldiradi)<br><b>anti-affinity</b> — bir node'ga to'planmaslik<br><b>topologySpreadConstraints</b> — zonalarga yoyish<br><b>PDB</b> — drain paytida minimal nusxa<br><b>cordon</b> → <b>drain</b> → yangilash → <b>uncordon</b></div>
+      </div>
+
+      <div style="break-inside:avoid">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1a6a86;margin-bottom:4px">Service ishlamasa</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">1. Service nomi (DNS) → 2. selector labelga mos → 3. <b>endpoints</b> bo'shmi → 4. readiness → 5. port/targetPort → 6. dastur 0.0.0.0 da → 7. NetworkPolicy</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="page" id="p5" style="box-sizing:border-box;padding:12mm 11mm;background:#f6f4ef;color:#15181c;font-family:Lora,ui-sans-serif,sans-serif">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #15181c;padding-bottom:5px;margin-bottom:9px">
+      <div style="font:600 28px/1 'Cormorant Garamond',sans-serif;letter-spacing:-.02em">CI/CD — konveyer</div>
+      <div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#6b7280">DevOps Learning · 5/6</div>
+    </div>
+    <div style="column-count:2;column-gap:8mm">
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Git</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937">working tree → <b>add</b> → staging → <b>commit</b> → tarix → <b>push</b> → remote<br><b>fetch</b> olib keladi · <b>pull</b> olib kelib birlashtiradi<br><b>merge</b> tarix saqlanadi · <b>rebase</b> qayta yoziladi<br><b>revert</b> umumiy branchda · <b>reset</b> faqat lokalda<br>umumiy tarixni qayta yozish — boshqalarni buzadi</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Pipeline</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937">lint → test → build → scan → image → push → deploy<br>arzon tekshiruv oldinda<br>bir marta build → o'sha artifact har muhitga<br>teg = <b>Git SHA</b>, hech qachon <b>latest</b></div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Deploy va rollback</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>rolling</b> arzon · <b>blue-green</b> darhol qaytadi<br><b>canary</b> eng xavfsiz (metrics kerak)<br><b>recreate</b> — uzilish bor<br><b>kubectl rollout undo</b> / <b>helm rollback X N</b><br>DB migratsiyasi qaytmaydi → orqaga mos qil</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">GitOps</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937">Git = desired state · kontroller reconcile qiladi<br>deploy = commit · rollback = eski commit<br><b>push</b> model: CI klasterga kiradi (kalit kerak)<br><b>pull</b> model: kontroller Gitni o'qiydi (kalit chiqmaydi)<br><b>Synced</b> / <b>OutOfSync</b> — drift o'zi tuzatiladi</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">IaC</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>terraform init → plan → apply</b><br>state — nimani yaratganini eslaydi (remote + lock)<br>Terraform yaratadi · Ansible sozlaydi<br>Ansible idempotent: ikki marta — bir natija</div>
+      </div>
+
+      <div style="break-inside:avoid;margin-bottom:11px">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a8621c;margin-bottom:4px">Monitoring</div>
+        <div style="font:400 13.5px/1.7 'IBM Plex Mono',monospace;color:#1f2937"><b>metrics</b> qancha · <b>logs</b> nima bo'ldi · <b>traces</b> qayerda<br>Prometheus tortib oladi (scrape) · Grafana ko'rsatadi<br><b>SLI</b> o'lchov · <b>SLO</b> maqsad · <b>SLA</b> kelishuv<br>alert symptom bo'yicha: latency, error rate<br>CPU 90% — o'zi muammo emas</div>
+      </div>
+
+      <div style="break-inside:avoid">
+        <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b3261e;margin-bottom:4px">Secret Gitga tushdi</div>
+        <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">1. <b>revoke/rotate</b> — birinchi ish · 2. yangi kalit secret store'ga · 3. tarixni tozalash · 4. audit. Gitdan o'chirish yetarli emas.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="page" id="p6" style="box-sizing:border-box;padding:12mm 11mm;background:#f6f4ef;color:#15181c;font-family:Lora,ui-sans-serif,sans-serif">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #15181c;padding-bottom:5px;margin-bottom:9px">
+      <div style="font:600 28px/1 'Cormorant Garamond',sans-serif;letter-spacing:-.02em">Zanjirlar va ko'priklar</div>
+      <div style="font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#6b7280">DevOps Learning · 6/6</div>
+    </div>
+
+    <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1a6a86;margin-bottom:6px">Intervyuda aytiladigan yetti zanjir</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 9mm;margin-bottom:11px">
+      <div style="break-inside:avoid"><div style="font:600 13px Lora,sans-serif;color:#15181c;margin-bottom:2px">Tarmoq narvoni</div><div style="font:400 12.5px/1.65 'IBM Plex Mono',monospace;color:#374151">Name → IP → Route → TCP port → TLS/HTTP → App</div></div>
+      <div style="break-inside:avoid"><div style="font:600 13px Lora,sans-serif;color:#15181c;margin-bottom:2px">Linux tekshiruvi</div><div style="font:400 12.5px/1.65 'IBM Plex Mono',monospace;color:#374151">process → port → xizmat → resurs → log</div></div>
+      <div style="break-inside:avoid"><div style="font:600 13px Lora,sans-serif;color:#15181c;margin-bottom:2px">Docker debug</div><div style="font:400 12.5px/1.65 'IBM Plex Mono',monospace;color:#374151">log → process → port → bind → tarmoq → config → dependency</div></div>
+      <div style="break-inside:avoid"><div style="font:600 13px Lora,sans-serif;color:#15181c;margin-bottom:2px">K8s Service</div><div style="font:400 12.5px/1.65 'IBM Plex Mono',monospace;color:#374151">DNS → selector → endpoints → readiness → port → bind → policy</div></div>
+      <div style="break-inside:avoid"><div style="font:600 13px Lora,sans-serif;color:#15181c;margin-bottom:2px">So'rovning yo'li</div><div style="font:400 12.5px/1.65 'IBM Plex Mono',monospace;color:#374151">auth → admission → etcd → scheduler → kubelet → Pod</div></div>
+      <div style="break-inside:avoid"><div style="font:600 13px Lora,sans-serif;color:#15181c;margin-bottom:2px">Konveyer</div><div style="font:400 12.5px/1.65 'IBM Plex Mono',monospace;color:#374151">Git → CI → artifact → registry → CD → K8s → monitoring</div></div>
+      <div style="break-inside:avoid"><div style="font:600 13px Lora,sans-serif;color:#15181c;margin-bottom:2px">Dalil tartibi</div><div style="font:400 12.5px/1.65 'IBM Plex Mono',monospace;color:#374151">gipoteza → komanda → dalil → xulosa</div></div>
+    </div>
+
+    <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1a6a86;margin-bottom:6px">Bir xil g'oya, boshqa nom</div>
+    <table style="width:100%;border-collapse:collapse;font:400 12.5px/1.55 'IBM Plex Mono',monospace;color:#1f2937;margin-bottom:11px">
+      <thead><tr style="border-bottom:1px solid #9ca3af"><th style="text-align:left;padding:3px 6px 3px 0;font:600 10.5px Lora,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#6b7280">Linux / Docker</th><th style="text-align:left;padding:3px 0;font:600 10.5px Lora,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#6b7280">Kubernetes / CI-CD</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">IP:port</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">Service:port</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">DNS</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">CoreDNS</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">DNAT / port mapping</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">ClusterIP · NodePort</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">ss -lntup</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">kubectl get endpoints</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">nc -vz / healthcheck</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">readiness probe</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">SIGTERM → SIGKILL</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">terminationGracePeriod</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">restart policy</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">restartPolicy + kubelet</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">volume</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">PersistentVolumeClaim</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">docker stats</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">kubectl top</td></tr>
+        <tr><td style="padding:2px 6px 2px 0;border-bottom:1px solid #e5e7eb">docker-compose.yml</td><td style="padding:2px 0;border-bottom:1px solid #e5e7eb">Deployment + Service + PVC</td></tr>
+        <tr><td style="padding:2px 6px 2px 0">127.0.0.1 ga bind</td><td style="padding:2px 0">Pod tashqaridan ko'rinmaydi</td></tr>
+      </tbody>
+    </table>
+
+    <div style="font:600 11.5px Lora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#1a6a86;margin-bottom:6px">Javob shabloni</div>
+    <div style="font:400 15px/1.65 Lora,Georgia,serif;color:#1f2937">
+      <b>Ta'rif:</b> mohiyat → nima uchun kerak → misol → nima u emas.<br>
+      <b>Farq:</b> umumiy maqsad → asosiy farq → afzalliklar → qachon qaysi biri.<br>
+      <b>Troubleshooting:</b> xato nimani anglatadi → gipoteza → zanjir (har qadam bitta buyruq) → dalil → tezkor chora, keyin sabab.<br>
+      <b>Tanlov:</b> mezon → variantlar → kontekstga qarab tanlov → tanlovning narxi.<br>
+      <b>Bilmasam:</b> yaqin bilganimni aytaman → halol tan olaman → qanday aniqlashimni aytaman. Taxminni fakt sifatida aytmayman.
+    </div>
+  </section>
+
+</doc-page>
+
+
+<script>(function(){function fit(){var w=document.documentElement.clientWidth;document.querySelectorAll('doc-page').forEach(function(p){p.style.zoom='';var pw=p.getBoundingClientRect().width;p.style.zoom=pw>w?(w-8)/pw:'';});}addEventListener('load',fit);addEventListener('resize',fit);setTimeout(fit,800);})();</script>
+</body></html>
