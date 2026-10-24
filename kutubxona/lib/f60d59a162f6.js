@@ -61,7 +61,7 @@
       { q: 'Nega DNS nosozligi butun klasterga tarqaladi?', a: `Chunki har xizmat boshqasiga ${b('nom orqali')} murojaat qiladi. CoreDNS sekinlashsa yoki yiqilsa, hamma ulanish ${b('nom yechish bosqichida')} kutib qoladi — natija "hamma narsa sekin" bo‘lib ko‘rinadi, lekin sabab bitta joyda. Shuning uchun CoreDNS bir necha nusxada ishlaydi va alohida kuzatiladi.` },
     ],
     s15: [
-      { q: 'Uch probe turi qaysi savolga javob beradi?', a: `${b('Startup')} — "hali ko‘tarilyaptimi?" sekin startga vaqt beradi va shu davrda boshqa probe‘larni to‘xtatadi. ${b('Readiness')} — "trafik berса bo‘ladimi?" yiqilsa Pod endpoints‘dan chiqariladi, lekin o‘ldirilmaydi. ${b('Liveness')} — "tirikmi?" yiqilsa konteyner ${b('qayta ishga tushiriladi')}. Uchtasi turli harakatga olib keladi.` },
+      { q: 'Uch probe turi qaysi savolga javob beradi?', a: `${b('Startup')} — "hali ko‘tarilyaptimi?" sekin startga vaqt beradi va shu davrda boshqa probe‘larni to‘xtatadi. ${b('Readiness')} — "trafik bersa bo‘ladimi?" yiqilsa Pod endpoints‘dan chiqariladi, lekin o‘ldirilmaydi. ${b('Liveness')} — "tirikmi?" yiqilsa konteyner ${b('qayta ishga tushiriladi')}. Uchtasi turli harakatga olib keladi.` },
       { q: 'Readiness va liveness‘ni chalkashtirish nimaga olib keladi?', a: `Agar liveness bog‘liq xizmatni tekshirsa (masalan DB), DB vaqtincha sekinlashganda ${b('sog‘lom Pod‘lar ham qayta ishga tushiriladi')} — bu holatni yomonlashtiradi. To‘g‘ri taqsimot: liveness faqat ${b('dasturning o‘zi qotib qolganini')} tekshiradi, tashqi bog‘liqlik readiness‘da baholanadi.` },
     ],
     s16: [

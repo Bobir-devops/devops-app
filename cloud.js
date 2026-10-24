@@ -101,6 +101,8 @@
     return j;
   }
 
+  const claudeShim = { complete: (p) => ai(typeof p === 'string' ? p : ((p && p.messages) || []).map((m) => (typeof m.content === 'string' ? m.content : '')).join('\n')) };
+  try { if (!window.claude) Object.defineProperty(window, 'claude', { configurable: true, get: () => (ls.get(K.key) ? claudeShim : undefined) }); } catch (e) {}
   window.DevopsCloud = {
     K, dump, applyData, parseCfg, initFb, signUp, signIn, signOut, push, pull, ai, gradeSummary,
     hasAI: () => !!ls.get(K.key), hasFb: () => !!parseCfg(ls.get(K.cfg)),

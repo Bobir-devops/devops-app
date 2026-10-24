@@ -19,6 +19,7 @@ jobs:
           const fs = require('fs'), vm = require('vm');
           const ctx = { window: {} };
           vm.runInNewContext(fs.readFileSync('devops-data.js', 'utf8'), ctx);
+          if (fs.existsSync('devops-data-middle.js')) vm.runInNewContext(fs.readFileSync('devops-data-middle.js', 'utf8'), ctx);
           const D = ctx.window.DEVOPS_DATA;
           const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
           const day = Math.floor(Date.now() / 86400000);

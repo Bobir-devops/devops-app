@@ -408,9 +408,9 @@
   const AFF = { Linux: /linux|ssh|bash|disk|process/i, Networking: /network|dns|tcp|http|tls|nat|ip\b|tarmoq/i, Docker: /docker|artefakt|registry|container/i, Kubernetes: /kubernetes|k8s|helm|☸/i, 'CI/CD': /ci\/cd|ci |git|iac|terraform|ansible|observ|monitor|sre|security|cloud|artefakt|github|gitlab|argo/i };
   function ivPick(id, secText, title, exclude) {
     const pools = [];
-    (window.HhQ || []).forEach((x) => pools.push({ src: 'hh.uz', g: x.g, q: x.q, a: x.a, key: x.id }));
-    ((window.SuhbatQ || {}).q || []).forEach((x, i) => pools.push({ src: 'Suhbat', g: x.g, q: x.q, a: x.a, key: 'sq' + i }));
-    (window.DeepQ || []).forEach((x) => pools.push({ src: 'Chuqur', g: x.g, q: x.q, a: x.a, key: x.id }));
+    (window.HhQ || []).forEach((x) => pools.push({ src: 'hh.uz', g: x.g, q: x.q, a: x.a, l: x.l, key: x.id }));
+    ((window.SuhbatQ || {}).q || []).forEach((x, i) => pools.push({ src: 'Suhbat', g: x.g, q: x.q, a: x.a, l: x.l, key: 'sq' + i }));
+    (window.DeepQ || []).forEach((x) => pools.push({ src: 'Chuqur', g: x.g, q: x.q, a: x.a, l: x.l, key: x.id }));
     ((window.DevOpsBank || {}).questions || []).forEach((x) => { if (x.subject === CFG.subject && !exclude[x.qid]) pools.push({ src: 'Savol banki', g: x.subject, q: x.q, a: x.a, key: 'b' + x.qid }); });
     const tw = {}, tt = {}; ivTok(title).forEach((t) => { tw[t] = (tw[t] || 0) + 4; tt[t] = 1; });
     const freq = {}; ivTok(secText).forEach((t) => { freq[t] = (freq[t] || 0) + 1; });
@@ -435,7 +435,7 @@
   }
 
   function keyConcepts(readEl, title) {
-    const c = {}, add = (txt, w) => { txt = String(txt || '').replace(/\s+/g, ' ').trim(); if (txt.length < 2 || txt.length > 32 || /[|<>=]/.test(txt) || /^[\d\s.,%−+-]+$/.test(txt)) return; const toks = ivTok(txt); if (!toks.length || toks.length > 4) return; const k = toks.join(' '); if (!c[k]) c[k] = { label: txt, toks, w: 0 }; c[k].w += w; };
+    const c = {}, add = (txt, w) => { txt = String(txt || '').replace(/\s+/g, ' ').trim(); if (txt.length < 2 || txt.length > 32 || /^-/.test(txt) || /\d{3,}|:[0-9a-f]{5,}/i.test(txt) || /[|<>=]/.test(txt) || /^[\d\s.,%−+-]+$/.test(txt)) return; const toks = ivTok(txt); if (!toks.length || toks.length > 4) return; const k = toks.join(' '); if (!c[k]) c[k] = { label: txt, toks, w: 0 }; c[k].w += w; };
     const body = (readEl.textContent || '').toLowerCase().replace(/[‘’'\x60´]/g, '');
     add(title.replace(/\s[—–:-]\s.*$/, '').replace(/[?]/g, ''), 6);
     const G = window['Glossary' + String(CFG.subject).replace(/[^A-Za-z]/g, '')] || {};
@@ -447,6 +447,10 @@
     const list = Object.values(c).filter((x) => !/:$/.test(x.label) && (x.w >= 3 || freq(x.label) >= 2)).sort((a, b) => b.w - a.w);
     const out = [];
     list.forEach((x) => { const k = x.toks.join(' '); if (out.length < 7 && !out.some((o) => { const ok = o.toks.join(' '); return ok.indexOf(k) >= 0 || k.indexOf(ok) >= 0; })) out.push(x); });
+        if (out.length < 4) {
+      const f = {}; (readEl.textContent || '').split(/[^A-Za-z0-9_\-\/\.]+/).forEach((w) => { w = w.replace(/^[\.\-\/]+|[\.\-\/]+$/g, ''); if (w.length >= 3 && /[a-z]/i.test(w) && !/^\d/.test(w)) { const k = w.toLowerCase(); f[k] = f[k] || { w, n: 0 }; f[k].n++; } });
+      Object.values(f).filter((x) => x.n >= 3 && !IVSTOP.has(x.w.toLowerCase())).sort((a, b) => b.n - a.n).forEach((x) => { if (out.length < 5) { const toks = ivTok(x.w); const k = toks.join(' '); if (toks.length && !out.some((o) => o.toks.join(' ') === k)) out.push({ label: x.w, toks, w: x.n }); } });
+    }
     return out;
   }
   function coverage(concepts, text) {
@@ -455,6 +459,17 @@
     return concepts.map((x) => ({ x, ok: raw.indexOf(x.label.toLowerCase().replace(/[‘’'\x60´]/g, '')) >= 0 || x.toks.filter((t) => mine[t] || mine[t.slice(0, 4)]).length >= Math.ceil(x.toks.length / 2) }));
   }
 
+  const LVLMAP = {"Linux":{"J":[1,2,3,4,5,6,8,9,10,11,12,16,17,26,29],"S":[23,24,27,33]},"Networking":{"J":[1,2,3,4,6,7,8,11,13,14],"S":[19]},"Docker":{"J":[1,2,3,4,5,7,11,12,15],"S":[18]},"Kubernetes":{"J":[1,2,3,4,7,8,10,11,12,13],"S":[18,25,27,28,31,32,33,34,37]},"CI/CD":{"J":[1,2,3,4,5,6,7,8,9,17],"S":[14,19,22,25,29,30,31,32,34,37,38,41]}};
+  function secLevel(id, title) {
+    const mp = LVLMAP[CFG.subject], n0 = +String(id).replace(/^s/, '');
+    if (mp) { if (mp.S.indexOf(n0) >= 0) return 'S'; if (mp.J.indexOf(n0) >= 0) return 'J'; return 'M'; }
+    const t = String(title || '').toLowerCase();
+    if (/asoslari|nima\?|qanday tasavvur/.test(t)) return 'J';
+    if (/\bha\b|quorum|operator|service mesh|multi|disaster|\bdr\b|capacity|cost|finops|slo|sla|arxitektur|design|platform|ebpf|kernel tuning|zero.?trust|vault|policy|admission|rbac|networkpolicy|sre/.test(t)) return 'S';
+    if (/troubleshoot|debug|probe|resource|schedul|ingress|helm|argo|gitops|terraform|ansible|monitor|prometheus|grafana|tls|certificate|compose|nat|load.?bal|reverse|inode|oom|load average|strace|file descriptor|ulimit|registry|security|xavfsiz|rollback|strategy|pipeline|statefulset|daemonset|storage|pvc|configmap|secret|lvm|raid|iptables|firewall|backup/.test(t)) return 'M';
+    const idx = CFG.ids.indexOf(id), n = CFG.ids.length || 1;
+    return idx >= 0 && idx / n > 0.6 ? 'M' : 'J';
+  }
   function buildSecTabs(secEl, id) {
     if (secEl.querySelector('[data-sec-tabs]')) return;
     const kids = Array.from(secEl.children);
@@ -569,7 +584,7 @@
         const sm = el('summary', "list-style:none;cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:flex-start");
         const tick = el('span', "flex:none;font:500 12.5px " + MO + ";color:" + (st[q.key] ? GR : 'rgb(var(--ink-rgb) / 0.55)') + ";min-width:18px;padding-top:3px", st[q.key] ? '✓' : (i + 1) + '.');
         const qq = el('span', "flex:1;font:400 17px/1.5 " + NR + ";color:var(--ink);text-wrap:pretty"); qq.innerHTML = q.q;
-        const tag = el('span', "flex:none;font:500 10.5px " + MO + ";letter-spacing:.06em;color:var(--acc-ink);border:1px solid " + ACC + ";padding:2px 7px;margin-top:3px", q.src);
+        const tag = el('span', "flex:none;font:500 10.5px " + MO + ";letter-spacing:.06em;color:var(--acc-ink);border:1px solid " + ACC + ";padding:2px 7px;margin-top:3px", q.src + (q.l ? ' · ' + ({ J: 'Junior', M: 'Middle', S: 'Senior' }[q.l] || q.l) : ''));
         sm.append(tick, qq, tag);
         const body = el('div', "padding:0 16px 16px 46px;font:400 16px/1.65 " + NR + ";color:rgb(var(--ink-rgb) / 0.9)");
         const ans = el('div'); ans.innerHTML = q.a; ans.querySelectorAll('*').forEach((z) => { if (z.style) { z.style.color = ''; z.style.background = ''; } });
@@ -640,6 +655,7 @@
     if (lab) { nx('test', 'lab', 'Laboratoriyaga o\u2018tish →'); nx('lab', 'iv', "Qo'shimchaga o'tish →"); }
     else nx('test', 'iv', "Qo'shimchaga o'tish →");
     h2.insertAdjacentElement('afterend', bar);
+    if (!h2.querySelector('[data-lvl]')) { const lv = secLevel(id, h2.textContent); const tag = el('span', "display:inline-block;vertical-align:middle;margin-left:12px;font:500 11px " + MO + ";letter-spacing:.08em;padding:2px 9px;border:1px solid " + ACC + ";color:var(--acc-ink);border-radius:999px", { J: 'Junior', M: 'Middle', S: 'Senior' }[lv]); tag.dataset.lvl = lv; h2.appendChild(tag); secEl.dataset.secLvl = lv; document.querySelectorAll('[data-nav-sections] button[data-id="' + id + '"]').forEach((b) => { b.dataset.secLvl = lv; }); }
     let prev = bar;
     [lockPane].concat(order.map((k) => P[k])).forEach((p) => { prev.insertAdjacentElement('afterend', p); prev = p; });
     secEl._tab = (k) => show(k === 'read' || k === 'test' || k === 'lab' ? k : 'read');
@@ -865,9 +881,27 @@
     });
   }
 
+  function buildLvlBar() {
+    if (document.querySelector('[data-lvl-bar]')) return;
+    const mb = document.querySelector('[data-mode-bar]'); if (!mb) return;
+    if (!document.getElementById('lvlf-css')) { const st = document.createElement('style'); st.id = 'lvlf-css'; st.textContent = ['J', 'M', 'S'].map((k) => 'body[data-lvlf="' + k + '"] [data-sec-lvl]:not([data-sec-lvl="' + k + '"]){display:none!important}').join('\n'); document.head.appendChild(st); }
+    CFG.ids.forEach((x) => { const s = document.getElementById(x); if (!s) return; const lv = secLevel(x, (s.querySelector('h2') || {}).textContent); s.dataset.secLvl = lv; document.querySelectorAll('[data-nav-sections] button[data-id="' + x + '"]').forEach((b) => { b.dataset.secLvl = lv; }); });
+    const bar = el('div', 'display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 14px');
+    bar.dataset.lvlBar = '1';
+    bar.appendChild(el('span', "font:500 11.5px " + SG + ";letter-spacing:.16em;text-transform:uppercase;color:var(--acc-ink);margin-right:6px", 'Daraja'));
+    const KEYL = 'lvlf:' + CFG.key;
+    let cur = 'all'; try { cur = localStorage.getItem(KEYL) || 'all'; } catch (e) {}
+    const opts = [['all', 'Hammasi'], ['J', 'Junior'], ['M', 'Middle'], ['S', 'Senior']];
+    const cnt = (k) => k === 'all' ? CFG.ids.length : CFG.ids.filter((x) => secLevel(x, (document.querySelector('#' + x + ' > h2') || {}).textContent) === k).length;
+    const btns = opts.map(([k, t]) => { const b = el('button', "border:1px solid rgb(var(--ink-rgb) / 0.2);background:transparent;color:var(--ink);font:500 13px " + SG + ";padding:8px 14px;min-height:40px;cursor:pointer;border-radius:999px", t + ' · ' + cnt(k)); b.type = 'button'; b.onclick = () => apply(k); bar.appendChild(b); return [k, b]; });
+    const apply = (k) => { cur = k; try { localStorage.setItem(KEYL, k); } catch (e) {} if (k === 'all') delete document.body.dataset.lvlf; else document.body.dataset.lvlf = k; btns.forEach(([kk, b]) => { const on = kk === k; b.style.borderColor = on ? 'oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68)' : 'rgb(var(--ink-rgb) / 0.2)'; b.style.background = on ? 'oklch(calc(var(--lk) * 0.56 + var(--lb)) 0.11 68 / 0.08)' : 'transparent'; }); };
+    mb.insertAdjacentElement('afterend', bar);
+    apply(cur);
+  }
   function refresh() {
     const keepY = window.scrollY;
     buildHud();
+    setTimeout(buildLvlBar, 0);
     let openTo = 0;
     for (let i = 0; i < CFG.ids.length; i++) {
       if (passed(CFG.ids[i])) openTo = i + 1; else break;

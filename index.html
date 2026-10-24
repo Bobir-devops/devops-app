@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="themes.css">
 <script src="_ds/classical-a33ac8c1-c349-49da-acef-e2ae46ebadc9/_ds_bundle.js"></script>
 <script src="devops-data.js"></script>
+<script src="devops-data-middle.js"></script>
 <script src="cloud.js"></script>
 <style>
 html,body{margin:0;-webkit-text-size-adjust:100%;overscroll-behavior-y:none}
@@ -161,9 +162,33 @@ button{font-family:inherit}
 <sc-if value="{{ show.yol }}" hint-placeholder-val="{{ false }}">
 <main style="padding:var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-6)">
   <div style="display:flex;flex-direction:column;gap:var(--space-2)">
-    <h1 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:34px;line-height:1.05">17 haftalik yo'l</h1>
-    <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">O'rta daraja, kuniga 4+ soat. Maqsad: Junior/Middle DevOps lavozimi, AWS va CKA sertifikatlari.</p>
+    <h1 style="margin:0;font-family:var(--font-heading);font-weight:400;font-size:34px;line-height:1.05">Junior → Middle → Senior</h1>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700);text-wrap:pretty">19 bosqich, uch daraja. Darajani tanlang — shu darajada nima so'ralishi va qaysi bosqichlar kerakligi ko'rinadi.</p>
   </div>
+  <div role="tablist" style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--color-divider);border-radius:999px;padding:3px;gap:3px">
+    <sc-for list="{{ lvlSegs }}" as="g" hint-placeholder-count="4">
+      <button onClick="{{ g.go }}" role="tab" style="min-height:40px;border-radius:999px;border:1px solid {{ g.bc }};background:{{ g.bg }};color:{{ g.c }};cursor:pointer;font-size:14px">{{ g.t }}</button>
+    </sc-for>
+  </div>
+  <sc-if value="{{ hasLvl }}" hint-placeholder-val="{{ false }}">
+    <section style="border:1px solid var(--color-accent-300);border-radius:var(--radius-lg);padding:var(--space-4);background:var(--card-bg);display:flex;flex-direction:column;gap:var(--space-3)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-2)">
+        <div style="font-family:var(--font-heading);font-size:26px;font-weight:500">{{ lv.t }}</div>
+        <div style="font-size:13px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ lv.exp }} · {{ lv.progress }}</div>
+      </div>
+      <div style="font-size:15px;text-wrap:pretty">{{ lv.d }}</div>
+      <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">Bu darajada so'raladi</div>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ lv.must }}" as="m" hint-placeholder-count="8">
+          <button onClick="{{ m.toggle }}" style="display:flex;gap:var(--space-3);align-items:flex-start;text-align:left;border:0;border-bottom:1px solid var(--color-divider);background:transparent;padding:10px 0;min-height:44px;cursor:pointer;color:inherit;font-size:15px">
+            <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1.5px solid {{ m.bc }};background:{{ m.bg }};border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-bg);box-sizing:border-box;font-size:11px">{{ m.mark }}</span>
+            <span style="color:{{ m.c }}">{{ m.t }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="font-size:14px;color:var(--color-neutral-700);text-wrap:pretty;border-top:1px solid var(--color-divider);padding-top:var(--space-3)"><b>O'zbekistonda:</b> {{ lv.uz }}</div>
+    </section>
+  </sc-if>
   <div style="display:flex;flex-direction:column">
     <sc-for list="{{ stages }}" as="s" hint-placeholder-count="10">
       <button onClick="{{ s.open }}" style="display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:var(--space-3);text-align:left;border:0;background:transparent;padding:0;cursor:pointer;color:inherit">
@@ -175,7 +200,7 @@ button{font-family:inherit}
           <span style="flex:1;width:2px;min-height:18px;background:{{ s.lineBg }}"></span>
         </span>
         <span style="display:flex;flex-direction:column;gap:6px;min-width:0;padding:10px 0 var(--space-6)">
-          <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:{{ s.kc }}">{{ s.kicker }}</span>
+          <span style="display:flex;gap:8px;align-items:center"><span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:{{ s.kc }}">{{ s.kicker }}</span><span style="font-size:10.5px;letter-spacing:.08em;border:1px solid var(--color-accent-300);color:var(--color-accent-700);border-radius:999px;padding:1px 8px">{{ s.lvlT }}</span></span>
           <span style="font-family:var(--font-heading);font-size:21px;font-weight:600;line-height:1.12">{{ s.title }}</span>
           <span style="height:3px;background:var(--color-divider);border-radius:3px;overflow:hidden;display:block;max-width:220px"><span style="display:block;height:100%;width:{{ s.pct }};background:var(--color-accent)"></span></span>
           <span style="font-size:12px;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ s.meta }}</span>
@@ -217,6 +242,35 @@ button{font-family:inherit}
   </sc-if>
 
   <sc-if value="{{ st.p.read }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ st.hasComp }}" hint-placeholder-val="{{ true }}">
+      <section style="display:flex;flex-direction:column;gap:var(--space-3);border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-4);background:var(--card-bg)">
+        <div style="font-family:var(--font-heading);font-size:22px;font-weight:600">Darajalar bo'yicha nima bilish kerak</div>
+        <div role="tablist" style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--color-divider);border-radius:999px;padding:3px;gap:3px">
+          <sc-for list="{{ st.compSegs }}" as="g" hint-placeholder-count="3">
+            <button onClick="{{ g.go }}" role="tab" style="min-height:38px;border-radius:999px;border:1px solid {{ g.bc }};background:{{ g.bg }};color:{{ g.c }};cursor:pointer;font-size:13px;font-variant-numeric:tabular-nums">{{ g.t }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ st.compList }}" as="m" hint-placeholder-count="5">
+            <button onClick="{{ m.toggle }}" style="display:flex;gap:var(--space-3);align-items:flex-start;text-align:left;border:0;border-bottom:1px solid var(--color-divider);background:transparent;padding:10px 0;min-height:44px;cursor:pointer;color:inherit;font-size:15px">
+              <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1.5px solid {{ m.bc }};background:{{ m.bg }};border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--color-bg);box-sizing:border-box;font-size:11px">{{ m.mark }}</span>
+              <span style="color:{{ m.c }}">{{ m.t }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="font-size:13px;color:var(--color-neutral-600)">Bilganingizni belgilang. Kutubxonada har bo'lim ham Junior / Middle / Senior deb belgilangan.</div>
+      </section>
+    </sc-if>
+    <sc-if value="{{ st.hasTheory }}" hint-placeholder-val="{{ false }}">
+      <section style="display:flex;flex-direction:column;gap:var(--space-4)">
+        <sc-for list="{{ st.theory }}" as="th" hint-placeholder-count="5">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-family:var(--font-heading);font-size:22px;font-weight:600;line-height:1.15">{{ th.h }}</div>
+            <p style="margin:0;font-size:16px;line-height:1.65;text-wrap:pretty">{{ th.p }}</p>
+          </div>
+        </sc-for>
+      </section>
+    </sc-if>
     <sc-if value="{{ st.hasLib }}" hint-placeholder-val="{{ false }}">
       <a href="{{ st.libHref }}" style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);border:1px solid var(--color-accent-300);border-radius:var(--radius-lg);padding:var(--space-4);text-decoration:none;color:inherit;background:var(--card-bg)">
         <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
@@ -749,7 +803,7 @@ const THEMES = [
   { k: 'navy', t: "To'q ko'k", bg: '#0e1b2d', fg: '#e6edf6' },
 ];
 const STAGE_LIB = { linux: ['linux', 'Linux Shahri'], net: ['net', 'Networking Pochtasi'], git: ['cicd', 'CI/CD Konveyeri · Git'], docker: ['docker', 'Docker Qutixonasi'], cicd: ['cicd', 'CI/CD Konveyeri'], iac: ['cicd', 'CI/CD Konveyeri · Terraform, Ansible'], k8s: ['k8s', 'Kubernetes Zavodi'], obs: ['cicd', 'CI/CD Konveyeri · Monitoring'] };
-const IV_TAG = { Linux: 'linux', Tarmoq: 'net', Docker: 'docker', 'CI/CD': 'cicd', Bulut: 'cloud', IaC: 'iac', K8s: 'k8s', Monitoring: 'obs', Behavioral: 'job' };
+const IV_TAG = { UZ: 'uzb', Senior: 'senior', Linux: 'linux', Tarmoq: 'net', Docker: 'docker', 'CI/CD': 'cicd', Bulut: 'cloud', IaC: 'iac', K8s: 'k8s', Monitoring: 'obs', Behavioral: 'job' };
 const REAL_LAB = { linux: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], net: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], git: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], docker: ['Play with Docker', 'https://labs.play-with-docker.com/'], cicd: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], iac: ['Killercoda · Ubuntu', 'https://killercoda.com/playgrounds/scenario/ubuntu'], k8s: ['Killercoda · Kubernetes', 'https://killercoda.com/playgrounds/scenario/kubernetes'], obs: ['Killercoda · Kubernetes', 'https://killercoda.com/playgrounds/scenario/kubernetes'], cloud: ['AWS Free Tier', 'https://aws.amazon.com/free/'], job: ['Killercoda', 'https://killercoda.com/'] };
 const STEP_N = [['read', 'Nazariya'], ['note', 'Xulosa'], ['test', 'Savollar'], ['lab', 'Lab'], ['iv', "Qo'shimcha"]];
 const RANKS = ['Yangi boshlovchi', 'Terminal shogirdi', 'Shell ustasi', 'Konteyner quruvchi', 'Klaster boshqaruvchi', 'Pipeline arxitektori', 'SRE nomzodi', 'DevOps muhandis'];
@@ -763,7 +817,7 @@ const TITLES = { bugun: 'DevOps Yo\'l', yol: 'Yo\'l xaritasi', lib: 'Kutubxona',
 
 class Component extends DCLogic {
   S = loadS();
-  state = { tab: 'bugun', view: null, stageId: null, projId: null, quiz: null, lab: 0, lines: [], cmd: '', cardFlip: false, ivI: 0, ivPhase: 'idle', ivStart: null, seen: {}, cloud: (window.DevopsCloud ? window.DevopsCloud.state() : {}), cfgText: '', editCfg: false, email: '', pw: '', keyText: '', aiMsg: '', aiBusy: false, aiRes: {}, importText: '', syncMsg: '', stStep: null, ivOpen: {}, ready: !!window.DEVOPS_DATA, pr: 'term', theme: getTheme(), toast: null };
+  state = { tab: 'bugun', view: null, stageId: null, projId: null, quiz: null, lab: 0, lines: [], cmd: '', cardFlip: false, ivI: 0, ivPhase: 'idle', ivStart: null, seen: {}, lvlF: 'all', compL: null, cloud: (window.DevopsCloud ? window.DevopsCloud.state() : {}), cfgText: '', editCfg: false, email: '', pw: '', keyText: '', aiMsg: '', aiBusy: false, aiRes: {}, importText: '', syncMsg: '', stStep: null, ivOpen: {}, ready: !!window.DEVOPS_DATA, pr: 'term', theme: getTheme(), toast: null };
   termRef = React.createRef();
   fileRef = React.createRef();
   inputRef = React.createRef();
@@ -872,7 +926,7 @@ class Component extends DCLogic {
       const dc = stObj.topics.filter((_, j) => S.done[sid + ':' + j]).length;
       const best = S.quiz[sid];
       const sLabs = D.labs.filter(l => l.st === sid), sLabsDone = sLabs.filter(l => S.labs[l.id]).length;
-      const ivs = D.interview.map((x, i) => ({ x, i })).filter(o => IV_TAG[o.x[0]] === sid);
+      const ivs = D.interview.map((x, i) => ({ x, i })).filter(o => (IV_TAG[o.x[0]] || o.x[0]) === sid);
       const ivDone = ivs.filter(o => S.ivok[o.i]).length;
       const note = S.notes[sid] || '';
       const tok = (s) => String(s).toLowerCase().replace(/[‘’'`´]/g, '').replace(/[^a-z0-9\s\/\-]/g, ' ').split(/\s+/).filter(w => w.length >= 3).map(w => w.slice(0, 5));
@@ -893,6 +947,9 @@ class Component extends DCLogic {
         steps: STEP_N.map(([k, t], i) => { const on = k === cur, ok = done[k], op = unlocked(k); return { t, go: () => goStep(k), mark: ok ? '✓' : String(i + 1), bc: on ? A : 'transparent', bg: on ? 'var(--color-accent-100)' : 'transparent', op: op ? 1 : 0.5, dc: ok || on ? A : 'var(--color-neutral-400)', dbg: ok ? A : 'transparent', dtc: ok ? 'var(--color-bg)' : on ? A7 : 'var(--color-neutral-600)' }; }),
         p: { read: open && cur === 'read', note: open && cur === 'note', test: open && cur === 'test', lab: open && cur === 'lab', iv: open && cur === 'iv' },
         locked: !open, lockTitle: (STEP_N.find(s => s[0] === cur) || [])[1] + ' hali yopiq', lockText: NEED[firstTodo] || '', lockBtn: (STEP_N.find(s => s[0] === firstTodo) || [])[1] + 'ga o\u2018tish →', lockGo: () => goStep(firstTodo),
+        hasComp: !!stObj.comp, compSegs: [['J', 'Junior'], ['M', 'Middle'], ['S', 'Senior']].map(([k, t]) => { const L = st.compL || 'J', list = (stObj.comp || {})[k] || []; S.compck = S.compck || {}; const n = list.filter((_, j) => S.compck[sid + ':' + k + ':' + j]).length; return { t: t + ' ' + n + '/' + list.length, go: () => this.setState({ compL: k }), bc: L === k ? A : 'transparent', bg: L === k ? 'var(--color-accent-100)' : 'transparent', c: L === k ? A7 : 'var(--color-text)' }; }),
+        compList: (((stObj.comp || {})[st.compL || 'J']) || []).map((m, j) => { const L = st.compL || 'J', key = sid + ':' + L + ':' + j; S.compck = S.compck || {}; const on = !!S.compck[key]; return { t: m, mark: on ? '✓' : '', bc: on ? A : 'var(--color-neutral-400)', bg: on ? A : 'transparent', c: on ? N6 : 'var(--color-text)', toggle: () => { if (S.compck[key]) delete S.compck[key]; else { S.compck[key] = 1; this.act(5, 0); } this.save(); } }; }),
+        hasTheory: !!(stObj.theory && stObj.theory.length), theory: (stObj.theory || []).map(x => ({ h: x.h, p: x.p })),
         hasLib: !!lib, libHref: lib ? 'kutubxona/' + lib[0] + '.html' : '', libName: lib ? lib[1] : '',
         doneLabel: dc + ' / ' + stObj.topics.length,
         topics: stObj.topics.map((t, j) => { const key = sid + ':' + j; return check(!!S.done[key], () => { if (S.done[key]) { delete S.done[key]; this.act(-10, 0); } else { S.done[key] = true; this.act(10, 0); } }, t); }),
@@ -998,15 +1055,18 @@ class Component extends DCLogic {
       dueCount: due.length, cardsTotal: cards.length, learned,
       labsDone, labsTotal: D.labs.length, totalPct,
       planNote: doneT + ' / ' + allT + ' mavzu',
-      stages: stages.map((s, i) => {
+      lvlSegs: [['all', 'Hammasi'], ['J', 'Junior'], ['M', 'Middle'], ['S', 'Senior']].map(([k, t]) => ({ t, go: () => this.setState({ lvlF: k }), bc: st.lvlF === k ? A : 'transparent', bg: st.lvlF === k ? 'var(--color-accent-100)' : 'transparent', c: st.lvlF === k ? A7 : 'var(--color-text)' })),
+      hasLvl: st.lvlF !== 'all' && !!(D.levels || []).find(l => l.k === st.lvlF),
+      lv: (() => { const l = (D.levels || []).find(x => x.k === st.lvlF); if (!l) return {}; S.lvlck = S.lvlck || {}; const ok = l.must.filter((_, i) => S.lvlck[l.k + i]).length; return { t: l.t, exp: l.exp, d: l.d, uz: l.uz, progress: ok + '/' + l.must.length + ' bilaman', must: l.must.map((m, i) => { const on = !!S.lvlck[l.k + i]; return { t: m, mark: on ? '✓' : '', bc: on ? A : 'var(--color-neutral-400)', bg: on ? A : 'transparent', c: on ? N6 : 'var(--color-text)', toggle: () => { if (S.lvlck[l.k + i]) delete S.lvlck[l.k + i]; else S.lvlck[l.k + i] = 1; this.save(); } }; }) }; })(),
+      stages: stages.map((s) => { const i = stages.indexOf(s); S.compck = S.compck || {}; const cl = st.lvlF !== 'all' && s.comp ? (s.comp[st.lvlF] || []) : null; const cDone = cl ? cl.filter((_, j) => S.compck[s.id + ':' + st.lvlF + ':' + j]).length : 0;
         const dc = s.topics.filter((_, j) => S.done[s.id + ':' + j]).length, b = S.quiz[s.id];
         const complete = dc === s.topics.length, cur = i === curStageIdx;
-        return { n: s.n, title: s.title, complete, open2: !complete, pct: Math.round(dc / s.topics.length * 100) + '%',
+        return { lvlT: { J: 'Junior', M: 'Middle', S: 'Senior' }[s.lvl] || '', n: s.n, title: s.title, complete, open2: !complete, pct: Math.round(dc / s.topics.length * 100) + '%',
           kicker: complete ? 'Tugallandi' : cur ? 'Hozir' : s.weeks + ' hafta', kc: complete || cur ? A7 : N6,
           nodeBorder: complete ? '2px solid ' + A : cur ? '2px solid ' + A : '1.5px solid ' + DIV,
           nodeBg: complete ? A : cur ? 'var(--color-accent-100)' : 'transparent', nodeC: complete ? 'var(--color-bg)' : cur ? A7 : N6,
           lineBg: i === stages.length - 1 ? 'transparent' : complete ? A : DIV,
-          meta: dc + '/' + s.topics.length + ' mavzu' + (s.cert ? ' · ' + s.cert : ''), badge: b != null ? b + '/' + s.quiz.length : '', open: () => this.open('stage', { stageId: s.id, stStep: null }) };
+          meta: (cl ? ({ J: 'Junior', M: 'Middle', S: 'Senior' }[st.lvlF]) + ': ' + cDone + '/' + cl.length + ' bilaman · ' : '') + dc + '/' + s.topics.length + ' mavzu' + (s.cert ? ' · ' + s.cert : ''), badge: b != null ? b + '/' + s.quiz.length : '', open: () => this.open('stage', { stageId: s.id, stStep: null, compL: st.lvlF !== 'all' ? st.lvlF : null }) };
       }),
       st: stv, qz,
       segs: [['term', 'Terminal'], ['cards', 'Takror']].map(([key, t]) => ({ t, go: () => this.setState({ pr: key }), bc: st.pr === key ? A : 'transparent', bg: st.pr === key ? 'var(--color-accent-100)' : 'transparent', c: st.pr === key ? A7 : 'var(--color-text)' })),

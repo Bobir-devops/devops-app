@@ -56,7 +56,7 @@
     ],
     s13: [
       { q: 'Linux huquq modeli qanday qurilgan — kim, nima, qanday?', a: `Uch o‘q: ${b('kim')} (owner, group, other), ${b('nima qiladi')} (read, write, execute), va ${b('nimaga')} (fayl yoki katalog). Har fayl inode‘ida egasi (UID), guruhi (GID) va 9 bit huquq saqlanadi. Kernel har murojaatda processning UID/GID‘sini fayl bilan solishtiradi. Shuning uchun huquq — jarayon xususiyati emas, ${b('fayl va process juftligi')} xususiyati.` },
-      { q: 'Katalogdagi x biti nima uchun alohida ma‘noga ega?', a: `Faylda ${b('x')} — "ishga tushirish mumkin". Katalogda esa ${b('"ichkariga kirish"')} — ya‘ni ichidagi yo‘ldan o‘tish huquqi. Shuning uchun ${c('r')} bor, ${c('x')} yo‘q katalogda fayl nomlarini ko‘rasiz, lekin ochа olmaysiz; teskarisi bo‘lsa — nomni bilsangiz ochasiz, lekin ro‘yxat ko‘rinmaydi. Yo‘l bo‘ylab har katalogda x kerak.` },
+      { q: 'Katalogdagi x biti nima uchun alohida ma‘noga ega?', a: `Faylda ${b('x')} — "ishga tushirish mumkin". Katalogda esa ${b('"ichkariga kirish"')} — ya‘ni ichidagi yo‘ldan o‘tish huquqi. Shuning uchun ${c('r')} bor, ${c('x')} yo‘q katalogda fayl nomlarini ko‘rasiz, lekin ocha olmaysiz; teskarisi bo‘lsa — nomni bilsangiz ochasiz, lekin ro‘yxat ko‘rinmaydi. Yo‘l bo‘ylab har katalogda x kerak.` },
     ],
     s14: [
       { q: 'Scheduler CPU‘ni qanday taqsimlaydi va "yuklangan" degani nimani bildiradi?', a: `Kernel scheduler ishga tayyor process‘larni ${b('navbat')}ga qo‘yib, har biriga qisqa vaqt bo‘lagi beradi va tez almashtiradi — shuning uchun bir yadroda ham ko‘p dastur bir vaqtda ishlayotgandek ko‘rinadi. ${b('Yuklangan')} degani navbat uzun: ishga tayyor process‘lar yadro kutyapti. Shuning uchun %CPU yuqori bo‘lishi o‘zi muammo emas, ${b('kutish vaqti')} muammo.` },
@@ -99,7 +99,7 @@
       { q: 'strace nimani ko‘rsatadi va qachon ishlatiladi?', a: `strace process va kernel orasidagi ${b('har system call')}ni yozib beradi — qaysi faylni ochmoqchi bo‘ldi, nima xato qaytdi. U ${b('oxirgi chora')}: loglar jim bo‘lganda yoki xato xabari umumiy bo‘lganda aniq sababni ko‘rsatadi (masalan yo‘q konfiguratsiya fayli). Narxi bor — process sekinlashadi, shuning uchun productionda qisqa vaqt ishlatiladi.` },
     ],
     s24: [
-      { q: 'PID 1 ning tizimda maxsus roli nimada?', a: `PID 1 — kernel ishga tushirgan ${b('birinchi user-space process')} va boshqa hamma process uning avlodi. Uch vazifasi bor: qolgan xizmatlarni ${b('ishga tushirish')}, ${b('yetim process‘larni asrab olish')} va ularni tozalash, hamda tizim signalларини boshqarish. Shuning uchun PID 1 o‘lsa tizim to‘xtaydi — va konteynerda ham xuddi shu qoida amal qiladi.` },
+      { q: 'PID 1 ning tizimda maxsus roli nimada?', a: `PID 1 — kernel ishga tushirgan ${b('birinchi user-space process')} va boshqa hamma process uning avlodi. Uch vazifasi bor: qolgan xizmatlarni ${b('ishga tushirish')}, ${b('yetim process‘larni asrab olish')} va ularni tozalash, hamda tizim signallarini boshqarish. Shuning uchun PID 1 o‘lsa tizim to‘xtaydi — va konteynerda ham xuddi shu qoida amal qiladi.` },
       { q: 'Unit bog‘liqliklari qanday ishlaydi — After va Requires farqi?', a: `${c('After=')} faqat ${b('tartib')}ni belgilaydi: filan unitdan keyin ishga tush, lekin u yiqilsa ham davom et. ${c('Requires=')} esa ${b('bog‘liqlik')}: kerakli unit bo‘lmasa bu ham ishga tushmaydi (u to‘xtasa bu ham to‘xtaydi). Ikkisi ko‘pincha birga yoziladi — aks holda "kerakli xizmat hali tayyor emas" holatida ishga tushish xatolari chiqadi.` },
     ],
     s25: [
@@ -107,7 +107,7 @@
       { q: 'Swap bo‘lmasa nima o‘zgaradi — yoqish yoki o‘chirish qanday hal qilinadi?', a: `Swap yo‘q bo‘lsa RAM to‘lgan zahoti ${b('OOM killer')} ishlaydi — tez, lekin qattiq: process o‘ldiriladi. Swap bo‘lsa tizim sekin, lekin tirik qoladi va sizga aralashish vaqti beriladi. Shuning uchun tanlov ish turiga bog‘liq: kechikish muhim xizmatda kichik swap yoki umuman yo‘q (Kubernetes shuning uchun swap‘ni o‘chiradi), batch ishda esa swap foydali.` },
     ],
     s26: [
-      { q: 'Paket yuborilganda yadro qaysi yo‘lni qanday tanlaydi?', a: `Kernel ${b('routing jadvali')}ga qaraydi va manzilga ${b('eng aniq mos keluvchi')} yozuvni tanlaydi (longest prefix match). O‘z subnetida bo‘lsa to‘g‘ridan, aks holda ${b('default gateway')}ga yuboradi. Keyin chiqish interfeysi aniqlanadi va ${b('ARP')} orqali keyingi qadam MAC manzili topiladi. ${c('ip route get')} aynan shu qарорni ko‘rsatadi.` },
+      { q: 'Paket yuborilganda yadro qaysi yo‘lni qanday tanlaydi?', a: `Kernel ${b('routing jadvali')}ga qaraydi va manzilga ${b('eng aniq mos keluvchi')} yozuvni tanlaydi (longest prefix match). O‘z subnetida bo‘lsa to‘g‘ridan, aks holda ${b('default gateway')}ga yuboradi. Keyin chiqish interfeysi aniqlanadi va ${b('ARP')} orqali keyingi qadam MAC manzili topiladi. ${c('ip route get')} aynan shu qarorni ko‘rsatadi.` },
       { q: 'IP va MAC nega ikkalasi kerak?', a: `${b('IP')} — ${b('global va mantiqiy')}: butun internet bo‘ylab yo‘naltirish uchun, o‘zgarishi mumkin. ${b('MAC')} — ${b('lokal va fizik')}: faqat bitta tarmoq segmentida keyingi qurilmaga topshirish uchun. Har hop‘da MAC almashadi, IP esa o‘zgarmaydi. Shuning uchun konvert (IP) bir xil, qo‘lma-qo‘l uzatuvchilar (MAC) har qadamda boshqa.` },
     ],
     s27: [

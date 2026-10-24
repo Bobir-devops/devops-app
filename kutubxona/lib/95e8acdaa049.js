@@ -116,7 +116,7 @@
       { q: 'Nega default bridge‘da nom orqali topish ishlamaydi?', a: `Default bridge ${b('eski moslik')} uchun qolgan va unda ichki DNS yo‘q. Foydalanuvchi yaratgan tarmoqda esa Docker ${b('ichki DNS')} ishga tushiradi va konteyner nomlarini avtomatik yechadi. Shuning uchun amalda har stack uchun alohida tarmoq yaratiladi — Compose buni o‘zi qiladi.` },
     ],
     s10: [
-      { q: 'Konteynerdagi localhost nimani bildiradi?', a: `Har konteynerning ${b('o‘z loopback')}i bor — u host loopback‘i emas va qo‘shni konteynerники ham emas. Shuning uchun ikki konteyner ${c('localhost')} orqali gaplasha olmaydi; ular ${b('nom yoki IP')} orqali murojaat qiladi. Host‘ga murojaat kerak bo‘lsa alohida nom ishlatiladi.` },
+      { q: 'Konteynerdagi localhost nimani bildiradi?', a: `Har konteynerning ${b('o‘z loopback')}i bor — u host loopback‘i emas va qo‘shni konteynerniki ham emas. Shuning uchun ikki konteyner ${c('localhost')} orqali gaplasha olmaydi; ular ${b('nom yoki IP')} orqali murojaat qiladi. Host‘ga murojaat kerak bo‘lsa alohida nom ishlatiladi.` },
       { q: '0.0.0.0 ga bog‘lanish konteynerda nega majburiy?', a: `Port mapping host interfeysidan konteynerning ${b('tarmoq interfeysiga')} yo‘naltiradi — loopback‘ga emas. Dastur loopback‘da eshitsa, mapping kelgan paket hech kimga tushmaydi va ${b('connection refused')} qaytadi. Shuning uchun konteyner ichidagi xizmat doim ${c('0.0.0.0')}da eshitadi; izolyatsiyani tarmoq va firewall ta‘minlaydi.` },
     ],
     s11: [
