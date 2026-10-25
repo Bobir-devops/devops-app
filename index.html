@@ -956,7 +956,7 @@ class Component extends DCLogic {
         res: stObj.res.map(r => ({ n: r[0], u: r[1] })),
         readDone: () => { if (!S.flow[sid + ':read']) { S.flow[sid + ':read'] = 1; this.act(10, 0); } goStep('note'); },
         note, onNote: (e) => { S.notes[sid] = e.target.value; this.save(); },
-        noteMeta: 'Mavzular qamrovi: ' + covPct + '%' + (covPct < 80 ? ' · kamida 80% kerak' : ' · yetarli') + (S.flow[sid + ':ai'] != null ? ' · AI: ' + S.flow[sid + ':ai'] : ''),
+        noteMeta: 'Mavzular qamrovi: ' + covPct + '%' + (covPct < 80 ? ' · kamida 80% kerak' : ' · yetarli') + (S.flow[sid + ':ai'] != null ? ' · AI: ' + S.flow[sid + ':ai'] : '') + (window.DevopsCloud && !window.DevopsCloud.online() ? ' · offline: AIsiz tekshiruv' : ''),
         canAI: !!(window.DevopsCloud && window.DevopsCloud.hasAI()) && note.trim().length >= 40, aiBtn: st.aiBusy ? 'AI tekshirmoqda…' : 'AI bilan tekshirish',
         hasAiRes: !!st.aiRes[sid], aiScore: (st.aiRes[sid] || {}).score, aiFb: (st.aiRes[sid] || {}).feedback || (st.aiRes[sid] || {}).err || '', aiHasMiss: !!((st.aiRes[sid] || {}).missing || []).length, aiMiss: ((st.aiRes[sid] || {}).missing || []).join(' · '),
         aiC: (st.aiRes[sid] || {}).score >= 80 ? 'var(--ok)' : 'var(--bad)', aiBg: (st.aiRes[sid] || {}).score >= 80 ? 'var(--ok-bg)' : 'var(--bad-bg)',
@@ -1126,8 +1126,8 @@ class Component extends DCLogic {
           signIn: () => run(DC.signIn(st.email.trim(), st.pw)), signUp: () => run(DC.signUp(st.email.trim(), st.pw)), signOut: () => DC.signOut(),
           push: () => DC.push(true), pull: () => { if (window.confirm('Shu qurilmadagi progress bulutdagisi bilan almashtiriladi. Davom etasizmi?')) DC.pull(false); },
           hasMsg: !!c.msg, msg: c.msg || '' }; })(),
-      ai: (() => { const DC = window.DevopsCloud, has = !!(DC && DC.hasAI());
-        return { statusT: has ? 'yoqilgan' : 'o‘chiq', sc: has ? 'var(--ok)' : N6, keyText: st.keyText, onKey: (e) => this.setState({ keyText: e.target.value }),
+      ai: (() => { const DC = window.DevopsCloud, has = !!(DC && DC.hasKey()), off = !!(DC && !DC.online());
+        return { statusT: has ? (off ? 'offline · AIsiz' : 'yoqilgan') : 'o‘chiq', sc: has ? 'var(--ok)' : N6, keyText: st.keyText, onKey: (e) => this.setState({ keyText: e.target.value }),
           save: () => { DC.setKey(st.keyText); this.setState({ aiMsg: st.keyText.trim() ? '✓ Kalit saqlandi.' : 'Kalit o‘chirildi.' }); },
           test: () => { DC.setKey(st.keyText); this.setState({ aiMsg: 'Tekshirilmoqda…' }); DC.ai('Faqat "OK" deb javob ber.').then((r) => this.setState({ aiMsg: '✓ Ishlayapti: ' + String(r).trim().slice(0, 40) }), (e) => this.setState({ aiMsg: e.message })); },
           hasMsg: !!st.aiMsg, msg: st.aiMsg }; })(),

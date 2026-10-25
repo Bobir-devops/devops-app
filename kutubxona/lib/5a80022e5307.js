@@ -523,11 +523,12 @@
     let tt = null;
     const aiScore = () => { const f = flowLoad(); return (f[id] && f[id].ai) || 0; };
     const noteOk = () => ta.value.trim().length >= 40 && (covPct() >= 80 || aiScore() >= 80);
-    const paintNote = () => { const cv = coverage(CONC, ta.value); cv.forEach((r, i) => { chips[i].style.borderColor = r.ok ? GR : 'rgb(var(--ink-rgb) / 0.25)'; chips[i].style.color = r.ok ? GR : 'rgb(var(--ink-rgb) / 0.75)'; chips[i].style.background = r.ok ? 'oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 150 / 0.08)' : 'transparent'; }); const p = covPct(), as = aiScore(); cnt.textContent = 'Qamrov: ' + p + '%' + (as ? ' · AI: ' + as : '') + (noteOk() ? ' · yetarli' : ' · kamida 80% kerak'); cnt.style.color = noteOk() ? GR : 'rgb(var(--ink-rgb) / 0.6)'; toTest.disabled = !noteOk(); toTest.style.opacity = noteOk() ? '1' : '.45'; };
+    const paintNote = () => { const cv = coverage(CONC, ta.value); cv.forEach((r, i) => { chips[i].style.borderColor = r.ok ? GR : 'rgb(var(--ink-rgb) / 0.25)'; chips[i].style.color = r.ok ? GR : 'rgb(var(--ink-rgb) / 0.75)'; chips[i].style.background = r.ok ? 'oklch(calc(var(--lk) * 0.5 + var(--lb)) 0.15 150 / 0.08)' : 'transparent'; }); const p = covPct(), as = aiScore(); cnt.textContent = 'Qamrov: ' + p + '%' + (as ? ' · AI: ' + as : '') + (navigator.onLine === false ? ' · offline' : '') + (noteOk() ? ' · yetarli' : ' · kamida 80% kerak'); cnt.style.color = noteOk() ? GR : 'rgb(var(--ink-rgb) / 0.6)'; toTest.disabled = !noteOk(); toTest.style.opacity = noteOk() ? '1' : '.45'; };
     ta.oninput = () => { paintNote(); saved.textContent = ''; clearTimeout(tt); tt = setTimeout(() => { notePut(id, ta.value); saved.textContent = 'saqlandi'; paint(); }, 400); };
     const aiBox = el('div', 'display:none;margin-top:12px;padding:14px 16px;border:1px solid rgb(var(--ink-rgb) / 0.2)');
     const aiBtn = el('button', btnCss.replace('margin-top:22px', 'margin-top:12px'), 'AI bilan tekshirish'); aiBtn.type = 'button';
-    aiBtn.style.display = window.DevopsCloud && window.DevopsCloud.hasAI() ? '' : 'none';
+    const aiVis = () => { aiBtn.style.display = window.DevopsCloud && window.DevopsCloud.hasAI() ? '' : 'none'; };
+    aiVis(); window.addEventListener('online', aiVis); window.addEventListener('offline', aiVis);
     aiBtn.onclick = () => {
       if (ta.value.trim().length < 40) { aiBox.style.display = ''; aiBox.textContent = 'Avval kamida 2–3 jumla yozing.'; return; }
       aiBtn.disabled = true; aiBtn.textContent = 'AI tekshirmoqda…';

@@ -5,7 +5,8 @@
   const PRIVATE = new Set([K.cfg, K.key, K.model, K.last]);
   const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { if (v == null || v === '') localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} } };
   const listeners = new Set();
-  const state = { user: null, status: 'off', msg: '' };
+  const online = () => navigator.onLine !== false;
+  const state = { user: null, status: 'off', msg: '', net: online() };
   const emit = () => listeners.forEach((f) => { try { f(Object.assign({}, state)); } catch (e) {} });
   const setS = (o) => { Object.assign(state, o); emit(); };
 
@@ -64,12 +65,15 @@
     } catch (e) { setS({ msg: 'Olinmadi: ' + errUz(e) }); return false; }
   }
   setInterval(() => { if (state.status === 'in') push(false); }, 60000);
+  window.addEventListener('online', () => { setS({ net: true }); if (state.status === 'in') push(false); });
+  window.addEventListener('offline', () => setS({ net: false }));
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && state.status === 'in') push(false); });
 
   /* ---------- Gemini ---------- */
   const MODELS = ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-2.5-flash'];
   async function ai(prompt, json) {
     const key = ls.get(K.key); if (!key) throw new Error('Gemini kaliti kiritilmagan (Profil → Sozlamalar).');
+    if (!online()) throw new Error('Internet yo‘q — AI ishlamaydi, javob AIsiz tekshirildi.');
     const list = [ls.get(K.model)].concat(MODELS).filter((v, i, a) => v && a.indexOf(v) === i);
     let lastErr = '';
     for (const m of list) {
@@ -102,10 +106,10 @@
   }
 
   const claudeShim = { complete: (p) => ai(typeof p === 'string' ? p : ((p && p.messages) || []).map((m) => (typeof m.content === 'string' ? m.content : '')).join('\n')) };
-  try { if (!window.claude) Object.defineProperty(window, 'claude', { configurable: true, get: () => (ls.get(K.key) ? claudeShim : undefined) }); } catch (e) {}
+  try { if (!window.claude) Object.defineProperty(window, 'claude', { configurable: true, get: () => (ls.get(K.key) && online() ? claudeShim : undefined) }); } catch (e) {}
   window.DevopsCloud = {
     K, dump, applyData, parseCfg, initFb, signUp, signIn, signOut, push, pull, ai, gradeSummary,
-    hasAI: () => !!ls.get(K.key), hasFb: () => !!parseCfg(ls.get(K.cfg)),
+    hasAI: () => !!ls.get(K.key) && online(), hasKey: () => !!ls.get(K.key), online, hasFb: () => !!parseCfg(ls.get(K.cfg)),
     getCfg: () => ls.get(K.cfg) || '', setCfg: (v) => { ls.set(K.cfg, v); fb = null; return initFb(); },
     getKey: () => ls.get(K.key) || '', setKey: (v) => ls.set(K.key, (v || '').trim()),
     state: () => Object.assign({}, state), on: (f) => { listeners.add(f); return () => listeners.delete(f); },
